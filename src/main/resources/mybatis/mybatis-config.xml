@@ -5,9 +5,12 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.ssafy.enjoytrip.user.dto.UserDto" alias="userDto" />
+		<typeAlias type="com.ssafy.enjoytrip.notice.dto.NoticeDto" alias="noticeDto"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="mybatis/mapper/userMapper.xml" />
+		<mapper resource="mybatis/mapper/noticeMapper.xml" />
+
 	</mappers>
 </configuration>

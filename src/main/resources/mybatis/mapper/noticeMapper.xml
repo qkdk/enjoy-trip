@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.enjoytrip.notice.repository.NoticeRepository">
+  <resultMap id="noticeMap" type="noticeDto">
+    <result column="user_id" property="userId"/>
+    <result column="notice_no" property="noticeNo"/>
+    <result column="notice_title" property="noticeTitle"/>
+    <result column="notice_content" property="noticeContent"/>
+    <result column="notice_createtime" property="noticeCreateTime"/>
+    <result column="notice_hit" property="noticeHit"/>
+  </resultMap>
+
+  	<select id="getTotalNoticeCount" resultType="int">
+  		SELECT count(*) FROM notice
+  		<if test='key != ""'>
+  	  WHERE ${key} LIKE concat('%', #{word}, '%')
+  		</if>
+  	</select>
+
+  	<select id="getNotice" resultMap="noticeMap">
+      SELECT * FROM notice
+      <if test='key != ""'>
+      WHERE ${key} LIKE concat('%', #{word}, '%')
+      </if>
+      LIMIT #{offset} , #{limit}
+    </select>
+
+</mapper>

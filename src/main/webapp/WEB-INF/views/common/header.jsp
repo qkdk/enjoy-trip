@@ -31,7 +31,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-lg-0">
                 <li class="nav-item"><a class="nav-link" aria-current="page"
-                                        href="map.jsp" style="font-size: x-large"><i
+                                        href="map.jsp"
+                                        style="font-size: x-large"><i
                         class="fa-solid fa-map-location-dot"></i> 지역별여행지</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page"
                                         href="#" style="font-size: x-large"><i
@@ -40,7 +41,8 @@
                                         href="#" style="font-size: x-large"><i
                         class="fa-solid fa-camera"></i> 핫플자랑하기</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page"
-                                        href="${root}/board?action=list&pgno=1&key=&word="
+<%--                                        href="${root}/board?action=list&pgno=1&key=&word="--%>
+                                        href="${root}/notice?pgno=1&key=&word="
                                         style="font-size: x-large"><i
                         class="fa-solid fa-comment-dots"></i>
                     공지사항</a></li>
