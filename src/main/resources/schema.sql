@@ -116,9 +116,9 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `enjoytrip`.`member`
+-- Table `enjoytrip`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enjoytrip`.`member` (
+CREATE TABLE IF NOT EXISTS `enjoytrip`.`user` (
   `user_id` VARCHAR(20) NOT NULL,
   `user_pw` VARCHAR(100) NOT NULL,
   `user_name` VARCHAR(20) NOT NULL,
@@ -132,20 +132,39 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
+-- Table `enjoytrip`.`follow`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `enjoytrip`.`follow` (
+  `follower_id` VARCHAR(20) NOT NULL,
+  `folowee_id` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`folowee_id`, `follower_id`),
+  INDEX `follower_id_fk_idx` (`follower_id` ASC) VISIBLE,
+  CONSTRAINT `followee_id_fk`
+    FOREIGN KEY (`folowee_id`)
+    REFERENCES `enjoytrip`.`user` (`user_id`),
+  CONSTRAINT `follower_id_fk`
+    FOREIGN KEY (`follower_id`)
+    REFERENCES `enjoytrip`.`user` (`user_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
 -- Table `enjoytrip`.`notice`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `enjoytrip`.`notice` (
   `user_id` VARCHAR(20) NOT NULL,
-  `board_no` INT NOT NULL AUTO_INCREMENT,
-  `board_title` VARCHAR(45) NOT NULL,
-  `board_content` TEXT NULL DEFAULT NULL,
-  `board_createtime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `borad_hit` INT NOT NULL DEFAULT '0',
-  PRIMARY KEY (`board_no`),
+  `notice_no` INT NOT NULL AUTO_INCREMENT,
+  `notice_title` VARCHAR(45) NOT NULL,
+  `notice_content` TEXT NULL DEFAULT NULL,
+  `notice_createtime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `notice_hit` INT NOT NULL DEFAULT '0',
+  PRIMARY KEY (`notice_no`),
   INDEX `user_id_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `user_id`
     FOREIGN KEY (`user_id`)
-    REFERENCES `enjoytrip`.`member` (`user_id`))
+    REFERENCES `enjoytrip`.`user` (`user_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -167,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`place` (
   INDEX `place_user_id_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `place_user_id`
     FOREIGN KEY (`user_id`)
-    REFERENCES `enjoytrip`.`member` (`user_id`))
+    REFERENCES `enjoytrip`.`user` (`user_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -206,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`place_reply` (
     REFERENCES `enjoytrip`.`place` (`place_no`),
   CONSTRAINT `reply_user_id`
     FOREIGN KEY (`reply_user_id`)
-    REFERENCES `enjoytrip`.`member` (`user_id`))
+    REFERENCES `enjoytrip`.`user` (`user_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -218,7 +237,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `enjoytrip`.`trip_plan` (
   `user_id` VARCHAR(20) NOT NULL,
   `plan_id` INT NOT NULL AUTO_INCREMENT,
-  `trip_title` VARCHAR(20) NOT NULL,
+  `plan_title` VARCHAR(20) NOT NULL,
   `recommend_count` INT NOT NULL DEFAULT '0',
   `hit` INT NOT NULL DEFAULT '0',
   `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
@@ -226,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`trip_plan` (
   INDEX `user_id_plan_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `user_id_plan`
     FOREIGN KEY (`user_id`)
-    REFERENCES `enjoytrip`.`member` (`user_id`))
+    REFERENCES `enjoytrip`.`user` (`user_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -241,35 +260,13 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`trip_plan_detail` (
   `priority` INT NOT NULL,
   INDEX `paln_id_idx` (`plan_id` ASC) VISIBLE,
   INDEX `content_id_idx` (`content_id` ASC) VISIBLE,
+  PRIMARY KEY (`plan_id`, `content_id`),
   CONSTRAINT `content_id`
     FOREIGN KEY (`content_id`)
     REFERENCES `enjoytrip`.`attraction_info` (`content_id`),
   CONSTRAINT `paln_id`
     FOREIGN KEY (`plan_id`)
     REFERENCES `enjoytrip`.`trip_plan` (`plan_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `enjoytrip`.`follow`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enjoytrip`.`follow` (
-  `follower_id` VARCHAR(20) NOT NULL,
-  `folowee_id` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`folowee_id`, `follower_id`),
-  INDEX `follower_id_fk_idx` (`follower_id` ASC) VISIBLE,
-  CONSTRAINT `follower_id_fk`
-    FOREIGN KEY (`follower_id`)
-    REFERENCES `enjoytrip`.`member` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `followee_id_fk`
-    FOREIGN KEY (`folowee_id`)
-    REFERENCES `enjoytrip`.`member` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;

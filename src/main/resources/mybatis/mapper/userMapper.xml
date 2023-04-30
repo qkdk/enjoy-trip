@@ -13,11 +13,11 @@
 	</resultMap>
 
 	<select id="loginUser" resultMap="userMap">
-		SELECT * FROM member WHERE user_id = #{user_id} and user_pw = #{user_pw}
+		SELECT * FROM user WHERE user_id = #{user_id} and user_pw = #{user_pw}
 	</select>
 
 	<insert id="joinUser">
-		INSERT INTO member (user_id, user_pw, user_name, user_email, user_domain)
+		INSERT INTO user (user_id, user_pw, user_name, user_email, user_domain)
 		VALUES (#{user_id}, #{user_pw}, #{user_name}, #{user_email}, #{user_domain})
 	</insert>
 </mapper>
