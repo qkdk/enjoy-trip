@@ -1,0 +1,156 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"
+	import="com.ssafy.board.model.BoardDto, java.util.List"%>
+<%
+List<BoardDto> articles = (List<BoardDto>) request.getAttribute("articles");
+String root = (String) request.getContextPath();
+%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>공지</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous" />
+<link rel="stylesheet" href="css/main.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
+	rel="stylesheet" />
+
+<style>
+* {
+	margin: 0;
+}
+
+body {
+	font-family: "Jua", sans-serif;
+}
+</style>
+</head>
+<body>
+	<!-- header 시작 -->
+	<jsp:include page="/common/header.jsp"></jsp:include>
+	<!-- header 끝 -->
+	<!-- 공지사항 컨테이너 -->
+	<div class="container-fluid p-5" style="margin-top: 15vh">
+		<!-- 제목 컨테이너 -->
+		<div class="container-fluid">
+			<h2 style="text-align: center">공지사항 페이지 입니다.</h2>
+		</div>
+		<!-- 검색 컨테이너 -->
+		<div style="display: flex; justify-content: space-between">
+		<div>
+		<button type="button" class="btn btn-outline-warning"
+				id="btn-mv-register">글쓰기</button>
+			<button type="button" class="btn btn-outline-warning"
+				id="btn-sort">조회순 정렬하기</button>
+		</div>
+			
+			<div style="display: flex; justify-content: end; flex-direction: row">
+				<form id="form-search" action="" style="display: flex">
+					<input type="hidden" name="action" value="list" /> <input
+						type="hidden" name="pgno" value="1" /> 
+						<select
+						class="form-select" name="key" id="key"
+						aria-label="Default select example" style="margin-right: 5px">
+						<option selected>검색조건</option>
+						<option value="article_no">글번호</option>
+						<option value="subject">제목</option>
+						<option value="user_id">작성자</option>
+					</select> 
+					<input type="text" name="word" id="word" class="form-control"
+						placeholder="검색어..." style="margin-right: 5px" />
+					<button id="btn-search" type="button"
+						class="btn btn-outline-warning w-50">검색</button>
+				</form>
+			</div>
+
+		</div>
+		<!-- 테이블 컨테이너 -->
+		<div>
+			<table class="table table-striped table-hover mt-2">
+				<thead>
+					<tr class="text-center">
+						<th scope="col" style="width: 15%">글번호</th>
+						<th scope="col" style="width: 40%">제목</th>
+						<th scope="col" style="width: 15%">작성자</th>
+						<th scope="col" style="width: 15%">조회수</th>
+						<th scope="col" style="width: 15%">작성일</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<%
+					for (BoardDto article : articles) {
+					%>
+					<tr class="text-center">
+						<td aria-colindex="1" role="cell" class="tdClass"><%=article.getArticle_no()%></td>
+						<td aria-colindex="2" role="cell" class="tdSubject"><a
+							href="#" class="article-title"
+							data-no="<%=article.getArticle_no()%>"> <%=article.getSubject()%>
+						</a></td>
+						<td aria-colindex="3" role="cell" class="tdClass"><%=article.getUser_id()%></td>
+						<td aria-colindex="4" role="cell" class="tdClass"><%=article.getHit()%></td>
+						<td aria-colindex="5" role="cell" class="tdClass"><%=article.getRegisterTime()%></td>
+					</tr>
+					<%
+					}
+					%>
+
+				</tbody>
+			</table>
+		</div>
+		<div class="row">${navigation.navigator}</div>
+	</div>
+	<!-- footer -->
+	<jsp:include page="/common/footer.jsp"></jsp:include>
+
+	<script>
+      let titles = document.querySelectorAll(".article-title");
+      titles.forEach(function (title) {
+    	  console.log(title);
+        title.addEventListener("click", function () {
+          console.log(this.getAttribute("data-no"));
+          location.href = "<%=root%>/board?action=view&articleno=" + this.getAttribute("data-no");
+        });
+      });
+
+      document.querySelector("#btn-search").addEventListener("click", function () {
+    	  console.log("btsearcg")
+    	  let form = document.querySelector("#form-search");
+    	  console.log("btsearcg")
+          form.setAttribute("action", "<%=root%>/board");
+    	  form.submit();
+	});
+      
+      document.querySelector("#btn-sort").addEventListener("click", function () {
+          location.href = "<%=root%>/board?action=sort";
+	});
+
+      
+      document.querySelector("#btn-mv-register").addEventListener("click", function () {
+        location.href = "<%=root%>/board?action=mvwrite"
+       });
+
+		let pages = document.querySelectorAll(".page-link");
+		pages.forEach(function(page) {
+			page.addEventListener("click", function() {
+				console.log(this.parentNode.getAttribute("data-pg"));
+				document.querySelector("#p-action").value = "list";
+				document.querySelector("#p-pgno").value = this.parentNode
+						.getAttribute("data-pg");
+				document.querySelector("#p-key").value = "${param.key}";
+				document.querySelector("#p-word").value = "${param.word}";
+				document.querySelector("#form-param").submit();
+			});
+		});
+	</script>
+</body>
+</html>
+
