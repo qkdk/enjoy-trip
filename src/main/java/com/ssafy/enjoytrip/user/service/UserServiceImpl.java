@@ -28,7 +28,17 @@ public class UserServiceImpl implements UserService {
     }
 
 	@Override
-	public int idCheck(String id) throws Exception {
-		return session.getMapper(UserRepository.class).idCheck(id);
+	public int idCheck(String userId) throws Exception {
+		return session.getMapper(UserRepository.class).idCheck(userId);
+	}
+
+	@Override
+	public void modify(UserDto userDto) throws Exception {
+		session.getMapper(UserRepository.class).modify(userDto);
+	}
+
+	@Override
+	public void deleteMember(String userId) throws Exception {
+		session.getMapper(UserRepository.class).deleteMember(userId);
 	}
 }

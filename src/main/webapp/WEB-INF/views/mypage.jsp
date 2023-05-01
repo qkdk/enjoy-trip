@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<%
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
+<%-- <%
 String root = request.getContextPath();
-%>
+%> --%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,17 +29,17 @@ body {
 	font-family: "Jua", sans-serif;
 }
 </style>
-	<script>
-    function setEmailDomain2(domain) {
-    	console.log(domain);
-        document.querySelector("#email_domain2").setAttribute("value", domain);
-        document.querySelector("#dropdownMenuButton2").innerText=domain;
-      }
+<script>
+	function setEmailDomain2(domain) {
+		console.log(domain);
+		document.querySelector("#email_domain2").setAttribute("value", domain);
+		document.querySelector("#dropdownMenuButton2").innerText = domain;
+	}
 </script>
 </head>
 <body>
 	<!-- 상단 navbar start -->
-	<jsp:include page="/common/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 	<div class="container"
 		style="margin-top: 15vh; text-align: center; width: 50vw;">
 		<h1>마이 페이지</h1>
@@ -52,43 +53,42 @@ body {
 			<div class="content">
 				<div class="content-dis">
 					<div class="modal-body">
-						<form id="form-modify" method="post">
-							<input type="hidden" name="action" value="mvlogin" />
+						<form id="form-modify" method="post" action="${root}/user/modify">
 							<div class="row">
 								<!-- 이름 -->
 								<div style="display: flex; align-items: baseline">
 									<label for="name" class="form-label text-center col-md-2">이름</label>
 									<div class="p-3 ">
-										<input type="text" class="form-control" id="name" name="name"
-											placeholder="이름" />
+										<input type="text" class="form-control" id="name" name="userName"
+											placeholder="이름" value="${userDto.userName}"/>
 									</div>
 								</div>
 								<div style="display: flex; align-items: baseline">
 									<label for="name" class="form-label text-center col-md-2 ">아이디</label>
 									<div class="p-3">
-										<input type="text" class="form-control" id="id" name="id"
-											placeholder="아이디" />
+										<input type="text" class="form-control" id="id" name="userId"
+											value="${userDto.userId}" readonly="readonly"/>
 									</div>
 								</div>
 								<div style="display: flex; align-items: baseline">
 									<label for="name" class="form-label text-center col-md-2 ">비밀번호</label>
 									<div class="p-3">
-										<input type="text" class="form-control" id="password"
-											name="password" placeholder="비밀번호" />
+										<input type="password" class="form-control" id="password"
+											name="userPw" placeholder="비밀번호" value="${userDto.userPw}" />
 									</div>
 								</div>
 								<div style="display: flex; align-items: baseline">
 									<label for="name" class="form-label text-center col-md-2">이메일</label>
 									<div class="p-3" style="padding-right: 0px !important">
 										<input type="text" class="form-control" id="email"
-											name="email" placeholder="이메일" />
+											name="userEmail" placeholder="이메일" value="${userDto.userEmail}"/>
 									</div>
 									<div class="" style="display: inline;">
 										@
 										<button class="btn bg-light dropdown-toggle" type="button"
 											id="dropdownMenuButton2" data-bs-toggle="dropdown"
 											aria-expanded="false">이메일을 선택하세요</button>
-										<input type="hidden" name="email_domain" id="email_domain2" />
+										<input type="hidden" name="userDomain" id="email_domain2" />
 										<ul class="dropdown-menu"
 											aria-labelledby="dropdownMenuButton2">
 											<li><a class="dropdown-item" href="#"
@@ -116,9 +116,9 @@ body {
 						style="display: flex; align-items: baseline; justify-content: center;">
 						<label for="name" class="form-label text-center  ">비밀번호</label>
 						<div class="p-3 col-md-9">
-							<form id="form-leave" method="post">
+							<form id="form-leave" method="post" action="${root}/user/delete">
 								<input type="hidden" name="action" value="leave" /> <input
-									type="text" class="form-control" id="password" name="password"
+									type="text" class="form-control" id="password" name="userPw"
 									placeholder="비밀번호" />
 							</form>
 						</div>
@@ -128,21 +128,22 @@ body {
 				</div>
 				<div></div>
 			</div>
+		</div>
+	</div>
 
-			<jsp:include page="/common/footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
-</html>
-
 <script>
-	document.querySelector("#btn-modify").addEventListener("click", function () {
+	document.querySelector("#btn-modify").addEventListener("click", function() {
 		let form = document.querySelector("#form-modify");
-        form.setAttribute("action", "<%=root%>/user");
+		/* form.setAttribute("action", "${root}/user"); */
 		form.submit();
 	})
-	
+
 	document.querySelector("#btn-leave").addEventListener("click", function() {
 		let form = document.querySelector("#form-leave");
-		form.setAttribute("action", "<%=root%>/user");
+		/* form.setAttribute("action", "${root}/user"); */
 		form.submit();
 	})
 </script>
+</html>

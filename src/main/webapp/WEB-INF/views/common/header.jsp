@@ -75,7 +75,7 @@
                     </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item"
-                                   href="${root}/user?action=logout" id="logout"> 로그아웃 </a></li>
+                                   href="${root}/user/logout" id="logout"> 로그아웃 </a></li>
                             <li><a class="dropdown-item" href="${root}/user/mypage"> 마이페이지 </a></li>
                         </ul>
                     </li>
@@ -128,7 +128,7 @@
                             <label for="name" class="form-label text-center">비밀번호</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" class="form-control" id="password"
+                            <input type="password" class="form-control" id="password"
                                    name="password" placeholder="비밀번호"/>
                         </div>
 
@@ -137,7 +137,7 @@
                             <label for="name" class="form-label text-center">비밀번호확인</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" class="form-control" id="passwordCheck"
+                            <input type="password" class="form-control" id="passwordCheck"
                                    name="passwordCheck" placeholder="비밀번호확인"/>
                         </div>
                         <!-- 이메일 -->
@@ -209,7 +209,7 @@
                             <label for="name" class="form-label text-center">비밀번호</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" class="form-control"
+                            <input type="password" class="form-control"
                                    name="pw" placeholder="비밀번호"/>
                         </div>
                     </div>
@@ -237,7 +237,7 @@
       resultDiv.setAttribute("style", "display:flex;");
       isUseId = false;
     } else {
-      fetch("${root}/user/=" + userid)
+      fetch("${root}/user/" + userid)
       .then(response => response.text())
       .then(data => {
         console.log(data);
