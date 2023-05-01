@@ -8,4 +8,6 @@ public interface UserService {
     UserDto loginUser(String id, String pw) throws SQLException;
 
     int joinUser(String name, String id, String pw, String email, String emailDomain) throws SQLException;
+    
+	int idCheck(String id) throws Exception;
 }

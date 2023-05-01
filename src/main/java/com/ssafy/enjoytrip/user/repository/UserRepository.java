@@ -12,5 +12,5 @@ public interface UserRepository {
 
     int joinUser(@Param("user_name") String name, @Param("user_id") String id, @Param("user_pw") String pw,
             @Param("user_email") String email, @Param("user_domain") String emailDomain) throws SQLException;
-
+    int idCheck(@Param("user_id") String id) throws Exception;
 }
