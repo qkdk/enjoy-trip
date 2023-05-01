@@ -61,15 +61,16 @@
                         class="form-select" name="key" id="key"
                         aria-label="Default select example" style="margin-right: 5px">
                     <option selected>검색조건</option>
-                    <option value="article_no">글번호</option>
-                    <option value="subject">제목</option>
+                    <option value="notice_no">글번호</option>
                     <option value="user_id">작성자</option>
+                    <option value="notice_title">제목</option>
+                    <option value="notice_content">내용</option>
                 </select>
                 <input type="text" name="word" id="word" class="form-control"
                        placeholder="검색어..." style="margin-right: 5px"/>
-                <button id="btn-search" type="button"
+                <intput id="btn-search" type="button"
                         class="btn btn-outline-warning w-50">검색
-                </button>
+                </intput>
             </form>
         </div>
 
@@ -108,16 +109,19 @@
     <div class="row">
         <ul class="pagination  justify-content-center">
             <li class="page-item" data-pg="1">
-                <a href="${root }/notice?pgno=1&key=${navigation.key}&word=${navigation.word}" class="page-link">최신</a>
+                <a href="${root }/notice?pgno=1&key=${navigation.key}&word=${navigation.word}"
+                   class="page-link">최신</a>
             </li>
             <c:if test="${navigation.startRange}">
                 <li class="page-item" data-pg="1">
-                    <a href="${root}/notice?pgno=1&key=${navigation.key}&word=${navigation.word}" class="page-link">이전</a>
+                    <a href="${root}/notice?pgno=1&key=${navigation.key}&word=${navigation.word}"
+                       class="page-link">이전</a>
                 </li>
             </c:if>
-            <c:if test="${ !navigation.endRange}">
+            <c:if test="${!navigation.endRange}">
                 <li class="page-item" data-pg="${navigation.startPage - 1}">
-                    <a href="${root}/notice&pgno=${navigation.startPage - 1}&key=${navigation.key}&word=${navigation.word}" class="page-link">다음</a>
+                    <a href="${root}/notice&pgno=${navigation.startPage - 1}&key=${navigation.key}&word=${navigation.word}"
+                       class="page-link">다음</a>
                 </li>
             </c:if>
 
@@ -137,16 +141,19 @@
 
             <c:if test="${navigation.endRange}">
                 <li class="page-item" data-pg="${navigation.endPage}">
-                    <a href="${root}/notice?pgno=${navigation.endPage}&key=${navigation.key}&word=${navigation.word}" class="page-link">다음</a>
+                    <a href="${root}/notice?pgno=${navigation.endPage}&key=${navigation.key}&word=${navigation.word}"
+                       class="page-link">다음</a>
                 </li>
             </c:if>
-            <c:if test="${ !navigation.endRange}">
+            <c:if test="${!navigation.endRange}">
                 <li class="page-item" data-pg="${navigation.endPage + 1}">
-                    <a href="${root}/notice?pgno=${navigation.endPage + 1}&key=${navigation.key}&word=${navigation.word}" class="page-link">다음</a>
+                    <a href="${root}/notice?pgno=${navigation.endPage + 1}&key=${navigation.key}&word=${navigation.word}"
+                       class="page-link">다음</a>
                 </li>
             </c:if>
             <li class="page-item" data-pg="${navigation.totalPageCount}">
-                <a href="${root}/notice?pgno=${navigation.totalPageCount}&key=${navigation.key}&word=${navigation.word}" class="page-link">마지막</a>
+                <a href="${root}/notice?pgno=${navigation.totalPageCount}&key=${navigation.key}&word=${navigation.word}"
+                   class="page-link">마지막</a>
             </li>
         </ul>
     </div>
@@ -155,6 +162,28 @@
 <jsp:include page="../common/footer.jsp"></jsp:include>
 
 <script>
+
+  <%-- 검색 처리 --%>
+  <%-- 추후에 REST 통신시 사용할 변수 --%>
+  let key;
+  let word;
+
+  const keySel = document.querySelector("#key")
+  keySel.addEventListener("change", () => {
+    key = keySel.options[keySel.selectedIndex].value;
+  })
+
+  const wordInput = document.querySelector("#word")
+  wordInput.addEventListener("change", () => {
+    word = wordInput.value;
+  })
+
+  document.querySelector("#btn-search").addEventListener("click", function () {
+    location.href = `${root}/notice?pgno=1&key=` + key + `&word=` + word;
+  });
+
+  <%--  검색 처리 --%>
+
   let titles = document.querySelectorAll(".article-title");
   titles.forEach(function (title) {
     console.log(title);
@@ -162,14 +191,6 @@
       console.log(this.getAttribute("data-no"));
       location.href = "${root}/board?action=view&articleno=" + this.getAttribute("data-no");
     });
-  });
-
-  document.querySelector("#btn-search").addEventListener("click", function () {
-    console.log("btsearcg")
-    let form = document.querySelector("#form-search");
-    console.log("btsearcg")
-    form.setAttribute("action", "${root}/board");
-    form.submit();
   });
 
   document.querySelector("#btn-sort").addEventListener("click", function () {
