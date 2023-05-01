@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/notice")
@@ -39,10 +40,12 @@ public class NoticeController {
     }
 
     @GetMapping("/{noticeNo}")
-    public String viewNotice(@PathVariable int noticeNo, Model model) throws SQLException {
+    public String viewNotice(@PathVariable int noticeNo, Model model) throws Exception {
         // noticeNo로 notice정보 불러오기
         // model에 담아서 전송
+    	noticeService.hitNotice(noticeNo);
         NoticeDto notice = noticeService.getNoticeByNoticeNo(noticeNo);
+//        notice.setNoticeHit(notice.getNoticeHit()+1);
         model.addAttribute("notice", notice);
 
         return "notice/view";
@@ -65,6 +68,26 @@ public class NoticeController {
     	noticeDto.setNoticeContent(noticeContent);
     	noticeDto.setUserId(userDto.getUserId());
     	noticeService.writeNotice(noticeDto);
+    	return "redirect:/notice?pgno=1&key&word=";
+    }
+    
+    @GetMapping("/modify")
+    public ModelAndView modify(int noticeNo, ModelAndView mv) throws SQLException {
+    	NoticeDto notice = noticeService.getNoticeByNoticeNo(noticeNo);
+    	mv.addObject("notice", notice);
+    	mv.setViewName("/notice/modify");
+    	return mv;
+    }
+    
+    @PostMapping("/modify")
+    public String modify(int noticeNo, String noticeTitle, String noticeContent) throws Exception {
+    	noticeService.updateNotice(noticeNo, noticeTitle, noticeContent);
+    	return "redirect:/notice?pgno=1&key&word=";
+    }
+    
+    @GetMapping("/delete")
+    public String delete(int noticeNo) throws Exception {
+    	noticeService.deleteNotice(noticeNo);
     	return "redirect:/notice?pgno=1&key&word=";
     }
 }

@@ -97,19 +97,19 @@
 <script>
   document.querySelector("#btn-list-return").addEventListener("click", function () {
 
-    location.href = "${root}/board?action=list&pgno=1&key=&word=";
+    location.href = "${root}/notice?pgno=1&key&word=";
   });
   if (document.querySelector("#btn-mv-modify") != null){
     document.querySelector("#btn-mv-modify").addEventListener("click", function () {
 
-      location.href = "${root}/board?action=mvmodify&articleno=${notice.noticeNo}";
+      location.href = "${root}/notice/modify?noticeNo=${noticeNo}";
     });
   }
 
   if(document.querySelector("#btn-delete") != null){
     document.querySelector("#btn-delete").addEventListener("click", function () {
 
-      location.href = "${root}/board?action=delete&articleno=${notice.noticeNo}";
+      location.href = "${root}/notice/delete?noticeNo=${noticeNo}";
     });
   }
 

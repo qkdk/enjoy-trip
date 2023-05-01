@@ -71,4 +71,19 @@ public class NoticeServiceImpl implements NoticeService {
 	public void writeNotice(NoticeDto noticeDto) throws Exception {
 		session.getMapper(NoticeRepository.class).writeNotice(noticeDto);
 	}
+
+	@Override
+	public void updateNotice(int noticeNo, String noticeTitle, String noticeContent) throws Exception {
+		session.getMapper(NoticeRepository.class).updateNotice(noticeNo, noticeTitle, noticeContent);
+	}
+
+	@Override
+	public void deleteNotice(int noticeNo) throws Exception {
+		session.getMapper(NoticeRepository.class).deleteNotice(noticeNo);
+	}
+
+	@Override
+	public void hitNotice(int noticeNo) throws Exception {
+		session.getMapper(NoticeRepository.class).hitNotice(noticeNo);
+	}
 }

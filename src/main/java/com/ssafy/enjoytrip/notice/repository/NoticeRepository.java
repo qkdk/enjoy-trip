@@ -15,4 +15,10 @@ public interface NoticeRepository {
     NoticeDto getNoticeByNoticeNo(int noticeNo) throws SQLException;
     
     void writeNotice(NoticeDto noticeDto) throws Exception;
+    
+    void updateNotice(int noticeNo, String noticeTitle, String noticeContent) throws Exception;
+
+    void deleteNotice(int noticeNo) throws Exception;
+    
+    void hitNotice(int noticeNo) throws Exception;
 }
