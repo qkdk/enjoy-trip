@@ -61,4 +61,9 @@ public class NoticeServiceImpl implements NoticeService {
 
         return pageNavigation;
     }
+
+    @Override
+    public NoticeDto getNoticeByNoticeNo(int noticeNo) throws SQLException {
+        return session.getMapper(NoticeRepository.class).getNoticeByNoticeNo(noticeNo);
+    }
 }

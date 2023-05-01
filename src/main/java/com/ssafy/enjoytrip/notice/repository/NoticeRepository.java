@@ -9,5 +9,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface NoticeRepository {
 
     List<NoticeDto> getNotice(int offset, int limit, String key, String word) throws SQLException;
+
     int getTotalNoticeCount(String key, String word) throws SQLException;
+
+    NoticeDto getNoticeByNoticeNo(int noticeNo) throws SQLException;
 }

@@ -94,7 +94,7 @@
                 <tr class="text-center">
                     <td aria-colindex="1" role="cell" class="tdClass">${notice.noticeNo}</td>
                     <td aria-colindex="2" role="cell" class="tdSubject"><a
-                            href="#" class="article-title"
+                            href="${root}/notice/${notice.noticeNo}" class="article-title"
                             data-no="${notice.noticeNo}"> ${notice.noticeTitle}
                     </a></td>
                     <td aria-colindex="3" role="cell" class="tdClass">${notice.userId}</td>

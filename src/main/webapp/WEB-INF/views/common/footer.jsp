@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="root" value="${pageContext.request.contextPath }"></c:set>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +15,7 @@
 		style="background-color: #f9f8f8">
 		<div class="row">
 			<div class="mb-4 text-center col-2">
-				<img src="img/ssafy-logo-black.b301994e.png" alt="SSAFY"
+				<img src="${root}/img/ssafy-logo-black.b301994e.png" alt="SSAFY"
 					class="img-ssafy-logo" style="width: 100px" />
 			</div>
 			<div class="mb-4 ml-auto text-right col-10">
@@ -20,16 +23,16 @@
 					<div
 						style="display: flex; justify-content: end; align-items: center">
 						<a href="https://www.ssafy.com/" title="SSAFY"><img
-							src="img/ssafy-logo-small.bd603755.png" alt="SSAFY"
+							src="${root}/img/ssafy-logo-small.bd603755.png" alt="SSAFY"
 							class="img-link" style="width: 100px" /></a><a
 							href="http://api.visitkorea.or.kr/" title="TourAPI 4.0"><img
-							src="img/tour-api-logo.ebcb1140.png" alt="TourAPI 4.0"
+							src="${root}/img/tour-api-logo.ebcb1140.png" alt="TourAPI 4.0"
 							class="img-link" style="width: 100px" /></a><a
 							href="http://kto.visitkorea.or.kr/kor.kto" title="한국관광공사"><img
-							src="img/visit-korea-logo.858325ef.png" alt="한국관광공사"
+							src="${root}/img/visit-korea-logo.858325ef.png" alt="한국관광공사"
 							class="img-link" style="width: 100px" /></a><a
 							href="http://www.mcst.go.kr/" title="문화체육관광부"><img
-							src="img/mcst-logo.86700cdd.png" alt="문화체육관광부" class="img-link"
+							src="${root}/img/mcst-logo.86700cdd.png" alt="문화체육관광부" class="img-link"
 							style="width: 100px" /></a>
 					</div>
 				</div>

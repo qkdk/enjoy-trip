@@ -10,4 +10,7 @@ public interface NoticeService {
     List<NoticeDto> listNotice(String pgno, String key, String word) throws SQLException;
 
     PageNavigation makePageNavigation(String pgno, String key, String word) throws SQLException;
+
+    NoticeDto getNoticeByNoticeNo(int noticeNo) throws SQLException;
+
 }

@@ -27,4 +27,10 @@
       LIMIT #{offset} , #{limit}
     </select>
 
+    <select id="getNoticeByNoticeNo" resultMap="noticeMap">
+      SELECT *
+      FROM notice
+      WHERE notice_no = #{noticeNo};
+    </select>
+
 </mapper>

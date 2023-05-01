@@ -19,7 +19,7 @@
         class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top pe-3">
     <div class="container">
         <a class="navbar-brand text-primary fw-bold"
-           href="${root}/"> <img src="img/logo.png" alt=""
+           href="${root}/"> <img src="${root}/img/logo.png" alt=""
                                  style="width: 5vw"/>
         </a>
         <button class="navbar-toggler" type="button"
@@ -31,7 +31,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-lg-0">
                 <li class="nav-item"><a class="nav-link" aria-current="page"
-                                        href="map.jsp"
+                                        href="${root}/js/map.jsp"
                                         style="font-size: x-large"><i
                         class="fa-solid fa-map-location-dot"></i> 지역별여행지</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page"
