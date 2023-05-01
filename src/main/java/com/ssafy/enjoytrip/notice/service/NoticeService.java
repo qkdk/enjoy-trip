@@ -13,4 +13,5 @@ public interface NoticeService {
 
     NoticeDto getNoticeByNoticeNo(int noticeNo) throws SQLException;
 
+    void writeNotice(NoticeDto noticeDto) throws Exception;
 }

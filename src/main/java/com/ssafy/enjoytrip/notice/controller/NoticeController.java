@@ -2,14 +2,19 @@ package com.ssafy.enjoytrip.notice.controller;
 
 import com.ssafy.enjoytrip.notice.dto.NoticeDto;
 import com.ssafy.enjoytrip.notice.service.NoticeService;
+import com.ssafy.enjoytrip.user.dto.UserDto;
 import com.ssafy.enjoytrip.util.PageNavigation;
 import java.sql.SQLException;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -42,6 +47,24 @@ public class NoticeController {
 
         return "notice/view";
     }
-
     // 수정할때는 세션의 값과 비교해서
+    
+    
+    @GetMapping("/write")
+    public String write(HttpSession session) {
+    	if(session.getAttribute("userDto") == null)
+    		return "redirect:/notice?pgno=1&key&word=";
+    	else return "notice/write";
+    }
+    
+    @PostMapping("/write")
+    public String write(String noticeTitle, String noticeContent, HttpSession session) throws Exception {
+    	UserDto userDto = (UserDto) session.getAttribute("userDto");
+    	NoticeDto noticeDto = new NoticeDto();
+    	noticeDto.setNoticeTitle(noticeTitle);
+    	noticeDto.setNoticeContent(noticeContent);
+    	noticeDto.setUserId(userDto.getUserId());
+    	noticeService.writeNotice(noticeDto);
+    	return "redirect:/notice?pgno=1&key&word=";
+    }
 }
