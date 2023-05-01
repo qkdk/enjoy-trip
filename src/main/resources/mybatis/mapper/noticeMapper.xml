@@ -32,5 +32,10 @@
       FROM notice
       WHERE notice_no = #{noticeNo};
     </select>
+    
+    <insert id="writeNotice">
+    	INSERT INTO notice (user_id, notice_title, notice_content)
+    	VALUES (#{userId}, #{noticeTitle}, #{noticeContent})
+    </insert>
 
 </mapper>

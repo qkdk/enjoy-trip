@@ -13,4 +13,6 @@ public interface NoticeRepository {
     int getTotalNoticeCount(String key, String word) throws SQLException;
 
     NoticeDto getNoticeByNoticeNo(int noticeNo) throws SQLException;
+    
+    void writeNotice(NoticeDto noticeDto) throws Exception;
 }

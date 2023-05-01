@@ -66,4 +66,9 @@ public class NoticeServiceImpl implements NoticeService {
     public NoticeDto getNoticeByNoticeNo(int noticeNo) throws SQLException {
         return session.getMapper(NoticeRepository.class).getNoticeByNoticeNo(noticeNo);
     }
+
+	@Override
+	public void writeNotice(NoticeDto noticeDto) throws Exception {
+		session.getMapper(NoticeRepository.class).writeNotice(noticeDto);
+	}
 }
