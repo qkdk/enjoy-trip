@@ -9,5 +9,9 @@ public interface UserService {
 
     int joinUser(String name, String id, String pw, String email, String emailDomain) throws SQLException;
     
-	int idCheck(String id) throws Exception;
+	int idCheck(String userId) throws Exception;
+	
+	void modify(UserDto userDto) throws Exception;
+	
+	void deleteMember(String userId) throws Exception;
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/user")
@@ -56,4 +57,37 @@ public class UserController {
 
         return "redirect:/";
     }
+    
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+    	session.invalidate();
+    	return "redirect:/";
+    }
+    
+    @GetMapping("/mypage")
+    public ModelAndView mypage(ModelAndView mv, HttpSession session) {
+    	UserDto userDto = (UserDto) session.getAttribute("userDto");
+    	mv.addObject("userDto", userDto);
+    	mv.setViewName("mypage");
+    	return mv;
+    }
+    
+    @PostMapping("/modify")
+    public String modify(HttpSession session, UserDto userDto) throws Exception {
+    	System.out.println(userDto);
+    	session.invalidate();
+    	userService.modify(userDto);
+    	return "redirect:/";
+    }
+    
+    @PostMapping("/delete")
+    public String delete(String userPw, HttpSession session) throws Exception {
+    	UserDto userDto = (UserDto) session.getAttribute("userDto");
+    	if(userDto.getUserPw().equals(userPw)) {
+    		userService.deleteMember(userDto.getUserId());
+    	}
+    	session.invalidate();
+    	return "redirect:/";
+    }
+    
 }
