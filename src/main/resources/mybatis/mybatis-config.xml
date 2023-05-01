@@ -5,8 +5,12 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.ssafy.enjoytrip.user.dto.UserDto" alias="userDto" />
+
 		<typeAlias type="com.ssafy.enjoytrip.notice.dto.NoticeDto" alias="noticeDto"/>
+
 		<typeAlias type="com.ssafy.enjoytrip.Attraction.dto.AttractionDto" alias="attractionDto"/>
+		<typeAlias type="com.ssafy.enjoytrip.Attraction.dto.SidoCodeDto" alias="sidoCodeDto"/>
+		<typeAlias type="com.ssafy.enjoytrip.Attraction.dto.GugunCodeDto" alias="gugunCodeDto"/>
 	</typeAliases>
 
 	<mappers>

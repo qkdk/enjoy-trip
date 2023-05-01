@@ -21,6 +21,17 @@
     <result column="mlevel" property="mLevel"></result>
   </resultMap>
 
+  <resultMap id="sidoCodeMap" type="sidoCodeDto">
+    <result column="sido_code" property="sidoCode"></result>
+    <result column="sido_name" property="sidoName"></result>
+  </resultMap>
+
+  <resultMap id="gugunCodeMap" type="gugunCodeDto">
+    <result column="gugun_code" property="gugunCode"></result>
+    <result column="sido_code" property="sidoCode"></result>
+    <result column="gugun_name" property="gugunName"></result>
+  </resultMap>
+
   <select id="getAttractionBySidoCode" resultMap="attractionMap">
     SELECT *
     FROM attraction_info
@@ -52,4 +63,16 @@
       AND content_type_id = #{contentTypeId}
     LIMIT #{offset}, #{limit};
   </select>
+
+  <select id="getSidoCodeAndName" resultMap="sidoCodeMap">
+    SELECT *
+    FROM sido;
+  </select>
+
+  <select id="getGugunCodeAndNameBySidoCode" resultMap="gugunCodeMap">
+    SELECT *
+    FROM gugun
+    WHERE sido_code = #{sidoCode};
+  </select>
+
 </mapper>

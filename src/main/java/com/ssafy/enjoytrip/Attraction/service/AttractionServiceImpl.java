@@ -1,6 +1,8 @@
 package com.ssafy.enjoytrip.Attraction.service;
 
 import com.ssafy.enjoytrip.Attraction.dto.AttractionDto;
+import com.ssafy.enjoytrip.Attraction.dto.GugunCodeDto;
+import com.ssafy.enjoytrip.Attraction.dto.SidoCodeDto;
 import com.ssafy.enjoytrip.Attraction.repository.AttractionRepository;
 import com.ssafy.enjoytrip.enums.AttractionConstant;
 import java.sql.SQLException;
@@ -56,4 +58,15 @@ public class AttractionServiceImpl implements AttractionService {
 
         return attractionDtos;
     }
+
+    @Override
+    public List<SidoCodeDto> getSidoCodeAndName() throws SQLException {
+        return session.getMapper(AttractionRepository.class).getSidoCodeAndName();
+    }
+
+    @Override
+    public List<GugunCodeDto> getGugunCodeAndName(int sidoCode) {
+        return session.getMapper(AttractionRepository.class).getGugunCodeAndNameBySidoCode(sidoCode);
+    }
+
 }

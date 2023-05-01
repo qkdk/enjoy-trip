@@ -30,12 +30,12 @@ let content_code = 0;
 window.onload = () => {
   const city_sel = document.querySelector("#city_sel");
   fetch(
-      `https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=${govKey}&numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json`
+      `${baseUrl}/attraction/getcode`
   )
   .then((response) => response.json())
   .then((data) => {
-    data.response.body.items.item.forEach((item) => {
-      const str = `<option value=${item.code}>${item.name}</option>`;
+    data.forEach((item) => {
+      const str = `<option value=${item.sidoCode}>${item.sidoName}</option>`;
       city_sel.innerHTML += str;
     });
   });
@@ -51,12 +51,12 @@ document.querySelector("#city_sel").addEventListener("change", () => {
 
   city_code = code;
   fetch(
-      `https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=${govKey}&numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest&areaCode=${code}&_type=json`
+      `${baseUrl}/attraction/getcode/${city_code}`
   )
   .then((response) => response.json())
   .then((data) => {
-    data.response.body.items.item.forEach((item) => {
-      const str = `<option value=${item.code}>${item.name}</option>`;
+    data.forEach((item) => {
+      const str = `<option value=${item.gugunCode}>${item.gugunName}</option>`;
       district_sel.innerHTML += str;
     });
   });
