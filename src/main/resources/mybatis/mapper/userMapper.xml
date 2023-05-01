@@ -20,4 +20,11 @@
 		INSERT INTO user (user_id, user_pw, user_name, user_email, user_domain)
 		VALUES (#{user_id}, #{user_pw}, #{user_name}, #{user_email}, #{user_domain})
 	</insert>
+	
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(user_id)
+		from user
+		where user_id = #{user_id}
+	</select>
+	
 </mapper>

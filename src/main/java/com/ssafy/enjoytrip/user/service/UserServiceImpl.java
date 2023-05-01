@@ -26,4 +26,9 @@ public class UserServiceImpl implements UserService {
     public int joinUser(String name, String id, String pw, String email, String emailDomain) throws SQLException {
         return session.getMapper(UserRepository.class).joinUser(name, id, pw, email, emailDomain);
     }
+
+	@Override
+	public int idCheck(String id) throws Exception {
+		return session.getMapper(UserRepository.class).idCheck(id);
+	}
 }

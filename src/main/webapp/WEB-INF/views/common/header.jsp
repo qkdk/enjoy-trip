@@ -76,7 +76,7 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item"
                                    href="${root}/user?action=logout" id="logout"> 로그아웃 </a></li>
-                            <li><a class="dropdown-item" href="mypage.jsp"> 마이페이지 </a></li>
+                            <li><a class="dropdown-item" href="${root}/user/mypage"> 마이페이지 </a></li>
                         </ul>
                     </li>
                 </ul>
@@ -237,7 +237,7 @@
       resultDiv.setAttribute("style", "display:flex;");
       isUseId = false;
     } else {
-      fetch("${root}/user?action=idcheck&userid=" + userid)
+      fetch("${root}/user/=" + userid)
       .then(response => response.text())
       .then(data => {
         console.log(data);
