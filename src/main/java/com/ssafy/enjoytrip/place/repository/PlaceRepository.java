@@ -28,4 +28,7 @@ public interface PlaceRepository {
 
 	void deletePlaceImg(int placeNo) throws SQLException;
 	
+	void modifyPlace(int placeNo,String placeTitle, String placeContent) throws SQLException;
+	
+	int checkImg(int placeNo) throws Exception;
 }

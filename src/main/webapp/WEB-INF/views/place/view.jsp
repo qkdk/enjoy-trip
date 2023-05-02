@@ -95,7 +95,7 @@ body {
 		document.querySelector("#btn-list-return").addEventListener("click",
 				function() {
 
-					location.href = "${root}/notice?pgno=1&key&word=";
+					location.href = "${root}/place?pgno=1&key&word=";
 				});
 		if (document.querySelector("#btn-mv-modify") != null) {
 			document

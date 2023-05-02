@@ -48,23 +48,23 @@ body {
 				style="text-align: center; background-color: #d1ecf1; border-radius: 5px; padding: 15px">
 				글수정</h2>
 		</div>
-		<form id="form-modify" method="POST" action="">
-			<input type="hidden" name="noticeNo" value="${place.placeNo}"> 
+		<form id="form-modify" method="POST" action="" enctype="multipart/form-data">
+			<input type="hidden" name="placeNo" value="${place.placeNo}"> 
 
 			<div style="margin-bottom: 10px">
 
 				<label for="subject">제목:</label> <input type="text"
-					class="form-control" id="subject" name="noticeTitle"
+					class="form-control" id="subject" name="placeTitle"
 					style="margin-right: 5px" value="${place.placeTitle}" />
 			</div>
 			<div>
 				<label for="content">내용:</label>
-				<textarea class="form-control" id="content" name="noticeContent"
+				<textarea class="form-control" id="content" name="placeContent"
 					placeholder="내용입력..." style="height: 254px">${place.placeContent}</textarea>
 			</div>
 			<div class="mb-3">
 				<label for="upfile" class="form-label">파일:</label>
-				<input type="file" class="form-control border" id="upfile" value="${place.placeImgSrc}" name="upfile" multiple="multiple">
+				<input type="file" class="form-control border" id="upfile" name="upfile" multiple="multiple">
 			</div>
 			<div style="display: flex; flex-direction: row; padding-top: 10px">
 				<button type="button" class="btn btn-primary" id="btn-modify"

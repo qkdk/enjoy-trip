@@ -82,6 +82,36 @@ public class PlaceController {
 		mv.setViewName("place/modify");
 		return mv;
 	}
+	
+	@PostMapping("/modify")
+	public String modify(int placeNo, String placeTitle, String placeContent,
+			@RequestParam("upfile") MultipartFile[] files) throws Exception {
+		placeService.modifyPlace(placeNo, placeTitle, placeContent);
+		if(!files[0].isEmpty()) {
+			int cnt = placeService.checkImg(placeNo);
+			if(cnt>0) {
+				placeService.deletePlaceImg(placeNo);
+			}
+			String saveFolder = uploadPath + File.separator;
+			File folder = new File(saveFolder);
+			if (!folder.exists())
+				folder.mkdirs();
+			List<PlaceDto> fileInfos = new ArrayList<PlaceDto>();
+			for (MultipartFile mfile : files) {
+				PlaceDto fileInfoDto = new PlaceDto();
+				String originalFileName = mfile.getOriginalFilename();
+				if (!originalFileName.isEmpty()) {
+					String saveFileName = UUID.randomUUID().toString()
+							+ originalFileName.substring(originalFileName.lastIndexOf('.'));
+					fileInfoDto.setPlaceImgSrc(saveFileName);
+					mfile.transferTo(new File(folder, saveFileName));
+				}
+				fileInfos.add(fileInfoDto);
+			}
+			placeService.writePlaceImg(placeNo, fileInfos.get(0).getPlaceImgSrc());
+		}
+		return "redirect:/place?pgno=1&key&word=";
+	}
 
 	@GetMapping("/write")
 	public String write(HttpSession session) {
