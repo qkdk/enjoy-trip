@@ -89,12 +89,12 @@ public class NoticeController {
     	return mv;
     }
     
+    
     @PostMapping("/modify")
     public String modify(int noticeNo, String noticeTitle, String noticeContent) throws Exception {
     	noticeService.updateNotice(noticeNo, noticeTitle, noticeContent);
     	return "redirect:/notice?pgno=1&key&word=";
     }
-    
     @GetMapping("/delete")
     public String delete(int noticeNo) throws Exception {
     	noticeService.deleteNotice(noticeNo);

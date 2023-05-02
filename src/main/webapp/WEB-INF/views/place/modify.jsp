@@ -49,18 +49,22 @@ body {
 				글수정</h2>
 		</div>
 		<form id="form-modify" method="POST" action="">
-			<input type="hidden" name="noticeNo" value="${notice.noticeNo}"> 
+			<input type="hidden" name="noticeNo" value="${place.placeNo}"> 
 
 			<div style="margin-bottom: 10px">
 
 				<label for="subject">제목:</label> <input type="text"
 					class="form-control" id="subject" name="noticeTitle"
-					style="margin-right: 5px" value="${notice.noticeTitle}" />
+					style="margin-right: 5px" value="${place.placeTitle}" />
 			</div>
 			<div>
 				<label for="content">내용:</label>
 				<textarea class="form-control" id="content" name="noticeContent"
-					placeholder="내용입력..." style="height: 254px">${notice.noticeContent}</textarea>
+					placeholder="내용입력..." style="height: 254px">${place.placeContent}</textarea>
+			</div>
+			<div class="mb-3">
+				<label for="upfile" class="form-label">파일:</label>
+				<input type="file" class="form-control border" id="upfile" value="${place.placeImgSrc}" name="upfile" multiple="multiple">
 			</div>
 			<div style="display: flex; flex-direction: row; padding-top: 10px">
 				<button type="button" class="btn btn-primary" id="btn-modify"
@@ -85,7 +89,7 @@ body {
 						return;
 					} else {
 						let form = document.querySelector("#form-modify");
-						form.setAttribute("action", "${root}/notice/modify");
+						form.setAttribute("action", "${root}/place/modify");
 						form.submit();
 					}
 				});
@@ -94,7 +98,7 @@ body {
 				.addEventListener(
 						"click",
 						function() {
-							location.href = "${root}/notice?pgno=1&key&word=";
+							location.href = "${root}/place?pgno=1&key&word=";
 						});
 	</script>
 </body>

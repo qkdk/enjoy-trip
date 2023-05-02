@@ -20,4 +20,9 @@ public interface PlaceService {
 	PlaceDto view(int placeNo)throws SQLException;
 	
 	int lastIndex() throws SQLException;
+	
+	void deletePlace(int placeNo) throws SQLException;
+
+	void deletePlaceImg(int placeNo) throws SQLException;
+	
 }

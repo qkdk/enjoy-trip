@@ -76,7 +76,7 @@ body {
 					<div class="d-flex justify-content-end">
 						<button type="button" id="btn-list-return"
 							class="btn btn-outline-primary mb-3">글목록</button>
-						<c:if test="${notice.userId == userDto.userId}">
+						<c:if test="${place.userId == userDto.userId}">
 							<button type="button" id="btn-mv-modify"
 								class="btn btn-outline-success mb-3 ms-1">글수정</button>
 							<button type="button" id="btn-delete"
@@ -104,7 +104,7 @@ body {
 							"click",
 							function() {
 
-								location.href = "${root}/notice/modify?noticeNo=${noticeNo}";
+								location.href = "${root}/place/modify?placeNo=${placeNo}";
 							});
 		}
 
@@ -115,7 +115,7 @@ body {
 							"click",
 							function() {
 
-								location.href = "${root}/notice/delete?noticeNo=${noticeNo}";
+								location.href = "${root}/place/delete?placeNo=${placeNo}";
 							});
 		}
 	</script>

@@ -56,4 +56,14 @@
     <select id="lastIndex" resultType="int">
     	SELECT max(place_no) FROM place
     </select>
+    
+    <delete id="deletePlace">
+    	DELETE FROM place
+    	WHERE place_no = #{placeNo}
+    </delete>
+    
+    <delete id="deletePlaceImg">
+    	DELETE FROM place_img
+    	WHERE place_no = #{placeNo}
+    </delete>
 </mapper>
