@@ -1,5 +1,6 @@
 package com.ssafy.enjoytrip.notice.controller;
 
+import com.ssafy.enjoytrip.enums.LoginConstant;
 import com.ssafy.enjoytrip.notice.dto.NoticeDto;
 import com.ssafy.enjoytrip.notice.service.NoticeService;
 import com.ssafy.enjoytrip.user.dto.UserDto;
@@ -65,14 +66,12 @@ public class NoticeController {
     
     @GetMapping("/write")
     public String write(HttpSession session) {
-    	if(session.getAttribute("userDto") == null)
-    		return "redirect:/notice?pgno=1&key&word=";
-    	else return "notice/write";
+    	return "notice/write";
     }
     
     @PostMapping("/write")
     public String write(String noticeTitle, String noticeContent, HttpSession session) throws Exception {
-    	UserDto userDto = (UserDto) session.getAttribute("userDto");
+    	UserDto userDto = (UserDto) session.getAttribute(LoginConstant.LOGIN_ATTRIBUTE_NAME.getValue());
     	NoticeDto noticeDto = new NoticeDto();
     	noticeDto.setNoticeTitle(noticeTitle);
     	noticeDto.setNoticeContent(noticeContent);

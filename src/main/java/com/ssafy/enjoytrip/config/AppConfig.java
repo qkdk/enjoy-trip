@@ -1,5 +1,6 @@
 package com.ssafy.enjoytrip.config;
 
+import com.ssafy.enjoytrip.util.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -13,7 +14,9 @@ public class AppConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// TODO 인터셉터 추가 메서드
-		WebMvcConfigurer.super.addInterceptors(registry);
+		registry.addInterceptor(new LoginInterceptor())
+				.addPathPatterns("/notice/write", "/user/**")
+				.excludePathPatterns("/user/login", "/user/join", "/user/check/*");
 	}
 
 	// 뷰 컨트롤 설정

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="root" value="${pageContext.request.contextPath }"></c:set>
 
 <%
     String root = request.getContextPath();
@@ -68,7 +69,7 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="img/new7.jpg" class="d-block w-100" alt="..."
+            <img src="${root}/img/new7.jpg" class="d-block w-100" alt="..."
                  style="height: 600px"/>
             <div class="carousel-caption d-none d-md-block">
                 <p style="margin-bottom: 10rem; font-size: 3rem">
@@ -80,7 +81,7 @@
             </div>
         </div>
         <div class="carousel-item">
-            <img src="img/new8.jpg" class="d-block w-100" alt="..."
+            <img src="${root}/img/new8.jpg" class="d-block w-100" alt="..."
                  style="height: 600px"/>
             <div class="carousel-caption d-none d-md-block">
                 <p style="margin-bottom: 10rem; font-size: 3rem">
@@ -92,7 +93,7 @@
             </div>
         </div>
         <div class="carousel-item">
-            <img src="img/top2.png" class="d-block 2-100" alt="..."
+            <img src="${root}/img/top2.png" class="d-block 2-100" alt="..."
                  style="height: 600px; width: 100%"/>
             <div class="carousel-caption d-none d-md-block">
                 <p style="margin-bottom: 10rem; font-size: 3rem">
@@ -136,19 +137,19 @@
                  style="display: flex; justify-content: center;">
                 <div class="card m-3 ourplace" style="width: 33%; height: 33vh">
                     <!-- 지도 이미지  -->
-                    <img src="img/img10.jpeg" class="card-img-top h-100 w-100 "
+                    <img src="${root}/img/img10.jpeg" class="card-img-top h-100 w-100 "
                          alt="x"/> <a href="#" class="btn btn-sm textbox"
                                       style="color: darkorange; position: absolute; top: 50%; left: 50%;">제목1</a>
                 </div>
                 <div class="card m-3 ourplace" style="width: 33%; height: 33vh">
                     <!-- 지도 이미지  -->
-                    <img src="img/img11.jpg" class="card-img-top h-100 w-100 " alt="x"/>
+                    <img src="${root}/img/img11.jpg" class="card-img-top h-100 w-100 " alt="x"/>
                     <a href="#" class="btn btn-sm textbox"
                        style="color: darkorange; position: absolute; top: 50%; left: 50%;">제목2</a>
                 </div>
                 <div class="card m-3 ourplace" style="width: 33%; height: 33vh">
                     <!-- 지도 이미지  -->
-                    <img src="img/img2.jpg" class="card-img-top h-100 w-100 " alt="x"/>
+                    <img src="${root}/img/img2.jpg" class="card-img-top h-100 w-100 " alt="x"/>
                     <a href="#" class="btn btn-sm textbox"
                        style="color: darkorange; position: absolute; top: 50%; left: 50%;">제목3</a>
                 </div>
@@ -158,19 +159,19 @@
                  style="display: flex; justify-content: center;">
                 <div class="card m-3 ourplace " style="width: 33%; height: 33vh">
                     <!-- 지도 이미지  -->
-                    <img src="img/img1.jpg" class="card-img-top h-100 w-100 " alt="x"/>
+                    <img src="${root}/img/img1.jpg" class="card-img-top h-100 w-100 " alt="x"/>
                     <a href="#" class="btn btn-sm textbox"
                        style="color: darkorange; position: absolute; top: 50%; left: 50%;">제목4</a>
                 </div>
                 <div class="card m-3 ourplace" style="width: 33%; height: 33vh">
                     <!-- 지도 이미지  -->
-                    <img src="img/img3.jpg" class="card-img-top h-100 w-100 " alt="x"/>
+                    <img src="${root}/img/img3.jpg" class="card-img-top h-100 w-100 " alt="x"/>
                     <a href="#" class="btn btn-sm textbox"
                        style="color: darkorange; position: absolute; top: 50%; left: 50%;">제목5</a>
                 </div>
                 <div class="card m-3 ourplace" style="width: 33%; height: 33vh">
                     <!-- 지도 이미지  -->
-                    <img src="img/img4.jpg" class="card-img-top h-100 w-100 " alt="x"/>
+                    <img src="${root}/img/img4.jpg" class="card-img-top h-100 w-100 " alt="x"/>
                     <a href="#" class="btn btn-sm textbox"
                        style="color: darkorange; position: absolute; top: 50%; left: 50%;">제목6</a>
                 </div>
@@ -198,7 +199,7 @@
          style="display: flex; justify-content: center">
         <div class="card m-3" style="width: 25%;">
             <!-- 지도 이미지  -->
-            <img src="img/img5.jpeg" class="card-img-top" alt="..."
+            <img src="${root}/img/img5.jpeg" class="card-img-top" alt="..."
                  style="height: 50%;">
             <div class="card-body">
                 <h3 class="card-title">
@@ -211,7 +212,7 @@
         </div>
         <div class="card m-3" style="width: 25%;">
             <!-- 지도 이미지  -->
-            <img src="img/img6.jpeg" class="card-img-top" alt="..."
+            <img src="${root}/img/img6.jpeg" class="card-img-top" alt="..."
                  style="height: 50%;">
             <div class="card-body">
                 <h3 class="card-title">
@@ -224,7 +225,7 @@
         </div>
         <div class="card m-3" style="width: 25%;">
             <!-- 지도 이미지  -->
-            <img src="img/img7.jpg" class="card-img-top" alt="..."
+            <img src="${root}/img/img7.jpg" class="card-img-top" alt="..."
                  style="height: 50%;">
             <div class="card-body">
                 <h3 class="card-title">
@@ -237,7 +238,7 @@
         </div>
         <div class="card m-3" style="width: 25%;">
             <!-- 지도 이미지  -->
-            <img src="img/img8.jpg" class="card-img-top" alt="..."
+            <img src="${root}/img/img8.jpg" class="card-img-top" alt="..."
                  style="height: 50%;">
             <div class="card-body">
                 <h3 class="card-title">
@@ -268,43 +269,43 @@
     <div class="container text-center">
         <div class="row " style="height: 20vh">
             <div class="col m-2 hotple"
-                 style="background-image: url('img/img2.jpg');">
+                 style="background-image: url('${root}/img/img2.jpg');">
                 <span class="textbox">핫플1</span>
             </div>
             <div class="col m-2 hotple"
-                 style="background-image: url('img/img3.jpg');">
+                 style="background-image: url('${root}/img/img3.jpg');">
                 <span class="textbox">핫플2</span>
             </div>
             <div class="col m-2 hotple"
-                 style="background-image: url('img/img6.jpeg');">
+                 style="background-image: url('${root}/img/img6.jpeg');">
                 <span class="textbox">핫플3</span>
             </div>
         </div>
         <div class="row " style="height: 20vh">
             <div class="col m-2 hotple"
-                 style="background-image: url('img/img5.jpeg');">
+                 style="background-image: url('${root}/img/img5.jpeg');">
                 <span class="textbox">핫플4</span>
             </div>
             <div class="col m-2 hotple"
-                 style="background-image: url('img/img8.jpg');">
+                 style="background-image: url('${root}/img/img8.jpg');">
                 <span class="textbox">핫플5</span>
             </div>
             <div class="col m-2 hotple"
-                 style="background-image: url('img/img9.jpg');">
+                 style="background-image: url('${root}/img/img9.jpg');">
                 <span class="textbox">핫플6</span>
             </div>
         </div>
         <div class="row " style="height: 20vh">
             <div class="col m-2 hotple"
-                 style="background-image: url('img/img10.jpeg');">
+                 style="background-image: url('${root}/img/img10.jpeg');">
                 <span class="textbox">핫플7</span>
             </div>
             <div class="col m-2 hotple"
-                 style="background-image: url('img/img11.jpg');">
+                 style="background-image: url('${root}/img/img11.jpg');">
                 <span class="textbox">핫플8</span>
             </div>
             <div class="col m-2 hotple"
-                 style="background-image: url('img/img1.jpg');">
+                 style="background-image: url('${root}/img/img1.jpg');">
                 <span class="textbox">핫플9</span>
             </div>
         </div>
@@ -313,7 +314,7 @@
 
 <div class="carousel-inner mt-5">
     <div class="carousel-item active">
-        <img src="./img/top5.png" class="d-block w-100" alt="콘텐츠 이미지"
+        <img src="${root}/img/top5.png" class="d-block w-100" alt="콘텐츠 이미지"
              style="height: 400px"/>
         <div class="carousel-caption d-md-block">
             <div style="margin: 0.5rem; font-size: 2rem;">언제든 연락주세요!</div>

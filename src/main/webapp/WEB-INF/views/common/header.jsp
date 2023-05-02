@@ -237,7 +237,7 @@
       resultDiv.setAttribute("style", "display:flex;");
       isUseId = false;
     } else {
-      fetch("${root}/user/" + userid)
+      fetch("${root}/user/check/" + userid)
       .then(response => response.text())
       .then(data => {
         console.log(data);
