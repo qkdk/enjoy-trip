@@ -26,6 +26,15 @@
       </if>
       LIMIT #{offset} , #{limit}
     </select>
+    
+  	<select id="getNoticeSort" resultMap="noticeMap">
+      SELECT * FROM notice
+      <if test='key != ""'>
+      WHERE ${key} LIKE concat('%', #{word}, '%')
+      </if>
+      ORDER BY notice_hit DESC
+      LIMIT #{offset} , #{limit}
+    </select>
 
     <select id="getNoticeByNoticeNo" resultMap="noticeMap">
       SELECT *
@@ -37,5 +46,22 @@
     	INSERT INTO notice (user_id, notice_title, notice_content)
     	VALUES (#{userId}, #{noticeTitle}, #{noticeContent})
     </insert>
+    
+    <update id="updateNotice">
+    	UPDATE notice
+    	SET notice_title = #{noticeTitle}, notice_content = #{noticeContent}
+    	WHERE notice_no = #{noticeNo}
+    </update>
+    
+    <delete id="deleteNotice">
+    	DELETE FROM notice
+    	WHERE notice_no = #{noticeNo}
+    </delete>
+    
+    <update id="hitNotice">
+    	UPDATE notice
+    	SET notice_hit = notice_hit + 1
+    	WHERE notice_no = #{noticeNo}
+    </update>
 
 </mapper>

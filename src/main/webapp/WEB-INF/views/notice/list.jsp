@@ -181,7 +181,7 @@ body {
   });
 
   document.querySelector("#btn-sort").addEventListener("click", function () {
-    location.href = "${root}/board?action=sort";
+    location.href = "${root}/notice/sort?pgno=1&key=&word=";
   });
 
   document.querySelector("#btn-mv-register").addEventListener("click", function () {

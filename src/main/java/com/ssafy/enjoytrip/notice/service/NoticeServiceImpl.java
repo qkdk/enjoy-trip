@@ -30,6 +30,13 @@ public class NoticeServiceImpl implements NoticeService {
                 .getNotice((Integer.parseInt(pgno) - 1) * PageConstant.LIST_SIZE.getValue(),
                         PageConstant.LIST_SIZE.getValue(), key, word);
     }
+    
+    @Override
+	public List<NoticeDto> listNoticeSort(String pgno, String key, String word) throws SQLException {
+		return session.getMapper(NoticeRepository.class)
+                .getNoticeSort((Integer.parseInt(pgno) - 1) * PageConstant.LIST_SIZE.getValue(),
+                        PageConstant.LIST_SIZE.getValue(), key, word);
+	}
 
     @Override
     public PageNavigation makePageNavigation(String pgno, String key, String word) throws SQLException {
@@ -70,5 +77,20 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public void writeNotice(NoticeDto noticeDto) throws Exception {
 		session.getMapper(NoticeRepository.class).writeNotice(noticeDto);
+	}
+
+	@Override
+	public void updateNotice(int noticeNo, String noticeTitle, String noticeContent) throws Exception {
+		session.getMapper(NoticeRepository.class).updateNotice(noticeNo, noticeTitle, noticeContent);
+	}
+
+	@Override
+	public void deleteNotice(int noticeNo) throws Exception {
+		session.getMapper(NoticeRepository.class).deleteNotice(noticeNo);
+	}
+
+	@Override
+	public void hitNotice(int noticeNo) throws Exception {
+		session.getMapper(NoticeRepository.class).hitNotice(noticeNo);
 	}
 }

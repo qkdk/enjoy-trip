@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.ssafy.board.model.BoardDto"%>
-
-<%
-String root = request.getContextPath();
-BoardDto article = (BoardDto) request.getAttribute("article");
-%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="root" value="${pageContext.request.contextPath }"></c:set>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +35,7 @@ body {
 </head>
 <body>
 	<!-- header 시작 -->
-	<jsp:include page="/common/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 	<!-- header 끝 -->
 	<!-- 공지사항 컨테이너 -->
 	<div class="container" style="margin-top: 15vh">
@@ -52,19 +49,18 @@ body {
 				글수정</h2>
 		</div>
 		<form id="form-modify" method="POST" action="">
-			<input type="hidden" name="action" value="modify"> <input
-				type="hidden" name="articleno" value="<%=article.getArticle_no()%>">
+			<input type="hidden" name="noticeNo" value="${notice.noticeNo}"> 
 
 			<div style="margin-bottom: 10px">
 
 				<label for="subject">제목:</label> <input type="text"
-					class="form-control" id="subject" name="subject"
-					style="margin-right: 5px" value="<%=article.getSubject()%>" />
+					class="form-control" id="subject" name="noticeTitle"
+					style="margin-right: 5px" value="${notice.noticeTitle}" />
 			</div>
 			<div>
 				<label for="content">내용:</label>
-				<textarea class="form-control" id="content" name="content"
-					placeholder="내용입력..." style="height: 254px"><%=article.getContent()%></textarea>
+				<textarea class="form-control" id="content" name="noticeContent"
+					placeholder="내용입력..." style="height: 254px">${notice.noticeContent}</textarea>
 			</div>
 			<div style="display: flex; flex-direction: row; padding-top: 10px">
 				<button type="button" class="btn btn-primary" id="btn-modify"
@@ -77,7 +73,7 @@ body {
 	<!-- footer -->
 	
 	<!-- footer -->
-	<jsp:include page="/common/footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<script>
 		document.querySelector("#btn-modify").addEventListener("click",
 				function() {
@@ -89,7 +85,7 @@ body {
 						return;
 					} else {
 						let form = document.querySelector("#form-modify");
-						form.setAttribute("action", "<%=root%>/board");
+						form.setAttribute("action", "${root}/notice/modify");
 						form.submit();
 					}
 				});
@@ -98,7 +94,7 @@ body {
 				.addEventListener(
 						"click",
 						function() {
-							location.href = "<%=root%>/board?action=list&pgno=1&key=&word=";
+							location.href = "${root}/notice?pgno=1&key&word=";
 						});
 	</script>
 </body>
