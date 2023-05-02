@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.ssafy.enjoytrip.place.repository.PlaceRepository">
+	<resultMap id="placeMap" type="placeDto">
+		<result column="user_id" property="userId" />
+		<result column="place_no" property="placeNo" />
+		<result column="place_title" property="placeTitle" />
+		<result column="place_content" property="placeContent" />
+		<result column="hit" property="hit" />
+		<result column="place_createtime" property="placeCreateTime" />
+		<result column="place_img_src" property="placeImgSrc" />
+	</resultMap>
+	
+	<select id="getTotalPlaceCount" resultType="int">
+  		SELECT count(*) FROM place
+  		<if test='key != ""'>
+  	  WHERE ${key} LIKE concat('%', #{word}, '%')
+  		</if>
+  	</select>
+	
+	<select id="getPlace" resultMap="placeMap">
+      SELECT * FROM place
+      <if test='key != ""'>
+      WHERE ${key} LIKE concat('%', #{word}, '%')
+      </if>
+      LIMIT #{offset} , #{limit}
+    </select>
+    
+    <select id="getPlaceByPlaceNo" resultMap="placeMap">
+      SELECT *
+      FROM place p, place_img i
+      WHERE 1
+      AND i.place_no = #{placeNo}
+      AND p.place_no = #{placeNo}
+    </select>
+    
+    <select id="view" resultMap="placeMap">
+      SELECT *
+      FROM place
+      WHERE place_no = #{placeNo}
+    </select>
+    
+    <insert id="writePlace">
+    	INSERT INTO place (user_id, place_title, place_content, city)
+    	VALUES (#{userId}, #{placeTitle}, #{placeContent}, "")
+    </insert>
+    
+    <insert id="writePlaceImg">
+    	INSERT into place_img (place_no, place_img_src)
+    	VALUES (#{placeNo}, #{placeImgSrc})
+    </insert>
+    
+    <select id="lastIndex" resultType="int">
+    	SELECT max(place_no) FROM place
+    </select>
+</mapper>

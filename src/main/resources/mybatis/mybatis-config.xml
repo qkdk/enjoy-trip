@@ -7,15 +7,16 @@
 		<typeAlias type="com.ssafy.enjoytrip.user.dto.UserDto" alias="userDto" />
 
 		<typeAlias type="com.ssafy.enjoytrip.notice.dto.NoticeDto" alias="noticeDto"/>
-
 		<typeAlias type="com.ssafy.enjoytrip.Attraction.dto.AttractionDto" alias="attractionDto"/>
 		<typeAlias type="com.ssafy.enjoytrip.Attraction.dto.SidoCodeDto" alias="sidoCodeDto"/>
 		<typeAlias type="com.ssafy.enjoytrip.Attraction.dto.GugunCodeDto" alias="gugunCodeDto"/>
+		<typeAlias type="com.ssafy.enjoytrip.place.dto.PlaceDto" alias="placeDto"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="mybatis/mapper/userMapper.xml" />
 		<mapper resource="mybatis/mapper/noticeMapper.xml" />
 		<mapper resource="mybatis/mapper/AttractionMapper.xml" />
+		<mapper resource="mybatis/mapper/PlaceMapper.xml" />
 	</mappers>
 </configuration>

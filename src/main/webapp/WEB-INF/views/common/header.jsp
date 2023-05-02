@@ -38,7 +38,7 @@
                                         href="#" style="font-size: x-large"><i
                         class="fa-regular fa-calendar"></i> 나의여행계획</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page"
-                                        href="#" style="font-size: x-large"><i
+                                        href="${root}/place?pgno=1&key=&word=" style="font-size: x-large"><i
                         class="fa-solid fa-camera"></i> 핫플자랑하기</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page"
 <%--                                        href="${root}/board?action=list&pgno=1&key=&word="--%>
