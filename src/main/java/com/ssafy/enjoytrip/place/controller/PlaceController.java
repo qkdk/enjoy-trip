@@ -57,7 +57,9 @@ public class PlaceController {
 		PlaceDto placeDto = placeService.getPlaceByPlaceNo(placeNo);
 		if(placeDto == null) {
 			placeDto = placeService.view(placeNo);
+			placeDto.setPlaceImgSrc(null);
 			model.addAttribute("place", placeDto);
+			System.out.println(placeDto);
 			return "/place/view";
 		}
 		else {
