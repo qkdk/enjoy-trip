@@ -30,6 +30,13 @@ public class NoticeServiceImpl implements NoticeService {
                 .getNotice((Integer.parseInt(pgno) - 1) * PageConstant.LIST_SIZE.getValue(),
                         PageConstant.LIST_SIZE.getValue(), key, word);
     }
+    
+    @Override
+	public List<NoticeDto> listNoticeSort(String pgno, String key, String word) throws SQLException {
+		return session.getMapper(NoticeRepository.class)
+                .getNoticeSort((Integer.parseInt(pgno) - 1) * PageConstant.LIST_SIZE.getValue(),
+                        PageConstant.LIST_SIZE.getValue(), key, word);
+	}
 
     @Override
     public PageNavigation makePageNavigation(String pgno, String key, String word) throws SQLException {

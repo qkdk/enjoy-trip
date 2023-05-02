@@ -26,6 +26,15 @@
       </if>
       LIMIT #{offset} , #{limit}
     </select>
+    
+  	<select id="getNoticeSort" resultMap="noticeMap">
+      SELECT * FROM notice
+      <if test='key != ""'>
+      WHERE ${key} LIKE concat('%', #{word}, '%')
+      </if>
+      ORDER BY notice_hit DESC
+      LIMIT #{offset} , #{limit}
+    </select>
 
     <select id="getNoticeByNoticeNo" resultMap="noticeMap">
       SELECT *

@@ -38,6 +38,16 @@ public class NoticeController {
         model.addAttribute("navigation", navigation);
         return "/notice/list";
     }
+    
+    @GetMapping("/sort")
+    public String listSort(String pgno, String key, String word, Model model) throws SQLException {
+    	List<NoticeDto> noticeList = noticeService.listNoticeSort(pgno, key, word);
+    	PageNavigation navigation = noticeService.makePageNavigation(pgno, key, word);
+    	
+    	model.addAttribute("noticeList", noticeList);
+    	model.addAttribute("navigation", navigation);
+    	return "notice/list";
+    }
 
     @GetMapping("/{noticeNo}")
     public String viewNotice(@PathVariable int noticeNo, Model model) throws Exception {
