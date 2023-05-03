@@ -91,7 +91,6 @@ public class RestPlaceController {
 			placeDto.setPlaceTitle(placeTitle);
 			placeDto.setPlaceContent(placeContent);
 			placeDto.setUserId(userDto.getUserId());
-			placeDto.setUserId("qqqqqq");
 			placeService.writePlace(placeDto);
 			int placeNo = placeService.lastIndex();
 			if (!files[0].isEmpty()) {
