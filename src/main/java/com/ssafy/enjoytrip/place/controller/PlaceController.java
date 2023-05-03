@@ -130,6 +130,7 @@ public class PlaceController {
 		placeDto.setPlaceContent(placeContent);
 		placeDto.setPlaceImgSrc(placeImgSrc);
 		placeDto.setUserId(userDto.getUserId());
+		System.out.println(placeImgSrc);
 		placeService.writePlace(placeDto);
 		int placeNo = placeService.lastIndex();
 		if (!files[0].isEmpty()) {
