@@ -14,9 +14,9 @@ public class AppConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// TODO 인터셉터 추가 메서드
-		registry.addInterceptor(new LoginInterceptor())
-				.addPathPatterns("/notice/write", "/user/**")
-				.excludePathPatterns("/user/login", "/user/join", "/user/check/*");
+//		registry.addInterceptor(new LoginInterceptor())
+//				.addPathPatterns("/notice/write", "/user/**")
+//				.excludePathPatterns("/user/login", "/user/join", "/user/check/*");
 	}
 
 	// 뷰 컨트롤 설정

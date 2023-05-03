@@ -18,12 +18,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto loginUser(String id, String pw) throws SQLException {
+    public UserDto loginUser(String id, String pw) throws Exception {
         return session.getMapper(UserRepository.class).loginUser(id, pw);
     }
 
     @Override
-    public int joinUser(String name, String id, String pw, String email, String emailDomain) throws SQLException {
+    public int joinUser(String name, String id, String pw, String email, String emailDomain) throws Exception {
         return session.getMapper(UserRepository.class).joinUser(name, id, pw, email, emailDomain);
     }
 

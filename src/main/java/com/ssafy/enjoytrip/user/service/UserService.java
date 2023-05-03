@@ -5,9 +5,9 @@ import java.sql.SQLException;
 
 public interface UserService {
 
-    UserDto loginUser(String id, String pw) throws SQLException;
+    UserDto loginUser(String id, String pw) throws Exception;
 
-    int joinUser(String name, String id, String pw, String email, String emailDomain) throws SQLException;
+    int joinUser(String name, String id, String pw, String email, String emailDomain) throws Exception;
     
 	int idCheck(String userId) throws Exception;
 	
