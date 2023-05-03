@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(String id, String pw, Model model, HttpSession session) throws SQLException {
+    public String login(String id, String pw, Model model, HttpSession session) throws Exception {
         UserDto userDto = userService.loginUser(id, pw);
         if (userDto == null) {
             model.addAttribute(LoginConstant.LOGIN_MESSAGE_KEY.getValue(), LoginConstant.LOGIN_NOT_MATCH.getValue());
@@ -48,7 +48,7 @@ public class UserController {
     @PostMapping("/join")
     public String join(String name, String id, String password, String passwordCheck, String email,
             @RequestParam("email_domain") String emailDomain, Model model)
-            throws SQLException {
+            throws Exception {
 
         if (password.equals(passwordCheck)) {
             userService.joinUser(name, id, password, email, emailDomain);
