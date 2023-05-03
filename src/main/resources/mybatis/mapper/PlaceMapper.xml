@@ -56,4 +56,24 @@
     <select id="lastIndex" resultType="int">
     	SELECT max(place_no) FROM place
     </select>
+    
+    <select id="checkImg" resultType="int">
+    	SELECT count(*) FROM place_img WHERE place_no = #{placeNo}
+    </select>
+    
+    <delete id="deletePlace">
+    	DELETE FROM place
+    	WHERE place_no = #{placeNo}
+    </delete>
+    
+    <delete id="deletePlaceImg">
+    	DELETE FROM place_img
+    	WHERE place_no = #{placeNo}
+    </delete>
+    
+    <update id="modifyPlace">
+    	UPDATE place
+    	SET place_title = #{placeTitle}, place_content = #{placeContent}
+    	WHERE place_no = #{placeNo}
+    </update>
 </mapper>

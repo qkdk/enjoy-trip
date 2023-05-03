@@ -2,6 +2,7 @@ package com.ssafy.enjoytrip.place.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ssafy.enjoytrip.place.dto.PlaceDto;
 import com.ssafy.enjoytrip.place.service.PlaceService;
@@ -68,6 +70,48 @@ public class PlaceController {
 			return "/place/view";
 		}
 	}
+	
+	@GetMapping("/modify")
+	public ModelAndView modify(int placeNo, ModelAndView mv) throws SQLException {
+		PlaceDto placeDto = placeService.getPlaceByPlaceNo(placeNo);
+		if(placeDto == null) {
+			placeDto = placeService.view(placeNo);
+			placeDto.setPlaceImgSrc(null);
+		}
+		mv.addObject("place", placeDto);
+		mv.setViewName("place/modify");
+		return mv;
+	}
+	
+	@PostMapping("/modify")
+	public String modify(int placeNo, String placeTitle, String placeContent,
+			@RequestParam("upfile") MultipartFile[] files) throws Exception {
+		placeService.modifyPlace(placeNo, placeTitle, placeContent);
+		if(!files[0].isEmpty()) {
+			int cnt = placeService.checkImg(placeNo);
+			if(cnt>0) {
+				placeService.deletePlaceImg(placeNo);
+			}
+			String saveFolder = uploadPath + File.separator;
+			File folder = new File(saveFolder);
+			if (!folder.exists())
+				folder.mkdirs();
+			List<PlaceDto> fileInfos = new ArrayList<PlaceDto>();
+			for (MultipartFile mfile : files) {
+				PlaceDto fileInfoDto = new PlaceDto();
+				String originalFileName = mfile.getOriginalFilename();
+				if (!originalFileName.isEmpty()) {
+					String saveFileName = UUID.randomUUID().toString()
+							+ originalFileName.substring(originalFileName.lastIndexOf('.'));
+					fileInfoDto.setPlaceImgSrc(saveFileName);
+					mfile.transferTo(new File(folder, saveFileName));
+				}
+				fileInfos.add(fileInfoDto);
+			}
+			placeService.writePlaceImg(placeNo, fileInfos.get(0).getPlaceImgSrc());
+		}
+		return "redirect:/place?pgno=1&key&word=";
+	}
 
 	@GetMapping("/write")
 	public String write(HttpSession session) {
@@ -111,4 +155,13 @@ public class PlaceController {
 		}
 		return "redirect:/place?pgno=1&key&word=";
 	}
+	
+	@GetMapping("/delete")
+	public String delete(int placeNo) throws SQLException {
+		placeService.deletePlaceImg(placeNo);
+		placeService.deletePlace(placeNo);
+		return "redirect:/place?pgno=1&key&word=";
+	}
+	
+	
 }

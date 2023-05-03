@@ -93,4 +93,28 @@ public class PlaceServiceImpl implements PlaceService {
 		return session.getMapper(PlaceRepository.class).lastIndex();
 	}
 
+
+	@Override
+	public void deletePlace(int placeNo) throws SQLException {
+		session.getMapper(PlaceRepository.class).deletePlace(placeNo);
+	}
+
+
+	@Override
+	public void deletePlaceImg(int placeNo) throws SQLException {
+		session.getMapper(PlaceRepository.class).deletePlaceImg(placeNo);
+	}
+
+
+	@Override
+	public void modifyPlace(int placeNo, String placeTitle, String placeContent) throws SQLException {
+		session.getMapper(PlaceRepository.class).modifyPlace(placeNo, placeTitle, placeContent);
+	}
+
+
+	@Override
+	public int checkImg(int placeNo) throws Exception {
+		return session.getMapper(PlaceRepository.class).checkImg(placeNo);
+	}
+
 }
