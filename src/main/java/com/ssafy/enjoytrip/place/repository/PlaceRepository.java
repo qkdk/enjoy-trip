@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.enjoytrip.place.dto.PlaceDto;
+import com.ssafy.enjoytrip.place.dto.ReplyDto;
 
 @Mapper
 public interface PlaceRepository {
@@ -31,4 +32,6 @@ public interface PlaceRepository {
 	void modifyPlace(int placeNo,String placeTitle, String placeContent) throws SQLException;
 	
 	int checkImg(int placeNo) throws Exception;
+	
+	List<ReplyDto> replyList(int placeNo) throws Exception;
 }

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.ssafy.enjoytrip.place.dto.PlaceDto;
+import com.ssafy.enjoytrip.place.dto.ReplyDto;
 import com.ssafy.enjoytrip.util.PageNavigation;
 
 public interface PlaceService {
@@ -28,4 +29,6 @@ public interface PlaceService {
 	void modifyPlace(int placeNo,String placeTitle, String placeContent) throws SQLException;
 	
 	int checkImg(int placeNo) throws Exception;
+	
+	List<ReplyDto> replyList(int placeNo) throws Exception;
 }

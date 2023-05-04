@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.enjoytrip.enums.PageConstant;
 import com.ssafy.enjoytrip.place.dto.PlaceDto;
+import com.ssafy.enjoytrip.place.dto.ReplyDto;
 import com.ssafy.enjoytrip.place.repository.PlaceRepository;
 import com.ssafy.enjoytrip.util.PageNavigation;
 
@@ -115,6 +116,12 @@ public class PlaceServiceImpl implements PlaceService {
 	@Override
 	public int checkImg(int placeNo) throws Exception {
 		return session.getMapper(PlaceRepository.class).checkImg(placeNo);
+	}
+
+
+	@Override
+	public List<ReplyDto> replyList(int placeNo) throws Exception {
+		return session.getMapper(PlaceRepository.class).replyList(placeNo);
 	}
 
 }
