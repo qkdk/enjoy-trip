@@ -34,4 +34,6 @@ public interface PlaceRepository {
 	int checkImg(int placeNo) throws Exception;
 	
 	List<ReplyDto> replyList(int placeNo) throws Exception;
+	
+	void writeReply(ReplyDto replyDto) throws Exception;
 }

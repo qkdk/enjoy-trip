@@ -70,6 +70,11 @@
     	VALUES (#{placeNo}, #{placeImgSrc})
     </insert>
     
+    <insert id="writeReply">
+    	INSERT INTO place_reply (reply_content, reply_user_id, place_no, parent_id)
+    	VALUES (#{replyContent}, #{userId}, #{placeNo}, #{parentId})
+    </insert>
+    
     <select id="lastIndex" resultType="int">
     	SELECT max(place_no) FROM place
     </select>
