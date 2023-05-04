@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.enjoytrip.place.dto.PlaceDto;
+import com.ssafy.enjoytrip.place.dto.ReplyDto;
 import com.ssafy.enjoytrip.place.service.PlaceService;
 import com.ssafy.enjoytrip.user.dto.UserDto;
 import com.ssafy.enjoytrip.util.PageNavigation;
@@ -41,6 +43,18 @@ public class RestPlaceController {
 	@Value("${file.path}")
 	private String uploadPath;
 	
+	
+	@DeleteMapping("/delete")
+	public ResponseEntity<String> delete(int placeNo){
+		try {
+			placeService.deletePlaceImg(placeNo);
+			placeService.deletePlace(placeNo);
+			return ResponseEntity.ok("삭제완료");
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 	@GetMapping("")
 	public ResponseEntity<Map<String, Object>> list(String pgno, String key, String word){
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -56,29 +70,29 @@ public class RestPlaceController {
 			return null;
 		}
 	}
-	
-	@DeleteMapping("/delete")
-	public ResponseEntity<String> delete(int placeNo){
-		try {
-			placeService.deletePlaceImg(placeNo);
-			placeService.deletePlace(placeNo);
-			return ResponseEntity.ok("삭제완료");
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	
 	@GetMapping("/{placeNo}")
-	public ResponseEntity<PlaceDto> view(int placeNo){
+	public ResponseEntity<Map<String, Object>> view(int placeNo){
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<ReplyDto> replyList = null;
 		try {
 			PlaceDto placeDto = placeService.getPlaceByPlaceNo(placeNo);
 			if(placeDto == null) {
 				placeDto = placeService.view(placeNo);
 				placeDto.setPlaceImgSrc(null);
 			}
-			return ResponseEntity.ok(placeDto);
+			System.out.println(placeDto);
+			System.out.println(replyList);
+			replyList = placeService.replyList(placeNo);
+			System.out.println(replyList);
+			System.out.println(replyList.get(0));
+			System.out.println("ASDASDA");
+			map.put("place", placeDto);
+			map.put("reply", replyList);
+			map.put("msg", "조회성공");
+			return new ResponseEntity<>(map, HttpStatus.OK);
 		} catch (Exception e) {
-			return null;
+			map.put("msg", "조회실패");
+			return new ResponseEntity<Map<String,Object>>(map, HttpStatus.BAD_REQUEST);
 		}
 	}
 	

@@ -13,6 +13,23 @@
 		<result column="place_createtime" property="placeCreateTime" />
 		<result column="place_img_src" property="placeImgSrc" />
 	</resultMap>
+
+	<resultMap id="replyMap" type="replyDto">
+		<result column="reply_id" property="replyId" />
+		<result column="reply_content" property="replyContent" />
+		<result column="reply_createtime" property="replyCreateTime" />
+		<result column="user_id" property="userId" />
+		<result column="place_no" property="placeNo" />
+		<result column="parent_id" property="parentId" />
+	</resultMap>
+	
+	
+	<select id="replyList" resultMap="replyMap">
+		SELECT * FROM place_reply
+		WHERE place_no = #{placeNo}
+	</select>
+	
+	
 	
 	<select id="getTotalPlaceCount" resultType="int">
   		SELECT count(*) FROM place
