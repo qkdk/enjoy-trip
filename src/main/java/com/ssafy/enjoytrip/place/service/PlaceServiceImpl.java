@@ -124,4 +124,10 @@ public class PlaceServiceImpl implements PlaceService {
 		return session.getMapper(PlaceRepository.class).replyList(placeNo);
 	}
 
+
+	@Override
+	public void writeReply(ReplyDto replyDto) throws Exception {
+		session.getMapper(PlaceRepository.class).writeReply(replyDto);
+	}
+
 }

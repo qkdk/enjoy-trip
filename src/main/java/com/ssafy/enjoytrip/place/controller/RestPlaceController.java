@@ -165,5 +165,15 @@ public class RestPlaceController {
 			return null;
 		}
 	}
+	
+	@PostMapping("/reply")
+	public ResponseEntity<String> reply(ReplyDto replyDto){
+		try {
+			placeService.writeReply(replyDto);
+			return new ResponseEntity<String>("작성성공", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("작성실패", HttpStatus.BAD_REQUEST);
+		}
+	}
 
 }
