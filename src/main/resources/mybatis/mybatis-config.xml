@@ -12,6 +12,7 @@
 		<typeAlias type="com.ssafy.enjoytrip.Attraction.dto.GugunCodeDto" alias="gugunCodeDto"/>
 		<typeAlias type="com.ssafy.enjoytrip.place.dto.PlaceDto" alias="placeDto"/>
 		<typeAlias type="com.ssafy.enjoytrip.place.dto.ReplyDto" alias="replyDto"/>
+		<typeAlias type="com.ssafy.enjoytrip.plan.dto.PlanWriteRequestDto" alias="planWriteRequestDto"/>
 	</typeAliases>
 
 	<mappers>
@@ -19,5 +20,6 @@
 		<mapper resource="mybatis/mapper/noticeMapper.xml" />
 		<mapper resource="mybatis/mapper/AttractionMapper.xml" />
 		<mapper resource="mybatis/mapper/PlaceMapper.xml" />
+		<mapper resource="mybatis/mapper/planMapper.xml"/>
 	</mappers>
 </configuration>
