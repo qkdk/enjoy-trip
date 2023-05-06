@@ -42,16 +42,23 @@ public class PlanController {
 
     @GetMapping("/view")
     public ResponseEntity<?> listPlan(int pgno, String key, String word) {
-        System.out.println("ct");
-        List<PlanListResponseDto> planListResponseDtos = planService.listPlan(pgno, key, word);
-        System.out.println(planListResponseDtos);
-        ResponseTemplate<List<PlanListResponseDto>> body = ResponseTemplate.<List<PlanListResponseDto>>builder()
-                .msg("읽기 성공")
-                .result(true)
-                .data(planListResponseDtos)
-                .build();
-        System.out.println(body);
-        return new ResponseEntity<>(body, HttpStatus.OK);
+        try {
+            List<PlanListResponseDto> planListResponseDtos = planService.listPlan(pgno, key, word);
+            ResponseTemplate<List<PlanListResponseDto>> body = ResponseTemplate.<List<PlanListResponseDto>>builder()
+                    .msg("계획 읽기에 성공했습니다.")
+                    .result(true)
+                    .data(planListResponseDtos)
+                    .build();
+            return new ResponseEntity<>(body, HttpStatus.OK);
+        } catch (Exception e) {
+            ResponseTemplate<List<PlanListResponseDto>> body = ResponseTemplate.<List<PlanListResponseDto>>builder()
+                    .msg("계획 읽기에 실패했습니다.")
+                    .result(false)
+                    .build();
+            return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        }
+
+
     }
 
 }
