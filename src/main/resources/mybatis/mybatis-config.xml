@@ -13,6 +13,7 @@
 		<typeAlias type="com.ssafy.enjoytrip.place.dto.PlaceDto" alias="placeDto"/>
 		<typeAlias type="com.ssafy.enjoytrip.place.dto.ReplyDto" alias="replyDto"/>
 		<typeAlias type="com.ssafy.enjoytrip.plan.dto.PlanWriteRequestDto" alias="planWriteRequestDto"/>
+		<typeAlias type="com.ssafy.enjoytrip.plan.dto.PlanListResponseDto" alias="planListResponseDto"/>
 	</typeAliases>
 
 	<mappers>

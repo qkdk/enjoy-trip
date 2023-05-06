@@ -4,12 +4,14 @@
 
 <mapper namespace="com.ssafy.enjoytrip.plan.repository.PlanRepository">
 
-  <!--  <insert id="insertPlan" useGeneratedKeys="true">-->
-  <!--    INSERT INTO trip_plan (user_id, plan_title) value (#{userId}, #{planWriteRequestDto.planTitle})-->
-  <!--    <selectKey order="AFTER" resultType="int">-->
-  <!--      SELECT LAST_INSERT_ID()-->
-  <!--    </selectKey>-->
-  <!--  </insert>-->
+  <resultMap id="planMap" type="planListResponseDto">
+    <result column="user_id" property="userId"/>
+    <result column="plan_id" property="planId"/>
+    <result column="plan_title" property="planTitle"/>
+    <result column="recommend_count" property="recommendCount"/>
+    <result column="hit" property="hit"/>
+    <result column="create_time" property="createTime"/>
+  </resultMap>
 
   <insert id="insertPlan" parameterType="map" useGeneratedKeys="true" keyColumn="plan_id"
     keyProperty="planId">
@@ -24,4 +26,12 @@
       (#{planId}, #{contentId}, #{index})
     </foreach>
   </insert>
+
+  <select id="getPlan" resultMap="planMap">
+    SELECT * FROM trip_plan
+    <if test='key != ""'>
+      WHERE ${key} LIKE concat('%', #{word}, '%')
+    </if>
+    LIMIT #{offset}, #{limit};
+  </select>
 </mapper>
