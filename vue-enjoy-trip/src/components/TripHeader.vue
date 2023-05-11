@@ -97,6 +97,7 @@
               </li>
             </ul>
           </c:if>
+          <!-- 로그인 후 -->
           <c:if test="${userDto != null}">
             <ul class="navbar-nav mb-2 me-2 mb-lg-0">
               <li class="nav-item dropdown">
@@ -122,6 +123,7 @@
         </div>
       </div>
     </nav>
+
     <!-- 회원가입 modal start -->
     <div
       class="modal fade"
@@ -142,7 +144,7 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-            <form id="form-join" method="post" action="${root}/user/join">
+            <form id="form-join" method="post">
               <div class="row">
                 <div class="col-md-3" style="padding: 5px; text-align: center">
                   <label for="name" class="form-label text-center">이름</label>
@@ -154,6 +156,7 @@
                     id="name"
                     name="name"
                     placeholder="이름"
+                    v-model="joinDto.userName"
                   />
                 </div>
 
@@ -162,7 +165,14 @@
                   <label for="name" class="form-label text-center">아이디</label>
                 </div>
                 <div class="col-md-9">
-                  <input type="text" class="form-control" id="id" name="id" placeholder="아이디" />
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="id"
+                    name="id"
+                    placeholder="아이디"
+                    v-model="joinDto.userId"
+                  />
                 </div>
                 <div class="row" id="idcheck-result" style="display: none">
                   <div class="col-md-3" style=""></div>
@@ -181,6 +191,7 @@
                     id="password"
                     name="password"
                     placeholder="비밀번호"
+                    v-model="joinDto.userPw"
                   />
                 </div>
 
@@ -195,6 +206,7 @@
                     id="passwordCheck"
                     name="passwordCheck"
                     placeholder="비밀번호확인"
+                    v-model="joinDto.userPwCheck"
                   />
                 </div>
                 <!-- 이메일 -->
@@ -208,6 +220,7 @@
                     id="email"
                     name="email"
                     placeholder="이메일"
+                    v-model="joinDto.userEmail"
                   />
                 </div>
                 <div class="col-md-5">
@@ -219,22 +232,22 @@
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    이메일을 선택하세요
+                    {{ emailSelected }}
                   </button>
                   <input type="hidden" name="email_domain" id="email_domain" />
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li>
-                      <a class="dropdown-item" href="#" onclick="setEmailDomain('naver.com')"
+                      <a class="dropdown-item" href="#" @click="setEmailDomain('naver.com')"
                         >naver.com</a
                       >
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#" onclick="setEmailDomain('gmail.com')"
+                      <a class="dropdown-item" href="#" @click="setEmailDomain('gmail.com')"
                         >gmail.com</a
                       >
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#" onclick="setEmailDomain('kakao.com')"
+                      <a class="dropdown-item" href="#" @click="setEmailDomain('kakao.com')"
                         >kakao.com</a
                       >
                     </li>
@@ -304,3 +317,42 @@
     </div>
   </div>
 </template>
+
+<script>
+import axios from "axios";
+
+export default {
+  name: "TripHeader",
+  data() {
+    return {
+      emailSelected: "이메일을 선택하세요",
+      joinDto: {
+        userId: "",
+        userPw: "",
+        userPwCheck: "",
+        userName: "",
+        userEmail: "",
+        userDomain: "",
+        userRole: "",
+      },
+    };
+  },
+  methods: {
+    // 도메인 선택
+    setEmailDomain(domain) {
+      this.joinDto.userDomain = domain;
+      this.emailSelected = domain;
+    },
+    // 회원가입
+    join() {
+      delete this.joinDto.userPwCheck;
+      axios({
+        methods: "post",
+        url: "http://localhost:8080/enjoytrip/user/api/join",
+        data: this.joinDto,
+      });
+    },
+    // 로그인
+  },
+};
+</script>
