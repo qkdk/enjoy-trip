@@ -4,9 +4,20 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/board">공지사항</router-link>
     </nav>
-    <router-view/>
+    <router-view />
+    <trip-footer></trip-footer>
   </div>
 </template>
+
+<script>
+import TripFooter from "./components/TripFooter.vue";
+
+export default {
+  components: {
+    TripFooter,
+  },
+};
+</script>
 
 <style>
 #app {
