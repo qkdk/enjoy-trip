@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
@@ -7,11 +7,7 @@ import BoardList from '@/components/board/BoardList'
 import BoardView from '@/components/board/BoardView'
 import BoardModify from '@/components/board/BoardModify'
 
-=======
-import Vue from "vue";
-import VueRouter from "vue-router";
-import HomeView from "../views/HomeView.vue";
->>>>>>> eb1832a12f41a3d96fdcbc67fb6c53a2ac4aa9a4
+
 
 Vue.use(VueRouter);
 
@@ -22,7 +18,6 @@ const routes = [
     component: HomeView,
   },
   {
-<<<<<<< HEAD
     path: '/board',
     name: 'board',
     component: AppBoard,
@@ -44,9 +39,8 @@ const routes = [
         component: BoardModify
       }
     ]
-  }
-]
-=======
+  },
+  {
     path: "/attraction",
     name: "attraction",
     // component: ...
@@ -59,23 +53,14 @@ const routes = [
   {
     path: "/notice",
     name: "notice",
-    // component: ...
+    component: BoardList
   },
   {
     path: "/plan",
     name: "plan",
     // component: ...
   },
-  {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
-  },
-];
->>>>>>> eb1832a12f41a3d96fdcbc67fb6c53a2ac4aa9a4
+]
 
 const router = new VueRouter({
   mode: "history",
