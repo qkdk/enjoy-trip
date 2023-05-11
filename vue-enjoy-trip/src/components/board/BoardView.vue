@@ -40,10 +40,10 @@
                     </button>
                     <c:if test="${notice.userId == userDto.userId}">
                         <button type="button" id="btn-mv-modify"
-                                class="btn btn-outline-success mb-3 ms-1">글수정
+                                class="btn btn-outline-success mb-3 ms-1" @click="mvModify">글수정
                         </button>
                         <button type="button" id="btn-delete"
-                                class="btn btn-outline-danger mb-3 ms-1">글삭제
+                                class="btn btn-outline-danger mb-3 ms-1" @click="deleteBoard">글삭제
                         </button>
                     </c:if>
 
@@ -62,14 +62,41 @@ export default {
     data() {
         return {
             notice: {},
+            no : '',
         }
     },
     methods: {
-        
+        mvModify(){
+            this.$router.push('/board/modify/'+this.notice.noticeNo);
+        },
+        deleteBoard(){
+            // let no = this.$route.params.no;
+            // const promise = axios.delete(`http://localhost:8080/enjoytrip/notice/api/delete?noticeNo=${no}`)
+            // promise
+            //     .then((Response)=>{
+            //         console.log(Response);
+            //         this.$router.push('/board');
+            //     })
+            var myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+
+                var requestOptions = {
+                    method: 'DELETE',
+                    headers: myHeaders,
+                    redirect: 'follow'
+                };
+                console.log(this.no);
+                fetch("http://localhost:8080/enjoytrip/notice/api/delete?noticeNo="+this.no, requestOptions)
+                    .then(response => response.text())
+                    .then(result => console.log(result))
+                    .catch(error => console.log('error', error));
+                this.$router.push('/board');
+                window.location.reload();            
+        }
     },
     created() {
-        var no = this.$route.params.no;
-        var url = `http://localhost:8080/enjoytrip/notice/api/${no}?noticeNo=${no}`;
+        this.no = this.$route.params.no;
+        var url = `http://localhost:8080/enjoytrip/notice/api/${this.no}?noticeNo=${this.no}`;
         axios.get(url)
             .then(Response=>{
             this.notice = Response.data;

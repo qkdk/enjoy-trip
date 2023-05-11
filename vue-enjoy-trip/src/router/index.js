@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import AppBoard from '@/views/AppBoard'
 import BoardList from '@/components/board/BoardList'
 import BoardView from '@/components/board/BoardView'
+import BoardModify from '@/components/board/BoardModify'
 
 
 Vue.use(VueRouter)
@@ -29,6 +30,11 @@ const routes = [
         path: 'view/:no',
         name: 'view',
         component: BoardView
+      },
+      {
+        path: 'modify/:no',
+        name: 'modify',
+        component: BoardModify
       }
     ]
   }
