@@ -294,14 +294,20 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-            <form id="form-login" action="${root }/user/login" method="post">
+            <form id="form-login">
               <div class="row">
                 <!-- 아이디 -->
                 <div class="col-md-3" style="padding: 5px; text-align: center">
                   <label for="name" class="form-label text-center">아이디</label>
                 </div>
                 <div class="col-md-9">
-                  <input type="text" class="form-control" name="id" placeholder="아이디" />
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="id"
+                    placeholder="아이디"
+                    v-model="loginDto.userId"
+                  />
                 </div>
 
                 <!-- 비밀번호 -->
@@ -309,13 +315,26 @@
                   <label for="name" class="form-label text-center">비밀번호</label>
                 </div>
                 <div class="col-md-9">
-                  <input type="password" class="form-control" name="pw" placeholder="비밀번호" />
+                  <input
+                    type="password"
+                    class="form-control"
+                    name="pw"
+                    placeholder="비밀번호"
+                    v-model="loginDto.userPw"
+                  />
                 </div>
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" id="btn-login" class="btn btn-warning btn-sm">로그인</button>
+            <button
+              type="button"
+              id="btn-login"
+              class="btn btn-warning btn-sm"
+              data-bs-dismiss="modal"
+            >
+              로그인
+            </button>
             <button type="button" class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">
               취소
             </button>
@@ -343,6 +362,10 @@ export default {
         userDomain: "",
         userRole: "",
       },
+      loginDto: {
+        userId: "",
+        userPw: "",
+      },
     };
   },
   methods: {
@@ -351,6 +374,7 @@ export default {
       this.joinDto.userDomain = domain;
       this.emailSelected = domain;
     },
+
     // 회원가입
     join() {
       delete this.joinDto.userPwCheck;
@@ -370,7 +394,25 @@ export default {
           alert("회원가입 오류");
         });
     },
+
     // 로그인
+    login() {
+      axios({
+        method: "post",
+        url: "http://localhost:8080/enjoytrip/user/api/login",
+        data: this.loginDto,
+      })
+        .then((response) => {
+          if (response.data.result === true) {
+            alert(response.data.msg);
+          } else {
+            alert(response.data.msg);
+          }
+        })
+        .catch(() => {
+          alert("로그인 오류");
+        });
+    },
   },
 };
 </script>
