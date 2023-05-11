@@ -6,6 +6,7 @@ import AppBoard from '@/views/AppBoard'
 import BoardList from '@/components/board/BoardList'
 import BoardView from '@/components/board/BoardView'
 import BoardModify from '@/components/board/BoardModify'
+import BoardWrite from '@/components/board/BoardWrite'
 
 
 
@@ -37,6 +38,11 @@ const routes = [
         path: 'modify/:no',
         name: 'modify',
         component: BoardModify
+      },
+      {
+        path: 'write',
+        name: 'write',
+        component: BoardWrite
       }
     ]
   },
@@ -53,7 +59,7 @@ const routes = [
   {
     path: "/notice",
     name: "notice",
-    component: BoardList
+    redirect: '/board'
   },
   {
     path: "/plan",

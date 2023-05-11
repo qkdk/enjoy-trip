@@ -1,5 +1,6 @@
 <template>
   <div class="about">
+    
     <div class="container-fluid p-5" style="margin-top: 15vh">
     <!-- 제목 컨테이너 -->
     <div class="container-fluid">
@@ -9,7 +10,7 @@
     <div style="display: flex; justify-content: space-between">
         <div>
             <button type="button" class="btn btn-outline-warning"
-                    id="btn-mv-register">글쓰기
+                    id="btn-mv-register" @click="mvWrite">글쓰기
             </button>
             <button type="button" class="btn btn-outline-warning" id="btn-sort">조회순
                 정렬하기
@@ -118,6 +119,11 @@
 import axios from 'axios';
 export default {
     name: "BoardList",
+    mounted() {
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js'
+      document.head.appendChild(script)
+    },
   data() {
     return {
       noticelist: [],
@@ -127,6 +133,9 @@ export default {
     mvView(no){
         this.$router.push('/board/view/'+no);
         console.log(no);
+    },
+    mvWrite(){
+        this.$router.push('/board/write');
     }
   },
   created() {
