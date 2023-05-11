@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import AppBoard from '@/views/AppBoard'
+import BoardList from '@/components/board/BoardList'
+import BoardView from '@/components/board/BoardView'
+
 
 Vue.use(VueRouter)
 
@@ -11,12 +15,22 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/board',
+    name: 'board',
+    component: AppBoard,
+    redirect: '/board/list',
+    children: [
+      {
+        path: 'list',
+        name: 'boardlist',
+        component: BoardList,
+      },
+      {
+        path: 'view/:no',
+        name: 'view',
+        component: BoardView
+      }
+    ]
   }
 ]
 
