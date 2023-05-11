@@ -55,7 +55,7 @@
                 <tr class="text-center" v-for="notice in noticelist" :key="notice.noticeNo">
                     <td aria-colindex="1" role="cell" class="tdClass">{{notice.noticeNo}}</td>
                     <td aria-colindex="2" role="cell" class="tdSubject"><a
-                            href="#" class="article-title"
+                            href="" class="article-title" @click="mvView(`${notice.noticeNo}`)"
                             > {{notice.noticeTitle}} </a></td>
                     <td aria-colindex="3" role="cell" class="tdClass">{{notice.userId}}</td>
                     <td aria-colindex="4" role="cell" class="tdClass">{{notice.noticeHit}}</td>
@@ -117,13 +117,17 @@
 <script>
 import axios from 'axios';
 export default {
+    name: "BoardList",
   data() {
     return {
       noticelist: [],
     }
   },
   methods: {
-    
+    mvView(no){
+        this.$router.push('/board/view/'+no);
+        console.log(no);
+    }
   },
   created() {
     axios.get("http://localhost:8080/enjoytrip/notice/api?pgno=1&key=&word=")

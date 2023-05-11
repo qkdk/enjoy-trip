@@ -8,11 +8,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -87,10 +87,12 @@ public class RestNoticeController {
 		}
 	}
 	
-	@PatchMapping("/modify")
+	@PutMapping("/modify")
 	public ResponseEntity<String> modify(int noticeNo, String noticeTitle, String noticeContent){
 		try {
+			System.out.println(noticeTitle);
 			noticeService.updateNotice(noticeNo, noticeTitle, noticeContent);
+			System.out.println(noticeTitle);
 			return ResponseEntity.ok("수정완료");
 		} catch (Exception e) {
 			return null;
