@@ -256,7 +256,15 @@
               </div>
               <!-- Modal footer -->
               <div class="modal-footer">
-                <button type="button" id="btn-join" class="btn btn-warning btn-sm">확인</button>
+                <button
+                  type="button"
+                  id="btn-join"
+                  class="btn btn-warning btn-sm"
+                  data-bs-dismiss="modal"
+                  @click="join()"
+                >
+                  확인
+                </button>
                 <button type="button" class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">
                   취소
                 </button>
@@ -350,7 +358,17 @@ export default {
         methods: "post",
         url: "http://localhost:8080/enjoytrip/user/api/join",
         data: this.joinDto,
-      });
+      })
+        .then((response) => {
+          if (response.data.result === true) {
+            alert(response.data.msg);
+          } else {
+            alert(response.data.msg);
+          }
+        })
+        .catch(() => {
+          alert("회원가입 오류");
+        });
     },
     // 로그인
   },
