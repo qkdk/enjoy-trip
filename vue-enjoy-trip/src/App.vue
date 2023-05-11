@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <trip-header></trip-header>
     <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
@@ -11,10 +12,12 @@
 
 <script>
 import TripFooter from "./components/TripFooter.vue";
+import TripHeader from "./components/TripHeader.vue";
 
 export default {
   components: {
     TripFooter,
+    TripHeader,
   },
 };
 </script>
