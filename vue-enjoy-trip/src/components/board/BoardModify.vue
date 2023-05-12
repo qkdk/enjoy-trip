@@ -49,58 +49,36 @@ export default {
     },
     methods: {
         modify(){
-            // console.log("asdads");
-            // var modUrl = `http://localhost:8080/enjoytrip/notice/api/modify?noticeNo=${this.notice.noticeNo}&noticeTitle=${this.notice.noticeTitle}&noticeContent=${this.notice.noticeContent}`;
-            // axios({
-            //     methods: 'pathch',
-            //     url: modUrl,
-            //     data:{
-            //         noticeNo: this.notice.noticeNo,
-            //         noticeTitle: this.notice.noticeTitle,
-            //         noticeContent: this.notice.noticeContent
-            //     }
-            // })
-            // const axios = require('axios');
+            axios.put('http://localhost:8080/enjoytrip/notice/api/modify',this.notice)
+             .then(({data}) => {
+                console.log(data);
+             })
+            
+//             const axios = require('axios');
+//             let data = JSON.stringify({
+//             "noticeNo": 1,
+//             "noticeTitle": "수정",
+//             "noticeContent": "내용"
+//             });
 
-            // let config = {
-            //     method: 'patch',
-            //     maxBodyLength: Infinity,
-            //     url: `http://localhost:8080/enjoytrip/notice/api/modify?noticeNo=${this.notice.noticeNo}&noticeTitle=${this.notice.noticeTitle}&noticeContent=${this.notice.noticeContent}`,
-            //     headers: { }
-            // };
+//             let config = {
+//             method: 'put',
+//             maxBodyLength: Infinity,
+//             url: `http://localhost:8080/enjoytrip/notice/api/modify?noticeNo=${this.notice.noticeNo}&noticeTitle=${this.notice.noticeTitle}&noticeContent=${this.notice.noticeContent}`,
+//             headers: { 
+//                 'Content-Type': 'application/json'
+//             },
+//             data : data
+//             };
 
-            // axios.request(config)
-            // .then((response) => {
-            // console.log(JSON.stringify(response.data));
-            // })
-            // .catch((error) => {
-            // console.log(error);
-            // });
-            const axios = require('axios');
-            let data = JSON.stringify({
-            "noticeNo": 1,
-            "noticeTitle": "수정",
-            "noticeContent": "내용"
-            });
-
-            let config = {
-            method: 'put',
-            maxBodyLength: Infinity,
-            url: `http://localhost:8080/enjoytrip/notice/api/modify?noticeNo=${this.notice.noticeNo}&noticeTitle=${this.notice.noticeTitle}&noticeContent=${this.notice.noticeContent}`,
-            headers: { 
-                'Content-Type': 'application/json'
-            },
-            data : data
-            };
-
-            axios.request(config)
-            .then((response) => {
-            console.log(JSON.stringify(response.data));
-            this.$router.push('/board');
-            })
-            .catch((error) => {
-            console.log(error);
-});
+//             axios.request(config)
+//             .then((response) => {
+//             console.log(JSON.stringify(response.data));
+//             this.$router.push('/board');
+//             })
+//             .catch((error) => {
+//             console.log(error);
+// });
             
         },
     },
