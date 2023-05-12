@@ -214,14 +214,14 @@ export default {
           imageOption
         ),
         markerPosition = new window.kakao.maps.LatLng(coordX, coordY), // 마커가 표시될 위치입니다
-        content = `<div style="height: 100px;width: 300px ">
+        content = `<div style="height: 100px;width: 350px ">
                     <div style="background-color: lightgrey">${element.title}</div>
                         <div style="display: flex; flex-direction: row">
                             <img style="width: 75px; height: 75px" src=${element.firstImage}></img>
                             <div>
                                 <span>${element.addr1}</span>
                                 <br/>
-                                <span>${element.zipcode}</span>
+                                <span>${element.zipCode}</span>
                                 <br/>
                                 <span>${element.tel}</span>
                             </div>
