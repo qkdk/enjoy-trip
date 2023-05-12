@@ -332,6 +332,7 @@
               id="btn-login"
               class="btn btn-warning btn-sm"
               data-bs-dismiss="modal"
+              @click="login()"
             >
               로그인
             </button>
