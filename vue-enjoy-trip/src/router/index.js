@@ -7,6 +7,7 @@ import BoardList from '@/components/board/BoardList'
 import BoardView from '@/components/board/BoardView'
 import BoardModify from '@/components/board/BoardModify'
 import BoardWrite from '@/components/board/BoardWrite'
+import AppMap from '@/views/AppMap'
 
 
 
@@ -49,7 +50,7 @@ const routes = [
   {
     path: "/attraction",
     name: "attraction",
-    // component: ...
+    component: AppMap
   },
   {
     path: "/hotplace",
