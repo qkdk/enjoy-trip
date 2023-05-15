@@ -3,6 +3,7 @@ package com.ssafy.enjoytrip.user.service;
 import com.ssafy.enjoytrip.user.dto.UserDto;
 import com.ssafy.enjoytrip.user.repository.UserRepository;
 import java.sql.SQLException;
+import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,4 +42,9 @@ public class UserServiceImpl implements UserService {
 	public void deleteMember(String userId) throws Exception {
 		session.getMapper(UserRepository.class).deleteMember(userId);
 	}
+
+    @Override
+    public List<String> getFollowers(String userId) {
+        return session.getMapper(UserRepository.class).getFollowers(userId);
+    }
 }

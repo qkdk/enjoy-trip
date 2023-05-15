@@ -2,6 +2,7 @@ package com.ssafy.enjoytrip.user.repository;
 
 import com.ssafy.enjoytrip.user.dto.UserDto;
 import java.sql.SQLException;
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,4 +18,6 @@ public interface UserRepository {
     void modify(UserDto userDto) throws Exception;
     
     void deleteMember(String userId) throws Exception;
+
+    List<String> getFollowers(String userId);
 }

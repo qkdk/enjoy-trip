@@ -2,6 +2,7 @@ package com.ssafy.enjoytrip.user.service;
 
 import com.ssafy.enjoytrip.user.dto.UserDto;
 import java.sql.SQLException;
+import java.util.List;
 
 public interface UserService {
 
@@ -14,4 +15,6 @@ public interface UserService {
 	void modify(UserDto userDto) throws Exception;
 	
 	void deleteMember(String userId) throws Exception;
+
+	List<String> getFollowers(String userId);
 }
