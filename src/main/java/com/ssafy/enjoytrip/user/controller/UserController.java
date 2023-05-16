@@ -34,30 +34,30 @@ public class UserController {
         return cnt + "";
     }
 
-    @PostMapping("/login")
-    public String login(String id, String pw, Model model, HttpSession session) throws Exception {
-        UserDto userDto = userService.loginUser(id, pw);
-        if (userDto == null) {
-            model.addAttribute(LoginConstant.LOGIN_MESSAGE_KEY.getValue(), LoginConstant.LOGIN_NOT_MATCH.getValue());
-        } else {
-            session.setAttribute(LoginConstant.LOGIN_ATTRIBUTE_NAME.getValue(), userDto);
-        }
-        return "redirect:/";
-    }
+//    @PostMapping("/login")
+//    public String login(String id, String pw, Model model, HttpSession session) throws Exception {
+//        UserDto userDto = userService.loginUser(id, pw);
+//        if (userDto == null) {
+//            model.addAttribute(LoginConstant.LOGIN_MESSAGE_KEY.getValue(), LoginConstant.LOGIN_NOT_MATCH.getValue());
+//        } else {
+//            session.setAttribute(LoginConstant.LOGIN_ATTRIBUTE_NAME.getValue(), userDto);
+//        }
+//        return "redirect:/";
+//    }
 
-    @PostMapping("/join")
-    public String join(String name, String id, String password, String passwordCheck, String email,
-            @RequestParam("email_domain") String emailDomain, Model model)
-            throws Exception {
-
-        if (password.equals(passwordCheck)) {
-            userService.joinUser(name, id, password, email, emailDomain);
-        } else {
-            model.addAttribute(LoginConstant.LOGIN_MESSAGE_KEY.getValue(), LoginConstant.LOGIN_NOT_MATCH.getValue());
-        }
-
-        return "redirect:/";
-    }
+//    @PostMapping("/join")
+//    public String join(String name, String id, String password, String passwordCheck, String email,
+//            @RequestParam("email_domain") String emailDomain, Model model)
+//            throws Exception {
+//
+//        if (password.equals(passwordCheck)) {
+//            userService.joinUser(name, id, password, email, emailDomain);
+//        } else {
+//            model.addAttribute(LoginConstant.LOGIN_MESSAGE_KEY.getValue(), LoginConstant.LOGIN_NOT_MATCH.getValue());
+//        }
+//
+//        return "redirect:/";
+//    }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {

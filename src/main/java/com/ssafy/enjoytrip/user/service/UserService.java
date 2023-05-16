@@ -1,20 +1,14 @@
 package com.ssafy.enjoytrip.user.service;
 
 import com.ssafy.enjoytrip.user.dto.UserDto;
-import java.sql.SQLException;
 import java.util.List;
+import org.springframework.security.core.userdetails.User;
 
 public interface UserService {
 
-    UserDto loginUser(String id, String pw) throws Exception;
-
-    int joinUser(String name, String id, String pw, String email, String emailDomain) throws Exception;
-    
-	int idCheck(String userId) throws Exception;
-	
-	void modify(UserDto userDto) throws Exception;
-	
-	void deleteMember(String userId) throws Exception;
-
+    int joinUser(UserDto userDto);
+	int idCheck(String userId);
+	void modify(UserDto userDto);
+	void deleteMember(String userId);
 	List<String> getFollowers(String userId);
 }

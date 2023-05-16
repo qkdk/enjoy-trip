@@ -2,49 +2,45 @@ package com.ssafy.enjoytrip.user.service;
 
 import com.ssafy.enjoytrip.user.dto.UserDto;
 import com.ssafy.enjoytrip.user.repository.UserRepository;
-import java.sql.SQLException;
 import java.util.List;
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private SqlSession session;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public UserServiceImpl(SqlSession session) {
-        this.session = session;
+
+    @Override
+    public int joinUser(UserDto userDto) {
+        if (userRepository.getUserByUserId(userDto.getUserId()).orElse(null) != null) {
+            throw new RuntimeException("이미 가입되어있는 유저입니다.");
+        }
+        userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
+        return userRepository.joinUser(userDto);
     }
 
     @Override
-    public UserDto loginUser(String id, String pw) throws Exception {
-        return session.getMapper(UserRepository.class).loginUser(id, pw);
+    public int idCheck(String userId) {
+        return userRepository.idCheck(userId);
     }
 
     @Override
-    public int joinUser(String name, String id, String pw, String email, String emailDomain) throws Exception {
-        return session.getMapper(UserRepository.class).joinUser(name, id, pw, email, emailDomain);
+    public void modify(UserDto userDto) {
+        userRepository.modify(userDto);
     }
 
-	@Override
-	public int idCheck(String userId) throws Exception {
-		return session.getMapper(UserRepository.class).idCheck(userId);
-	}
-
-	@Override
-	public void modify(UserDto userDto) throws Exception {
-		session.getMapper(UserRepository.class).modify(userDto);
-	}
-
-	@Override
-	public void deleteMember(String userId) throws Exception {
-		session.getMapper(UserRepository.class).deleteMember(userId);
-	}
+    @Override
+    public void deleteMember(String userId) {
+        userRepository.deleteMember(userId);
+    }
 
     @Override
     public List<String> getFollowers(String userId) {
-        return session.getMapper(UserRepository.class).getFollowers(userId);
+        return userRepository.getFollowers(userId);
     }
 }

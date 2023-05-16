@@ -38,13 +38,7 @@ public class RestUserController {
 
     @PostMapping("/join")
     public ResponseEntity<String> join(@RequestBody UserDto userDto) {
-        try {
-            userService.joinUser(userDto.getUserName(), userDto.getUserId(), userDto.getUserPw(),
-                    userDto.getUserEmail(),
-                    userDto.getUserDomain());
-        } catch (Exception e) {
-            return new ResponseEntity<>("회원가입에 오류가 있습니다.", HttpStatus.BAD_REQUEST);
-        }
+        userService.joinUser(userDto);
         return new ResponseEntity<>("회원가입에 성공했습니다.", HttpStatus.OK);
     }
 
