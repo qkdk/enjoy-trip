@@ -3,6 +3,8 @@ package com.ssafy.enjoytrip.user.controller;
 import com.ssafy.enjoytrip.enums.LoginConstant;
 import com.ssafy.enjoytrip.user.dto.UserDto;
 import com.ssafy.enjoytrip.user.service.UserService;
+import com.ssafy.enjoytrip.util.ResponseTemplate;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,5 +74,31 @@ public class RestUserController {
             return new ResponseEntity<>("비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("회원이 삭제되었습니다.", HttpStatus.OK);
+    }
+
+    @GetMapping("/followers/{userId}")
+    public ResponseEntity<?> getFollowers(@PathVariable String userId) {
+        try {
+            List<String> followees = userService.getFollowers(userId);
+            ResponseTemplate<List<String>> body = ResponseTemplate.<List<String>>builder()
+                    .result(true)
+                    .msg("팔로우 불러오기가 성공했습니다.")
+                    .data(followees)
+                    .build();
+
+            return new ResponseEntity<>(body, HttpStatus.OK);
+
+        } catch (Exception e) {
+            StackTraceElement[] stackTrace = e.getStackTrace();
+            for (StackTraceElement element : stackTrace) {
+                System.out.println(element.toString());
+            }
+            ResponseTemplate<?> body = ResponseTemplate.builder()
+                    .result(false)
+                    .msg("팔로우 불러오기기 실패했습니다.")
+                    .build();
+
+            return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        }
     }
 }

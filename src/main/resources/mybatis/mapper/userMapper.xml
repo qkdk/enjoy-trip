@@ -1,40 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssafy.enjoytrip.user.repository.UserRepository">
-	<resultMap id="userMap" type="userDto">
-		<result column="user_id" property="userId" javaType="String" jdbcType="VARCHAR"/>
-		<result column="user_pw" property="userPw" javaType="String" jdbcType="VARCHAR"/>
-		<result column="user_name" property="userName" javaType="String" jdbcType="VARCHAR"/>
-		<result column="user_email" property="userEmail" javaType="String" jdbcType="VARCHAR"/>
-		<result column="user_domain" property="userDomain" javaType="String" jdbcType="VARCHAR"/>
-		<result column="user_role" property="userRole" javaType="String" jdbcType="VARCHAR"/>
-	</resultMap>
+  <resultMap id="userMap" type="userDto">
+    <result column="user_id" property="userId" javaType="String" jdbcType="VARCHAR"/>
+    <result column="user_pw" property="userPw" javaType="String" jdbcType="VARCHAR"/>
+    <result column="user_name" property="userName" javaType="String" jdbcType="VARCHAR"/>
+    <result column="user_email" property="userEmail" javaType="String" jdbcType="VARCHAR"/>
+    <result column="user_domain" property="userDomain" javaType="String" jdbcType="VARCHAR"/>
+    <result column="user_role" property="userRole" javaType="String" jdbcType="VARCHAR"/>
+  </resultMap>
 
-	<select id="loginUser" resultMap="userMap">
-		SELECT * FROM user WHERE user_id = #{user_id} and user_pw = #{user_pw}
-	</select>
+  <select id="loginUser" resultMap="userMap">
+    SELECT *
+    FROM user
+    WHERE user_id = #{user_id}
+      and user_pw = #{user_pw}
+  </select>
 
-	<insert id="joinUser">
-		INSERT INTO user (user_id, user_pw, user_name, user_email, user_domain)
-		VALUES (#{user_id}, #{user_pw}, #{user_name}, #{user_email}, #{user_domain})
-	</insert>
-	
-	<select id="idCheck" parameterType="String" resultType="int">
-		SELECT COUNT(user_id)
-		FROM user
-		WHERE user_id = #{userId}
-	</select>
-	
-	<update id="modify">
-		UPDATE user SET user_pw = #{userPw}, user_name = #{userName}, user_email = #{userEmail}, user_domain = #{userDomain}
-		WHERE user_id = #{userId}
-	</update>
-	
-	<delete id="deleteMember">
-		DELETE FROM user
-		WHERE user_id = #{userId}
-	</delete>
-	
+  <insert id="joinUser">
+    INSERT INTO user (user_id, user_pw, user_name, user_email, user_domain)
+    VALUES (#{user_id}, #{user_pw}, #{user_name}, #{user_email}, #{user_domain})
+  </insert>
+
+  <select id="idCheck" parameterType="String" resultType="int">
+    SELECT COUNT(user_id)
+    FROM user
+    WHERE user_id = #{userId}
+  </select>
+
+  <update id="modify">
+    UPDATE user
+    SET user_pw     = #{userPw},
+        user_name   = #{userName},
+        user_email  = #{userEmail},
+        user_domain = #{userDomain}
+    WHERE user_id = #{userId}
+  </update>
+
+  <delete id="deleteMember">
+    DELETE
+    FROM user
+    WHERE user_id = #{userId}
+  </delete>
+
+  <select id="getFollowers" resultType="string">
+    SELECT followee_id
+    FROM follow
+    WHERE follower_id = #{userId};
+
+  </select>
+
 </mapper>

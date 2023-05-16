@@ -107,7 +107,7 @@ export default {
     getCityCode() {
       const city_sel = document.querySelector("#city_sel");
       axios({
-        methods: "get",
+        method: "get",
         url: `${baseUrl}/attraction/getcode`,
       }).then(({ data }) =>
         data.forEach(
@@ -126,7 +126,7 @@ export default {
             document.querySelector("#city_sel").selectedIndex
           ].value;
         axios({
-          methods: `get`,
+          method: `get`,
           url: `${baseUrl}/attraction/getcode/${this.city_code}`,
         }).then(({ data }) =>
           data.forEach(
@@ -156,7 +156,7 @@ export default {
       var positions = [];
 
       this.setMarkers(null);
-      axios({ methods: "get", url: `${url}` })
+      axios({ method: "get", url: `${url}` })
         .then(({ data }) => {
           this.mapContainer = document.getElementById("map"); // 지도를 표시할 div
           this.mapOption = {
