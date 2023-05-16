@@ -75,13 +75,12 @@ public class RestNoticeController {
 	}
 	
 	@PostMapping("/write")
-	public ResponseEntity<String> write(@RequestBody String noticeTitle, @RequestBody String noticeContent, HttpSession session){
+	public ResponseEntity<String> write(@RequestBody NoticeDto noticeDto){
 		try {
-			UserDto userDto = (UserDto) session.getAttribute(LoginConstant.LOGIN_ATTRIBUTE_NAME.getValue());
-			NoticeDto noticeDto = new NoticeDto();
-	    	noticeDto.setNoticeTitle(noticeTitle);
-	    	noticeDto.setNoticeContent(noticeContent);
-	    	noticeDto.setUserId(userDto.getUserId());
+//			UserDto userDto = (UserDto) session.getAttribute(LoginConstant.LOGIN_ATTRIBUTE_NAME.getValue());
+	    	noticeDto.setNoticeTitle(noticeDto.getNoticeTitle());
+	    	noticeDto.setNoticeContent(noticeDto.getNoticeContent());
+	    	noticeDto.setUserId(noticeDto.getUserId());
 	    	noticeService.writeNotice(noticeDto);
 	    	return ResponseEntity.ok("글쓰기 완료");
 		} catch (Exception e) {
