@@ -1,7 +1,7 @@
 package com.ssafy.enjoytrip.plan.repository;
 
-import com.ssafy.enjoytrip.plan.dto.PlanListResponseDto;
-import com.ssafy.enjoytrip.plan.dto.PlanWriteRequestDto;
+import com.ssafy.enjoytrip.plan.dto.PlanDetailDto;
+import com.ssafy.enjoytrip.plan.dto.PlanDto;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,5 +13,8 @@ public interface PlanRepository{
 
     int insertPlanDetail(Map map);
 
-    List<PlanListResponseDto> getPlan(String key, String word, int offset, int limit);
+    List<PlanDto> getPlan(String key, String word, int offset, int limit);
+
+    PlanDetailDto getPlanAndAttractionsByPlanNo(int planNo);
+
 }

@@ -1,7 +1,7 @@
 package com.ssafy.enjoytrip.plan.controller;
 
 import com.ssafy.enjoytrip.enums.LoginConstant;
-import com.ssafy.enjoytrip.plan.dto.PlanListResponseDto;
+import com.ssafy.enjoytrip.plan.dto.PlanDto;
 import com.ssafy.enjoytrip.plan.dto.PlanWriteRequestDto;
 import com.ssafy.enjoytrip.plan.service.PlanService;
 import com.ssafy.enjoytrip.user.dto.UserDto;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,22 +44,25 @@ public class PlanController {
     @GetMapping("/view")
     public ResponseEntity<?> listPlan(int pgno, String key, String word) {
         try {
-            List<PlanListResponseDto> planListResponseDtos = planService.listPlan(pgno, key, word);
-            ResponseTemplate<List<PlanListResponseDto>> body = ResponseTemplate.<List<PlanListResponseDto>>builder()
+            List<PlanDto> planDtos = planService.listPlan(pgno, key, word);
+            ResponseTemplate<List<PlanDto>> body = ResponseTemplate.<List<PlanDto>>builder()
                     .msg("계획 읽기에 성공했습니다.")
                     .result(true)
-                    .data(planListResponseDtos)
+                    .data(planDtos)
                     .build();
             return new ResponseEntity<>(body, HttpStatus.OK);
         } catch (Exception e) {
-            ResponseTemplate<List<PlanListResponseDto>> body = ResponseTemplate.<List<PlanListResponseDto>>builder()
+            ResponseTemplate<List<PlanDto>> body = ResponseTemplate.<List<PlanDto>>builder()
                     .msg("계획 읽기에 실패했습니다.")
                     .result(false)
                     .build();
             return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
         }
-
-
     }
 
+    @GetMapping("/view/{planNo}")
+    public ResponseEntity<?> viewPlan(@PathVariable int planNo) {
+        planService.viewPlan(planNo);
+        return null;
+    }
 }

@@ -2,7 +2,8 @@ package com.ssafy.enjoytrip.plan.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.enjoytrip.enums.PageConstant;
-import com.ssafy.enjoytrip.plan.dto.PlanListResponseDto;
+import com.ssafy.enjoytrip.plan.dto.PlanDetailDto;
+import com.ssafy.enjoytrip.plan.dto.PlanDto;
 import com.ssafy.enjoytrip.plan.dto.PlanWriteRequestDto;
 import com.ssafy.enjoytrip.plan.repository.PlanRepository;
 import java.util.List;
@@ -32,8 +33,16 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
 
-    public List<PlanListResponseDto> listPlan(int pgno, String key, String word) {
+    public List<PlanDto> listPlan(int pgno, String key, String word) {
         return planRepository.getPlan(key, word,
                 (pgno - 1) * PageConstant.LIST_SIZE.getValue(), PageConstant.LIST_SIZE.getValue());
+    }
+
+    @Override
+    public PlanDetailDto viewPlan(int planNo) {
+        PlanDetailDto planAndAttractionsByPlanNo = planRepository.getPlanAndAttractionsByPlanNo(planNo);
+        System.out.println(planAndAttractionsByPlanNo);
+
+        return null;
     }
 }

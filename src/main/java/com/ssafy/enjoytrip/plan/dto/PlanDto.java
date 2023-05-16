@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class PlanListResponseDto {
+public class PlanDto {
 
     private String userId;
     private int planId;

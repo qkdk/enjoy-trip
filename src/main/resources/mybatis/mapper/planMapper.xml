@@ -4,13 +4,18 @@
 
 <mapper namespace="com.ssafy.enjoytrip.plan.repository.PlanRepository">
 
-  <resultMap id="planMap" type="planListResponseDto">
+  <resultMap id="planMap" type="planDto">
     <result column="user_id" property="userId"/>
     <result column="plan_id" property="planId"/>
     <result column="plan_title" property="planTitle"/>
     <result column="recommend_count" property="recommendCount"/>
     <result column="hit" property="hit"/>
     <result column="create_time" property="createTime"/>
+  </resultMap>
+
+  <resultMap id="planDetailMap" type="planDetailDto">
+<!--    <collection property="planInfo" resultMap="planDto"></collection>-->
+    <collection property="attractionList  " resultMap="attractionDto"></collection>
   </resultMap>
 
   <insert id="insertPlan" parameterType="map" useGeneratedKeys="true" keyColumn="plan_id"
@@ -33,5 +38,13 @@
       WHERE ${key} LIKE concat('%', #{word}, '%')
     </if>
     LIMIT #{offset}, #{limit};
+  </select>
+
+  <select id="getPlanAndAttractionsByPlanNo" resultMap="planDetailMap">
+    SELECT *
+    FROM trip_plan_detail
+           JOIN attraction_info USING (content_id)
+    WHERE plan_id = #{planId}
+    order by priority;
   </select>
 </mapper>
