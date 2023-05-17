@@ -15,6 +15,7 @@
     <typeAlias type="com.ssafy.enjoytrip.plan.dto.PlanWriteRequestDto" alias="planWriteRequestDto"/>
     <typeAlias type="com.ssafy.enjoytrip.plan.dto.PlanDto" alias="planDto"/>
     <typeAlias type="com.ssafy.enjoytrip.plan.dto.PlanDetailDto" alias="planDetailDto"/>
+    <typeAlias type="com.ssafy.enjoytrip.trail.dto.TrailInputDto" alias="trailInputDto"/>
   </typeAliases>
 
   <mappers>
@@ -23,5 +24,6 @@
     <mapper resource="mybatis/mapper/AttractionMapper.xml"/>
     <mapper resource="mybatis/mapper/PlaceMapper.xml"/>
     <mapper resource="mybatis/mapper/planMapper.xml"/>
+    <mapper resource="mybatis/mapper/trailMapper.xml"/>
   </mappers>
 </configuration>

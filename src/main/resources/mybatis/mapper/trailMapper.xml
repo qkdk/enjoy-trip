@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.enjoytrip.trail.repository.TrailRepository">
+
+  <insert id="insertData" parameterType="list">
+    INSERT INTO trail(title, description, total_length, estimated_time, start_name, start_sido_code,
+    start_gugun_code, start_detail_addr, end_name, end_sido_code, end_gugun_code,
+    end_detail_addr, route, tel, manage_name, add_date, provide_code,
+    provide_name)
+    VALUES
+    <foreach collection="list" item="dto" separator=",">
+      (#{dto.title},#{dto.description},#{dto.total_length},#{dto.estimated_time},#{dto.start_name},#{dto.start_sido_code},
+       #{dto.start_gugun_code},#{dto.start_detail_addr},#{dto.end_name},#{dto.end_sido_code},#{dto.end_gugun_code},
+       #{dto.end_detail_addr},#{dto.route},#{dto.tel},#{dto.manage_name},#{dto.add_date},#{dto.provide_code}, #{dto.provide_name})
+    </foreach>
+  </insert>
+
+</mapper>
