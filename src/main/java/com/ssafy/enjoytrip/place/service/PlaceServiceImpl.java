@@ -73,7 +73,9 @@ public class PlaceServiceImpl implements PlaceService {
 
 	@Override
 	public void writePlace(PlaceDto placeDto) throws Exception {
+		System.out.println("서비스 시작"+placeDto);
 		session.getMapper(PlaceRepository.class).writePlace(placeDto);
+		System.out.println("서비스 종료");
 	}
 
 
@@ -128,6 +130,12 @@ public class PlaceServiceImpl implements PlaceService {
 	@Override
 	public void writeReply(ReplyDto replyDto) throws Exception {
 		session.getMapper(PlaceRepository.class).writeReply(replyDto);
+	}
+
+
+	@Override
+	public List<PlaceDto> getList() throws Exception {
+		return session.getMapper(PlaceRepository.class).getList();
 	}
 
 }

@@ -29,6 +29,9 @@
 		WHERE place_no = #{placeNo}
 	</select>
 	
+	<select id="getList" resultMap="placeMap">
+		SELECT * FROM place
+	</select>
 	
 	
 	<select id="getTotalPlaceCount" resultType="int">

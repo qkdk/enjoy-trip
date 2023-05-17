@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -17,8 +15,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +27,8 @@ import com.ssafy.enjoytrip.place.dto.ReplyDto;
 import com.ssafy.enjoytrip.place.service.PlaceService;
 import com.ssafy.enjoytrip.user.dto.UserDto;
 import com.ssafy.enjoytrip.util.PageNavigation;
+import com.ssafy.enjoytrip.util.ResponseTemplate;
+
 
 @RestController
 @RequestMapping("/place/api")
@@ -55,20 +57,39 @@ public class RestPlaceController {
 		}
 	}
 	
-	@GetMapping("")
-	public ResponseEntity<Map<String, Object>> list(String pgno, String key, String word){
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<PlaceDto> placeList = null;
+//	@GetMapping("")
+//	public ResponseEntity<Map<String, Object>> list(String pgno, String key, String word){
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		List<PlaceDto> placeList = null;
+//		try {
+//			placeList = placeService.list(pgno, key, word);
+//			PageNavigation navigation = placeService.makePageNavigation(pgno, key, word);
+//			map.put("data", placeList);
+//			map.put("page", navigation);
+//			map.put("msg", "조회성공");
+//			return ResponseEntity.ok(map);
+//		} catch (Exception e) {
+//			return null;
+//		}
+//	}
+	@GetMapping
+	public ResponseEntity<?> list(){
+		List<PlaceDto> list = null;
 		try {
-			placeList = placeService.list(pgno, key, word);
-			PageNavigation navigation = placeService.makePageNavigation(pgno, key, word);
-			map.put("data", placeList);
-			map.put("page", navigation);
-			map.put("msg", "조회성공");
-			return ResponseEntity.ok(map);
+			list = placeService.getList();
+			return new ResponseEntity<>(ResponseTemplate.builder()
+					.result(true)
+					.msg("성공")
+					.data(list)
+					.build(),HttpStatus.OK);
 		} catch (Exception e) {
-			return null;
+			return new ResponseEntity<>(ResponseTemplate.builder()
+                    .result(false)
+                    .msg("실패")
+                    .build(),
+                    HttpStatus.OK);
 		}
+		
 	}
 	@GetMapping("/{placeNo}")
 	public ResponseEntity<Map<String, Object>> view(int placeNo){
@@ -96,16 +117,18 @@ public class RestPlaceController {
 		}
 	}
 	
+	
 	@PostMapping("/write")
-	public ResponseEntity<String> write(String placeTitle, String placeContent
-		,@RequestParam("upfile") MultipartFile[] files, HttpSession session){
+	public ResponseEntity<String> write(String placeTitle, String placeContent, String userId
+			,@RequestParam("upfile") MultipartFile[] files){
 		try {
-			UserDto userDto = (UserDto) session.getAttribute("userDto");
 			PlaceDto placeDto = new PlaceDto();
 			placeDto.setPlaceTitle(placeTitle);
 			placeDto.setPlaceContent(placeContent);
-			placeDto.setUserId(userDto.getUserId());
+			placeDto.setUserId(userId);
+			System.out.println(placeDto);
 			placeService.writePlace(placeDto);
+			System.out.println(placeDto);
 			int placeNo = placeService.lastIndex();
 			if (!files[0].isEmpty()) {
 				String saveFolder = uploadPath + File.separator;
@@ -128,9 +151,11 @@ public class RestPlaceController {
 			}
 			return ResponseEntity.ok("글쓰기 완료");
 		} catch (Exception e) {
+			System.out.println("왜 안되는거임");
 			return null;
 		}
 	}
+	
 	
 	@PatchMapping("/modify")
 	public ResponseEntity<String> modify(int placeNo, String placeTitle, String placeContent,
