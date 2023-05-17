@@ -17,7 +17,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.OAS_30)
                 .useDefaultResponseMessages(false)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.ssafy.enjoytrip.**"))
+                .apis(RequestHandlerSelectors.basePackage("com.ssafy.enjoytrip"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());
@@ -25,8 +25,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Practice Swagger")
-                .description("practice swagger config")
+                .title("EnjoyTrip APIs")
+                .description("걸어서 세계 속으로")
                 .version("1.0")
                 .build();
     }
