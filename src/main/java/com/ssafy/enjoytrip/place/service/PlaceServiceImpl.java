@@ -28,8 +28,8 @@ public class PlaceServiceImpl implements PlaceService {
 	@Override
 	public List<PlaceDto> list(String pgno, String key, String word) throws Exception {
 		return session.getMapper(PlaceRepository.class)
-                .getPlace((Integer.parseInt(pgno) - 1) * PageConstant.LIST_SIZE.getValue(),
-                        PageConstant.LIST_SIZE.getValue(), key, word);
+                .getPlace((Integer.parseInt(pgno) - 1) * (PageConstant.LIST_SIZE.getValue()-11),
+                        PageConstant.LIST_SIZE.getValue()-11, key, word);
 	}
 
 
@@ -41,7 +41,7 @@ public class PlaceServiceImpl implements PlaceService {
         pageNavigation.setKey(key);
 
         int naviSize = PageConstant.NAVIGATION_SIZE.getValue();
-        int sizePerPage = PageConstant.LIST_SIZE.getValue();
+        int sizePerPage = PageConstant.LIST_SIZE.getValue()-11;
         int currentPage = Integer.parseInt(pgno);
 
         pageNavigation.setCurrentPage(currentPage);
@@ -73,9 +73,7 @@ public class PlaceServiceImpl implements PlaceService {
 
 	@Override
 	public void writePlace(PlaceDto placeDto) throws Exception {
-		System.out.println("서비스 시작"+placeDto);
 		session.getMapper(PlaceRepository.class).writePlace(placeDto);
-		System.out.println("서비스 종료");
 	}
 
 

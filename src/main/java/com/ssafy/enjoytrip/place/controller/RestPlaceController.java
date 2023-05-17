@@ -57,40 +57,40 @@ public class RestPlaceController {
 		}
 	}
 	
-//	@GetMapping("")
-//	public ResponseEntity<Map<String, Object>> list(String pgno, String key, String word){
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		List<PlaceDto> placeList = null;
-//		try {
-//			placeList = placeService.list(pgno, key, word);
-//			PageNavigation navigation = placeService.makePageNavigation(pgno, key, word);
-//			map.put("data", placeList);
-//			map.put("page", navigation);
-//			map.put("msg", "조회성공");
-//			return ResponseEntity.ok(map);
-//		} catch (Exception e) {
-//			return null;
-//		}
-//	}
-	@GetMapping
-	public ResponseEntity<?> list(){
-		List<PlaceDto> list = null;
+	@GetMapping("")
+	public ResponseEntity<Map<String, Object>> list(String pgno, String key, String word){
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<PlaceDto> placeList = null;
 		try {
-			list = placeService.getList();
-			return new ResponseEntity<>(ResponseTemplate.builder()
-					.result(true)
-					.msg("성공")
-					.data(list)
-					.build(),HttpStatus.OK);
+			placeList = placeService.list(pgno, key, word);
+			PageNavigation navigation = placeService.makePageNavigation(pgno, key, word);
+			map.put("data", placeList);
+			map.put("page", navigation);
+			map.put("msg", "조회성공");
+			return ResponseEntity.ok(map);
 		} catch (Exception e) {
-			return new ResponseEntity<>(ResponseTemplate.builder()
-                    .result(false)
-                    .msg("실패")
-                    .build(),
-                    HttpStatus.OK);
+			return null;
 		}
-		
 	}
+//	@GetMapping
+//	public ResponseEntity<?> list(){
+//		List<PlaceDto> list = null;
+//		try {
+//			list = placeService.getList();
+//			return new ResponseEntity<>(ResponseTemplate.builder()
+//					.result(true)
+//					.msg("성공")
+//					.data(list)
+//					.build(),HttpStatus.OK);
+//		} catch (Exception e) {
+//			return new ResponseEntity<>(ResponseTemplate.builder()
+//                    .result(false)
+//                    .msg("실패")
+//                    .build(),
+//                    HttpStatus.OK);
+//		}
+//		
+//	}
 	@GetMapping("/{placeNo}")
 	public ResponseEntity<Map<String, Object>> view(int placeNo){
 		Map<String, Object> map = new HashMap<String, Object>();
