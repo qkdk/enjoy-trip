@@ -2,7 +2,9 @@ package com.ssafy.enjoytrip.user.service;
 
 import com.ssafy.enjoytrip.user.dto.UserDto;
 import com.ssafy.enjoytrip.user.repository.UserRepository;
+import com.ssafy.enjoytrip.util.SecurityUtil;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void modify(UserDto userDto) {
+        Optional<String> currentUserId = SecurityUtil.getCurrentUserId();
+        currentUserId.ifPresent(userDto::setUserId);
+
+        userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
         userRepository.modify(userDto);
     }
 

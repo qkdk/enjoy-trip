@@ -55,7 +55,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/user/api/join").permitAll()
-                .anyRequest().authenticated()
+//                .anyRequest().authenticated()
 
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider))

@@ -4,8 +4,10 @@ import com.ssafy.enjoytrip.enums.LoginConstant;
 import com.ssafy.enjoytrip.user.dto.UserDto;
 import com.ssafy.enjoytrip.user.service.UserService;
 import com.ssafy.enjoytrip.util.ResponseTemplate;
+import com.ssafy.enjoytrip.util.SecurityUtil;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,14 +45,15 @@ public class RestUserController {
     }
 
     @PatchMapping("/modify")
-    public ResponseEntity<String> modify(HttpSession session, @RequestBody UserDto userDto) {
-        session.invalidate();
-        try {
-            userService.modify(userDto);
-        } catch (Exception e) {
-            return new ResponseEntity<>("정보수정에 오류가 있습니다.", HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>("정보수정에 성공했습니다.", HttpStatus.OK);
+    public ResponseEntity<?> modify(@RequestBody UserDto userDto) {
+        userService.modify(userDto);
+
+        return new ResponseEntity<>(
+                ResponseTemplate.builder()
+                        .result(true)
+                        .msg("정보 수정에 성공했습니다.")
+                        .build(),
+                HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")

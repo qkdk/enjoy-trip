@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TokenProvider implements InitializingBean {
 
-    private static final String AUTHORITIES_KEY = "aa";
+    private static final String AUTHORITIES_KEY = "auth";
     private final Logger LOGGER = LoggerFactory.getLogger(TokenProvider.class);
 
     private final String secret;
@@ -78,7 +78,7 @@ public class TokenProvider implements InitializingBean {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
 
         List<SimpleGrantedAuthority> authorities = Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
@@ -93,7 +93,7 @@ public class TokenProvider implements InitializingBean {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJwt(token);
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException exception) {
             LOGGER.info("잘못된 jwt 서명입니다.");
