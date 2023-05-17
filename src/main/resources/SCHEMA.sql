@@ -252,12 +252,12 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`trail` (
   `tel` VARCHAR(45) NULL DEFAULT NULL,
   `manage_name` VARCHAR(45) NULL DEFAULT NULL,
   `add_date` VARCHAR(45) NULL DEFAULT NULL,
-  `provide_code` INT NULL DEFAULT NULL,
+  `provide_code` VARCHAR(20) NULL DEFAULT NULL,
   `provide_name` VARCHAR(45) NULL DEFAULT NULL,
-  `start_detail_addr` VARCHAR(45) NULL DEFAULT NULL,
+  `start_detail_addr` VARCHAR(100) NULL DEFAULT NULL,
   `end_detail_addr` VARCHAR(45) NULL DEFAULT NULL,
-  `recomend` INT NULL DEFAULT 0,
-  `total_length` VARCHAR(45) NULL,
+  `recomend` INT NULL DEFAULT '0',
+  `total_length` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`trail_id`),
   INDEX `fk_start_sido_code_idx` (`start_sido_code` ASC) VISIBLE,
   INDEX `fk_end_sido_code_idx` (`end_sido_code` ASC) VISIBLE,
@@ -276,6 +276,7 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`trail` (
     FOREIGN KEY (`start_sido_code`)
     REFERENCES `enjoytrip`.`sido` (`sido_code`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 3787
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
