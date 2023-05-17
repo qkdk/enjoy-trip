@@ -76,9 +76,10 @@ public class RestNoticeController {
     public ResponseEntity<String> write(@RequestBody NoticeDto noticeDto){
         try {
 //			UserDto userDto = (UserDto) session.getAttribute(LoginConstant.LOGIN_ATTRIBUTE_NAME.getValue());
-	    	noticeDto.setNoticeTitle(noticeDto.getNoticeTitle());
-	    	noticeDto.setNoticeContent(noticeDto.getNoticeContent());
-	    	noticeDto.setUserId(noticeDto.getUserId());
+//	    	noticeDto.setNoticeTitle(noticeDto.getNoticeTitle());
+//	    	noticeDto.setNoticeContent(noticeDto.getNoticeContent());
+//	    	noticeDto.setUserId(noticeDto.getUserId());
+        	System.out.println(noticeDto);
             noticeService.writeNotice(noticeDto);
             return ResponseEntity.ok("글쓰기 완료");
         } catch (Exception e) {

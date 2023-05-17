@@ -10,6 +10,8 @@ import com.ssafy.enjoytrip.util.PageNavigation;
 public interface PlaceService {
 	List<PlaceDto> list(String pgno, String key, String word) throws Exception;
 
+	List<PlaceDto> getList() throws Exception;
+	
 	PageNavigation makePageNavigation(String pgno, String key, String word) throws Exception;
 
 	PlaceDto getPlaceByPlaceNo(int placeNo) throws SQLException;

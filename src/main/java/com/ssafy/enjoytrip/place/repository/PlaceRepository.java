@@ -13,6 +13,8 @@ public interface PlaceRepository {
 
 	List<PlaceDto> getPlace(int offset, int limit, String key, String word) throws Exception;
 
+	List<PlaceDto> getList() throws Exception;
+	
 	int getTotalPlaceCount(String key, String word) throws SQLException;
 	
 	PlaceDto getPlaceByPlaceNo(int placeNo) throws SQLException;
