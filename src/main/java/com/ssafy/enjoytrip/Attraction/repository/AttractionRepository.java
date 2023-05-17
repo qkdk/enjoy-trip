@@ -22,4 +22,8 @@ public interface AttractionRepository {
     List<SidoCodeDto> getSidoCodeAndName();
 
     List<GugunCodeDto> getGugunCodeAndNameBySidoCode(int sidoCode);
+
+    int getSidoCodeBySidoName(String sidoName);
+
+    int getGugunCodeBySidoCodeAndGugunName(String gugunName, int sidoCode);
 }
