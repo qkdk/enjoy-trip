@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,6 +65,12 @@ public class RestPlaceController {
 		try {
 			placeList = placeService.list(pgno, key, word);
 			PageNavigation navigation = placeService.makePageNavigation(pgno, key, word);
+			for (int i = 0; i < placeList.size(); i++) {
+				int placeNo = placeList.get(i).getPlaceNo();
+				if(placeService.getPlaceByPlaceNo(placeNo) != null) {
+					placeList.get(i).setPlaceImgSrc("http://localhost:8080/enjoytrip/upload/"+placeService.getPlaceByPlaceNo(placeNo).getPlaceImgSrc());
+				}
+			}
 			map.put("data", placeList);
 			map.put("page", navigation);
 			map.put("msg", "조회성공");
@@ -91,23 +98,43 @@ public class RestPlaceController {
 //		}
 //		
 //	}
+//	@GetMapping("/{placeNo}")
+//	public ResponseEntity<Map<String, Object>> view(@PathVariable int placeNo){
+//		System.out.println("asdasdasdasd");
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		List<ReplyDto> replyList = null;
+//		try {
+//			PlaceDto placeDto = placeService.getPlaceByPlaceNo(placeNo);
+//			if(placeDto == null) {
+//				placeDto = placeService.view(placeNo);
+//				placeDto.setPlaceImgSrc(null);
+//			}
+//			System.out.println(placeDto);
+//			System.out.println(replyList);
+//			replyList = placeService.replyList(placeNo);
+//			System.out.println(replyList);
+//			System.out.println(replyList.get(0));
+//			System.out.println("ASDASDA");
+//			map.put("place", placeDto);
+//			map.put("reply", replyList);
+//			map.put("msg", "조회성공");
+//			return new ResponseEntity<>(map, HttpStatus.OK);
+//		} catch (Exception e) {
+//			map.put("msg", "조회실패");
+//			return new ResponseEntity<Map<String,Object>>(map, HttpStatus.BAD_REQUEST);
+//		}
+//	}
 	@GetMapping("/{placeNo}")
-	public ResponseEntity<Map<String, Object>> view(int placeNo){
+	public ResponseEntity<Map<String, Object>> view(@PathVariable int placeNo){
+		System.out.println("asdasdasdasd");
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<ReplyDto> replyList = null;
 		try {
-			PlaceDto placeDto = placeService.getPlaceByPlaceNo(placeNo);
-			if(placeDto == null) {
-				placeDto = placeService.view(placeNo);
-				placeDto.setPlaceImgSrc(null);
-			}
-			System.out.println(placeDto);
 			System.out.println(replyList);
+			System.out.println(placeNo);
 			replyList = placeService.replyList(placeNo);
-			System.out.println(replyList);
-			System.out.println(replyList.get(0));
+			System.out.println("종료");
 			System.out.println("ASDASDA");
-			map.put("place", placeDto);
 			map.put("reply", replyList);
 			map.put("msg", "조회성공");
 			return new ResponseEntity<>(map, HttpStatus.OK);
@@ -118,10 +145,13 @@ public class RestPlaceController {
 	}
 	
 	
+	
+	
 	@PostMapping("/write")
 	public ResponseEntity<String> write(String placeTitle, String placeContent, String userId
 			,@RequestParam("upfile") MultipartFile[] files){
 		try {
+			System.out.println("asdasd");
 			PlaceDto placeDto = new PlaceDto();
 			placeDto.setPlaceTitle(placeTitle);
 			placeDto.setPlaceContent(placeContent);
@@ -130,6 +160,7 @@ public class RestPlaceController {
 			placeService.writePlace(placeDto);
 			System.out.println(placeDto);
 			int placeNo = placeService.lastIndex();
+			System.out.println(placeNo);
 			if (!files[0].isEmpty()) {
 				String saveFolder = uploadPath + File.separator;
 				File folder = new File(saveFolder);
@@ -192,7 +223,7 @@ public class RestPlaceController {
 	}
 	
 	@PostMapping("/reply")
-	public ResponseEntity<String> reply(ReplyDto replyDto){
+	public ResponseEntity<String> reply(@RequestBody ReplyDto replyDto){
 		try {
 			placeService.writeReply(replyDto);
 			return new ResponseEntity<String>("작성성공", HttpStatus.OK);
