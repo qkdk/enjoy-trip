@@ -39,13 +39,18 @@ public class RestUserController {
 
     @PostMapping("/join")
     public ResponseEntity<?> join(@RequestBody JoinDto joinDto) {
-        userService.joinUser(joinDto);
+        try {
+            userService.joinUser(joinDto);
 
-        return new ResponseEntity<>(
-                ResponseTemplate.builder()
-                        .result(true)
-                        .msg("회원가입에 성공하였습니다.")
-                        .build(), HttpStatus.OK);
+            return new ResponseEntity<>(
+                    ResponseTemplate.builder()
+                            .result(true)
+                            .msg("회원가입에 성공하였습니다.")
+                            .build(),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PatchMapping("/modify")
