@@ -1,5 +1,6 @@
 package com.ssafy.enjoytrip.user.service;
 
+import com.ssafy.enjoytrip.user.dto.JoinDto;
 import com.ssafy.enjoytrip.user.dto.UserDto;
 import com.ssafy.enjoytrip.user.repository.UserRepository;
 import com.ssafy.enjoytrip.util.SecurityUtil;
@@ -18,12 +19,12 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public int joinUser(UserDto userDto) {
-        if (userRepository.getUserByUserId(userDto.getUserId()).orElse(null) != null) {
+    public int joinUser(JoinDto joinDto) {
+        if (userRepository.getUserByUserId(joinDto.getUserId()).orElse(null) != null) {
             throw new RuntimeException("이미 가입되어있는 유저입니다.");
         }
-        userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
-        return userRepository.joinUser(userDto);
+        joinDto.setUserPw(passwordEncoder.encode(joinDto.getUserPw()));
+        return userRepository.joinUser(joinDto);
     }
 
     @Override

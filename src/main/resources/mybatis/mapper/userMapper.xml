@@ -18,7 +18,7 @@
     WHERE user_id = #{userId};
   </select>
 
-  <insert id="joinUser" parameterType="userDto">
+  <insert id="joinUser" parameterType="joinDto">
     INSERT INTO user (user_id, user_pw, user_name, user_email, user_domain)
     VALUES (#{userId}, #{userPw}, #{userName}, #{userEmail}, #{userDomain})
   </insert>

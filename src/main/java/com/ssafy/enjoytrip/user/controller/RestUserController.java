@@ -1,13 +1,12 @@
 package com.ssafy.enjoytrip.user.controller;
 
 import com.ssafy.enjoytrip.enums.LoginConstant;
+import com.ssafy.enjoytrip.user.dto.JoinDto;
 import com.ssafy.enjoytrip.user.dto.UserDto;
 import com.ssafy.enjoytrip.user.service.UserService;
 import com.ssafy.enjoytrip.util.ResponseTemplate;
-import com.ssafy.enjoytrip.util.SecurityUtil;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,9 +38,14 @@ public class RestUserController {
     }
 
     @PostMapping("/join")
-    public ResponseEntity<String> join(@RequestBody UserDto userDto) {
-        userService.joinUser(userDto);
-        return new ResponseEntity<>("회원가입에 성공했습니다.", HttpStatus.OK);
+    public ResponseEntity<?> join(@RequestBody JoinDto joinDto) {
+        userService.joinUser(joinDto);
+
+        return new ResponseEntity<>(
+                ResponseTemplate.builder()
+                        .result(true)
+                        .msg("회원가입에 성공하였습니다.")
+                        .build(), HttpStatus.OK);
     }
 
     @PatchMapping("/modify")
