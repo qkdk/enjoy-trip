@@ -73,12 +73,12 @@ public class UserController {
         return mv;
     }
 
-    @PostMapping("/modify")
-    public String modify(HttpSession session, UserDto userDto) throws Exception {
-        session.invalidate();
-        userService.modify(userDto);
-        return "redirect:/";
-    }
+//    @PostMapping("/modify")
+//    public String modify(HttpSession session, UserDto userDto) throws Exception {
+//        session.invalidate();
+//        userService.modify(userDto);
+//        return "redirect:/";
+//    }
 
     @PostMapping("/delete")
     public String delete(String userPw, HttpSession session) throws Exception {

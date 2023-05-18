@@ -2,6 +2,7 @@ package com.ssafy.enjoytrip.user.controller;
 
 import com.ssafy.enjoytrip.enums.LoginConstant;
 import com.ssafy.enjoytrip.user.dto.JoinDto;
+import com.ssafy.enjoytrip.user.dto.ModifyDto;
 import com.ssafy.enjoytrip.user.dto.UserDto;
 import com.ssafy.enjoytrip.user.service.UserService;
 import com.ssafy.enjoytrip.util.ResponseTemplate;
@@ -54,15 +55,22 @@ public class RestUserController {
     }
 
     @PatchMapping("/modify")
-    public ResponseEntity<?> modify(@RequestBody UserDto userDto) {
-        userService.modify(userDto);
+    public ResponseEntity<?> modify(@RequestBody ModifyDto modifyDto) {
+        System.out.println(modifyDto);
+        try {
+            userService.modify(modifyDto);
 
-        return new ResponseEntity<>(
-                ResponseTemplate.builder()
-                        .result(true)
-                        .msg("정보 수정에 성공했습니다.")
-                        .build(),
-                HttpStatus.OK);
+            return new ResponseEntity<>(
+                    ResponseTemplate.builder()
+                            .result(true)
+                            .msg("정보 수정에 성공했습니다.")
+                            .build(),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @DeleteMapping("/delete")

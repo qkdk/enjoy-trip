@@ -31,10 +31,19 @@
 
   <update id="modify">
     UPDATE user
-    SET user_pw     = #{userPw},
-        user_name   = #{userName},
-        user_email  = #{userEmail},
-        user_domain = #{userDomain}
+    SET
+    <if test='userPw != ""'>
+      user_pw = #{userPw},
+    </if>
+    <if test='userName != ""'>
+      user_name = #{userName},
+    </if>
+    <if test='userEmail != ""'>
+      user_email = #{userEmail},
+    </if>
+    <if test='userDomain != ""'>
+      user_domain = #{userDomain}
+    </if>
     WHERE user_id = #{userId}
   </update>
 

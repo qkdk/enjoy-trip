@@ -4,6 +4,7 @@ import com.ssafy.enjoytrip.user.dto.JoinDto;
 import com.ssafy.enjoytrip.user.dto.UserDto;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -19,7 +20,7 @@ public interface UserRepository {
     int joinUser(JoinDto joinDto);
     int idCheck(String userId);
     
-    void modify(UserDto userDto);
+    void modify(Map<String , String > map);
     
     void deleteMember(String userId);
 
