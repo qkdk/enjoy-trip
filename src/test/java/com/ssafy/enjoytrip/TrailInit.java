@@ -98,12 +98,12 @@ public class TrailInit {
         trailInputDto.setStart_sido_code(sidoCode);
         if (sidoCode == 8) {
             trailInputDto.setStart_gugun_code(1);
-            String[] detail = Arrays.copyOfRange(addr, 1, addr.length - 1);
+            String[] detail = Arrays.copyOfRange(addr, 1, addr.length);
             trailInputDto.setStart_detail_addr(String.join(" ", detail));
             return;
         }
         trailInputDto.setStart_gugun_code(calculateGugun(addr[1], sidoCode));
-        String[] detail = Arrays.copyOfRange(addr, 2, addr.length - 1);
+        String[] detail = Arrays.copyOfRange(addr, 2, addr.length);
         trailInputDto.setStart_detail_addr(String.join(" ", detail));
     }
 
@@ -112,12 +112,12 @@ public class TrailInit {
         trailInputDto.setEnd_sido_code(sidoCode);
         if (sidoCode == 8) {
             trailInputDto.setEnd_gugun_code(1);
-            String[] detail = Arrays.copyOfRange(addr, 1, addr.length - 1);
+            String[] detail = Arrays.copyOfRange(addr, 1, addr.length);
             trailInputDto.setEnd_detail_addr(String.join(" ", detail));
             return;
         }
         trailInputDto.setEnd_gugun_code(calculateGugun(addr[1], sidoCode));
-        String[] detail = Arrays.copyOfRange(addr, 2, addr.length - 1);
+        String[] detail = Arrays.copyOfRange(addr, 2, addr.length);
         trailInputDto.setEnd_detail_addr(String.join(" ", detail));
     }
 
