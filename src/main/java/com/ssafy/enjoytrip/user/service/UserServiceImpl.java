@@ -7,6 +7,7 @@ import com.ssafy.enjoytrip.user.repository.UserRepository;
 import com.ssafy.enjoytrip.util.SecurityUtil;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
@@ -70,10 +71,25 @@ public class UserServiceImpl implements UserService {
             isValidEmail(modifyDto.getUserDomain());
         }
 
+        Map<String, String> modifyMap = makeModifyMap(modifyDto, userId);
+
+        modifyMap.put("userId", userId);
+        userRepository.modify(modifyMap);
+    }
+
+    private Map<String, String> makeModifyMap(ModifyDto modifyDto, String userId) {
+        Map<String, String> userMap = objectMapper.convertValue(userRepository.getUserByUserId(userId).get(),
+                Map.class);
         modifyDto.setUserPw(passwordEncoder.encode(modifyDto.getUserPw()));
-        Map map = objectMapper.convertValue(modifyDto, Map.class);
-        map.put("userId", userId);
-        userRepository.modify(map);
+        Map<String, String> modifyMap = objectMapper.convertValue(modifyDto, Map.class);
+
+        for (Entry<String, String> entry : modifyMap.entrySet()) {
+            if (!StringUtils.hasText(entry.getValue())) {
+                modifyMap.put(entry.getKey(), userMap.get(entry.getKey()));
+            }
+        }
+
+        return modifyMap;
     }
 
     @Override

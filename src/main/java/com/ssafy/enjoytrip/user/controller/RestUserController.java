@@ -56,7 +56,6 @@ public class RestUserController {
 
     @PatchMapping("/modify")
     public ResponseEntity<?> modify(@RequestBody ModifyDto modifyDto) {
-        System.out.println(modifyDto);
         try {
             userService.modify(modifyDto);
 
@@ -67,7 +66,6 @@ public class RestUserController {
                             .build(),
                     HttpStatus.OK);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
