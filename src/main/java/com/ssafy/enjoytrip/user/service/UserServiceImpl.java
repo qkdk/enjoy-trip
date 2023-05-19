@@ -80,7 +80,9 @@ public class UserServiceImpl implements UserService {
     private Map<String, String> makeModifyMap(ModifyDto modifyDto, String userId) {
         Map<String, String> userMap = objectMapper.convertValue(userRepository.getUserByUserId(userId).get(),
                 Map.class);
-        modifyDto.setUserPw(passwordEncoder.encode(modifyDto.getUserPw()));
+        if (StringUtils.hasText(modifyDto.getUserPw())) {
+            modifyDto.setUserPw(passwordEncoder.encode(modifyDto.getUserPw()));
+        }
         Map<String, String> modifyMap = objectMapper.convertValue(modifyDto, Map.class);
 
         for (Entry<String, String> entry : modifyMap.entrySet()) {
