@@ -70,13 +70,16 @@ public class RestUserController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<?> delete(@RequestBody DeleteDto deleteDto) {
-        userService.deleteMember(deleteDto);
-
-        return new ResponseEntity<>(ResponseTemplate.builder()
-                .result(true)
-                .msg("삭제에 성공하였습니다.")
-                .build(),
-                HttpStatus.OK);
+        try{
+            userService.deleteMember(deleteDto);
+            return new ResponseEntity<>(ResponseTemplate.builder()
+                    .result(true)
+                    .msg("삭제에 성공하였습니다.")
+                    .build(),
+                    HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/followers/{userId}")
