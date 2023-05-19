@@ -133,6 +133,7 @@ public class RestPlaceController {
 			System.out.println(replyList);
 			System.out.println(placeNo);
 			replyList = placeService.replyList(placeNo);
+//			System.out.println(replyList.get(0).getUserId());
 			System.out.println("종료");
 			System.out.println("ASDASDA");
 			map.put("reply", replyList);
@@ -152,6 +153,7 @@ public class RestPlaceController {
 			,@RequestParam("upfile") MultipartFile[] files){
 		try {
 			System.out.println("asdasd");
+			System.out.println(files[0]+"asdasdsa");
 			PlaceDto placeDto = new PlaceDto();
 			placeDto.setPlaceTitle(placeTitle);
 			placeDto.setPlaceContent(placeContent);
@@ -163,6 +165,7 @@ public class RestPlaceController {
 			System.out.println(placeNo);
 			if (!files[0].isEmpty()) {
 				String saveFolder = uploadPath + File.separator;
+				System.out.println("폴더에 넣어보자" + files[0]);
 				File folder = new File(saveFolder);
 				if (!folder.exists())
 					folder.mkdirs();
@@ -178,6 +181,7 @@ public class RestPlaceController {
 					}
 					fileInfos.add(fileInfoDto);
 				}
+				System.out.println("폴더에 넣었다");
 				placeService.writePlaceImg(placeNo, fileInfos.get(0).getPlaceImgSrc());
 			}
 			return ResponseEntity.ok("글쓰기 완료");
