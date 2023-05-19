@@ -18,6 +18,6 @@ public interface PlanRepository{
 
     PlanDto getPlanByPlanId(int planId);
 
-    List<AttractionDto> getAttractionsByPlanId(int planId);
+    List<Map> getAttractionsByPlanId(int planId);
 
 }

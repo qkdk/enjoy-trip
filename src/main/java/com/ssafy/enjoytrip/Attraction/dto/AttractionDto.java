@@ -1,8 +1,10 @@
 package com.ssafy.enjoytrip.Attraction.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class AttractionDto {
 
     private int contentId;

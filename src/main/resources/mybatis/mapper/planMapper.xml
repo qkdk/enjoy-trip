@@ -13,11 +13,6 @@
     <result column="create_time" property="createTime"/>
   </resultMap>
 
-  <resultMap id="planDetailMap" type="planDetailDto">
-    <!--    <collection property="planInfo" resultMap="planDto"></collection>-->
-    <collection property="attractionList  " resultMap="attractionDto"></collection>
-  </resultMap>
-
   <insert id="insertPlan" parameterType="map" useGeneratedKeys="true" keyColumn="plan_id"
     keyProperty="planId">
     INSERT INTO trip_plan (user_id, plan_title)
@@ -45,7 +40,7 @@
     LIMIT #{offset}, #{limit};
   </select>
 
-  <select id="getAttractionsByPlanId" resultType="attractionDto">
+  <select id="getAttractionsByPlanId" resultType="map">
     SELECT *
     FROM attraction_info
     WHERE content_id IN
@@ -54,6 +49,7 @@
            WHERE plan_id = 1
            ORDER BY priority ASC);
   </select>
+
 
   <select id="getPlanByPlanId" resultMap="planMap">
     SELECT *

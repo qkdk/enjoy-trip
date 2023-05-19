@@ -7,8 +7,11 @@ import com.ssafy.enjoytrip.plan.dto.PlanDetailDto;
 import com.ssafy.enjoytrip.plan.dto.PlanDto;
 import com.ssafy.enjoytrip.plan.dto.PlanWriteRequestDto;
 import com.ssafy.enjoytrip.plan.repository.PlanRepository;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,15 +45,41 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public PlanDetailDto viewPlan(int planId) {
         try {
-            List<AttractionDto> attractionsByPlanId = planRepository.getAttractionsByPlanId(planId);
+            List<Map> attractionsByPlanId = planRepository.getAttractionsByPlanId(planId);
             PlanDto planByPlanId = planRepository.getPlanByPlanId(planId);
+            List<AttractionDto> attractionDtos = new ArrayList<>();
+
+            attractionsByPlanId.stream()
+                    .filter(Objects::nonNull)
+                    .forEach(map -> convertAttractionMapToDto(attractionDtos, map));
 
             return PlanDetailDto.builder()
                     .planInfo(planByPlanId)
-                    .attractionList(attractionsByPlanId)
+                    .attractionList(attractionDtos)
                     .build();
         } catch (Exception e) {
             throw new RuntimeException("데이터베이스 오류가 발생했습니다.");
         }
+    }
+
+    private static void convertAttractionMapToDto(List<AttractionDto> attractionDtos, Map map) {
+        attractionDtos.add(AttractionDto.builder()
+                .contentId((Integer) map.get("content_id"))
+                .readCount((Integer) map.get("readcount"))
+                .addr2((String) map.get("addr2"))
+                .addr1((String) map.get("addr1"))
+                .firstImage((String) map.get("first_image"))
+                .latitude(((BigDecimal) map.get("latitude")).doubleValue())
+                .contentTypeId((Integer) map.get("content_type_id"))
+                .title((String) map.get("title"))
+                .zipCode((String) map.get("zipcode"))
+                .sidoCode((Integer) map.get("sido_code"))
+                .mLevel((String) map.get("mlevel"))
+                .gugunCode((Integer) map.get("gugun_code"))
+                .tel((String) map.get("tel"))
+                .firstImage2((String) map.get("first_image2"))
+                .longitude(((BigDecimal) map.get("longitude")).doubleValue())
+                .build()
+        );
     }
 }
