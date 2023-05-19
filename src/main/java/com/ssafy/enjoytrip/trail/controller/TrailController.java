@@ -36,5 +36,10 @@ public class TrailController {
 	public ResponseEntity<List<TrailInputDto>> trail(@PathVariable int sido, @PathVariable int gugun) throws Exception{
 		return new ResponseEntity<List<TrailInputDto>>(trailService.getTrail(sido, gugun), HttpStatus.OK);
 	}
+	
+	@GetMapping("/view/{trail_id}")
+	public ResponseEntity<TrailInputDto> view(@PathVariable int trail_id) throws Exception{
+		return new ResponseEntity<TrailInputDto>(trailService.view(trail_id), HttpStatus.OK);
+	}
 
 }

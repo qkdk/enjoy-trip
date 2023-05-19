@@ -43,4 +43,11 @@ public class TrailServiceImpl implements TrailService {
 		return sqlSession.getMapper(TrailRepository.class).getTrail(sido, gugun);
 	}
 
+
+
+	@Override
+	public TrailInputDto view(int trail_id) throws Exception {
+		return sqlSession.getMapper(TrailRepository.class).view(trail_id);
+	}
+
 }
