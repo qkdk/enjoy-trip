@@ -74,8 +74,8 @@
     </select>
  
   	<insert id="writeTrailParty">
-  		INSERT INTO trail_party (trail_party_id, trail_party_member_id, trail_board_max_member)
-  		VALUES (#{trail_party_id}, #{trail_party_member_id}, #{trail_board_max_member})
+  		INSERT INTO trail_party (trail_party_id, trail_party_member_id, trail_board_max_member, trail_board_member_count)
+  		VALUES (#{trail_party_id}, #{trail_party_member_id}, #{trail_board_max_member}, #{trail_board_member_count})
   	</insert>
   	
   	<select id="getTrail" resultMap="trailMap" >

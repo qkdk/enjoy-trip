@@ -76,9 +76,9 @@ public class TrailServiceImpl implements TrailService {
 
 
 	@Override
-	public void writeTrailParty(int trail_party_id, String trail_party_member_id, int trail_board_max_member)
+	public void writeTrailParty(int trail_party_id, String trail_party_member_id, int trail_board_max_member, int trail_board_member_count)
 			throws Exception {
-		sqlSession.getMapper(TrailRepository.class).writeTrailParty(trail_party_id, trail_party_member_id, trail_board_max_member);
+		sqlSession.getMapper(TrailRepository.class).writeTrailParty(trail_party_id, trail_party_member_id, trail_board_max_member, trail_board_member_count);
 	}
 
 }

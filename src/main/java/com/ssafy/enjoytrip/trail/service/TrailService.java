@@ -24,6 +24,6 @@ public interface TrailService {
 	
 	int lastIndex() throws Exception;
 	
-	void writeTrailParty(int trail_party_id, String trail_party_member_id, int trail_board_max_member) throws Exception;
+	void writeTrailParty(int trail_party_id, String trail_party_member_id, int trail_board_max_member, int trail_board_member_count) throws Exception;
 
 }

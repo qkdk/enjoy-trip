@@ -54,7 +54,7 @@ public class TrailController {
 	public ResponseEntity<String> write(@RequestBody TrailBoardDto trailBoardDto) throws Exception{
 		trailService.writeTrailBoard(trailBoardDto);
 		int boardNo = trailService.lastIndex();
-		trailService.writeTrailParty(boardNo, trailBoardDto.getUser_id(), trailBoardDto.getTrail_board_max_member());
+		trailService.writeTrailParty(boardNo, trailBoardDto.getUser_id(), trailBoardDto.getTrail_board_max_member(), trailBoardDto.getTrail_board_member_count());
 		System.out.println("인풋완료");
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
