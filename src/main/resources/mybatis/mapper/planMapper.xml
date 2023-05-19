@@ -56,4 +56,15 @@
     FROM trip_plan
     WHERE plan_id = #{planId};
   </select>
+
+  <insert id="insertPlanRecommend">
+    INSERT INTO plan_recommend(user_id, plan_id)
+    VALUES (#{userId}, #{planId});
+  </insert>
+
+  <update id="updatePlanRecommend">
+    UPDATE trip_plan
+    SET recommend_count = recommend_count + 1
+    WHERE plan_id = #{planId};
+  </update>
 </mapper>

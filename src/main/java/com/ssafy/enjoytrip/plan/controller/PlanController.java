@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,7 +51,7 @@ public class PlanController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/view/{planId}")
+    @GetMapping("/{planId}")
     public ResponseEntity<ResponseTemplate<PlanDetailDto>> viewPlan(@PathVariable int planId) {
         PlanDetailDto planDetailDto = planService.viewPlan(planId);
 
@@ -61,4 +62,11 @@ public class PlanController {
                 .build()
                 , HttpStatus.OK);
     }
+
+    @PutMapping("/{planId}")
+    public ResponseEntity<?> updatePlanRecommend(@PathVariable int planId) {
+        planService.updatePlanRecommend(planId);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
 }

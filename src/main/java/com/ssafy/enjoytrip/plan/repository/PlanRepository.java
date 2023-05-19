@@ -20,4 +20,10 @@ public interface PlanRepository{
 
     List<Map> getAttractionsByPlanId(int planId);
 
+//    String getUserIdByPlanIdAndUserIdFromRecommend(String userId, int planId);
+
+    int insertPlanRecommend(String userId, int planId);
+
+    int updatePlanRecommend(int planId);
+
 }

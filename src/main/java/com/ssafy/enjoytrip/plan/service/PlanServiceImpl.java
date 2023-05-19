@@ -7,6 +7,7 @@ import com.ssafy.enjoytrip.plan.dto.PlanDetailDto;
 import com.ssafy.enjoytrip.plan.dto.PlanDto;
 import com.ssafy.enjoytrip.plan.dto.PlanWriteRequestDto;
 import com.ssafy.enjoytrip.plan.repository.PlanRepository;
+import com.ssafy.enjoytrip.util.SecurityUtil;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,17 @@ public class PlanServiceImpl implements PlanService {
                     .build();
         } catch (Exception e) {
             throw new RuntimeException("데이터베이스 오류가 발생했습니다.");
+        }
+    }
+
+    @Override
+    public int updatePlanRecommend(int planId) {
+        String userId = SecurityUtil.getCurrentUserId().get();
+        try {
+            planRepository.insertPlanRecommend(userId, planId);
+            return planRepository.updatePlanRecommend(planId);
+        } catch (Exception e) {
+            throw new RuntimeException("이미 추천한 사용자 입니다.");
         }
     }
 
