@@ -3,6 +3,58 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssafy.enjoytrip.trail.repository.TrailRepository">
+	<resultMap id="trailMap" type="trailInputDto" >
+		<result column="title" property="title"></result>
+		<result column="description" property="description"></result>
+		<result column="total_length" property="total_length"></result>
+		<result column="estimated_time" property="estimated_time"></result>
+		<result column="start_name" property="start_name"></result>
+		<result column="start_sido_code" property="start_sido_code"></result>
+		<result column="start_gugun_code" property="start_gugun_code"></result>
+		<result column="start_detail_addr" property="start_detail_addr"></result>
+		<result column="end_name" property="end_name"></result>
+		<result column="end_sido_code" property="end_sido_code"></result>
+		<result column="end_gugun_code" property="end_gugun_code"></result>
+		<result column="end_detail_addr" property="end_detail_addr"></result>
+		<result column="route" property="route"></result>
+		<result column="tel" property="tel"></result>
+		<result column="manage_name" property="manage_name"></result>
+		<result column="add_date" property="add_date"></result>
+		<result column="provide_code" property="provide_code"></result>
+		<result column="provide_name" property="provide_name"></result>
+	</resultMap>
+	
+	<resultMap id="sidoCodeMap" type="sidoCodeDto">
+    	<result column="sido_code" property="sidoCode"></result>
+    	<result column="sido_name" property="sidoName"></result>
+  	</resultMap>
+
+  	<resultMap id="gugunCodeMap" type="gugunCodeDto">
+    	<result column="gugun_code" property="gugunCode"></result>
+    	<result column="sido_code" property="sidoCode"></result>
+    	<result column="gugun_name" property="gugunName"></result>
+  	</resultMap>
+  	
+  	<select id="getSido" resultMap="sidoCodeMap">
+  		SELECT *
+  		FROM sido
+  		ORDER BY sido_code
+  	</select>
+  	
+  	<select id="getGugun" resultMap="gugunCodeMap">
+  		SELECT *
+  		FROM gugun
+  		WHERE sido_code = #{sido}
+  		ORDER BY gugun_code
+  	</select>
+  	
+  	<select id="getTrail" resultMap="trailMap">
+  		SELECT *
+  		FROM trail
+  		WHERE start_sido_code = #{sido}
+  		AND start_gugun_code = #{gugun}
+  	</select>
+
 
   <insert id="insertData" parameterType="list">
     INSERT INTO trail(title, description, total_length, estimated_time, start_name, start_sido_code,
