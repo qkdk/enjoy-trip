@@ -37,67 +37,53 @@ public class RestUserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<?> getUser(@PathVariable String userId) {
-        try {
-            UserDetailDto userDetail = userService.getUser(userId);
-            return new ResponseEntity<>(
-                    ResponseTemplate.<UserDetailDto>builder()
-                            .msg("유저 블러오기 성공")
-                            .result(true)
-                            .data(userDetail)
-                            .build()
-                    , HttpStatus.OK
-            );
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<ResponseTemplate<UserDetailDto>> getUser(@PathVariable String userId) {
+        UserDetailDto userDetail = userService.getUser(userId);
+        return new ResponseEntity<>(
+                ResponseTemplate.<UserDetailDto>builder()
+                        .msg("유저 블러오기 성공")
+                        .result(true)
+                        .data(userDetail)
+                        .build()
+                , HttpStatus.OK
+        );
+
     }
 
     @PostMapping("/join")
-    public ResponseEntity<?> join(@RequestBody JoinDto joinDto) {
-        try {
-            userService.joinUser(joinDto);
+    public ResponseEntity<ResponseTemplate> join(@RequestBody JoinDto joinDto) {
+        userService.joinUser(joinDto);
 
-            return new ResponseEntity<>(
-                    ResponseTemplate.builder()
-                            .result(true)
-                            .msg("회원가입에 성공하였습니다.")
-                            .build(),
-                    HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return new ResponseEntity<>(
+                ResponseTemplate.builder()
+                        .result(true)
+                        .msg("회원가입에 성공하였습니다.")
+                        .build(),
+                HttpStatus.OK);
     }
 
     @PatchMapping("/modify")
-    public ResponseEntity<?> modify(@RequestBody ModifyDto modifyDto) {
-        try {
-            userService.modify(modifyDto);
+    public ResponseEntity<ResponseTemplate> modify(@RequestBody ModifyDto modifyDto) {
+        userService.modify(modifyDto);
 
-            return new ResponseEntity<>(
-                    ResponseTemplate.builder()
-                            .result(true)
-                            .msg("정보 수정에 성공했습니다.")
-                            .build(),
-                    HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return new ResponseEntity<>(
+                ResponseTemplate.builder()
+                        .result(true)
+                        .msg("정보 수정에 성공했습니다.")
+                        .build(),
+                HttpStatus.OK);
 
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> delete(@RequestBody DeleteDto deleteDto) {
-        try {
-            userService.deleteMember(deleteDto);
-            return new ResponseEntity<>(ResponseTemplate.builder()
-                    .result(true)
-                    .msg("삭제에 성공하였습니다.")
-                    .build(),
-                    HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<ResponseTemplate> delete(@RequestBody DeleteDto deleteDto) {
+        userService.deleteMember(deleteDto);
+        return new ResponseEntity<>(ResponseTemplate.builder()
+                .result(true)
+                .msg("삭제에 성공하였습니다.")
+                .build(),
+                HttpStatus.OK);
+
     }
 
     @GetMapping("/followers/{userId}")

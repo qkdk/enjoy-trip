@@ -1,6 +1,7 @@
 package com.ssafy.enjoytrip.plan.controller;
 
 import com.ssafy.enjoytrip.enums.LoginConstant;
+import com.ssafy.enjoytrip.plan.dto.PlanDetailDto;
 import com.ssafy.enjoytrip.plan.dto.PlanDto;
 import com.ssafy.enjoytrip.plan.dto.PlanWriteRequestDto;
 import com.ssafy.enjoytrip.plan.service.PlanService;
@@ -37,43 +38,20 @@ public class PlanController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    @GetMapping("/view")
-//    public ResponseEntity<?> listPlan(int pgno, String key, String word) {
-//        try {
-//            List<PlanDto> planDtos = planService.listPlan(pgno, key, word);
-//            ResponseTemplate<List<PlanDto>> body = ResponseTemplate.<List<PlanDto>>builder()
-//                    .msg("계획 읽기에 성공했습니다.")
-//                    .result(true)
-//                    .data(planDtos)
-//                    .build();
-//            return new ResponseEntity<>(body, HttpStatus.OK);
-//        } catch (Exception e) {
-//            ResponseTemplate<List<PlanDto>> body = ResponseTemplate.<List<PlanDto>>builder()
-//                    .msg("계획 읽기에 실패했습니다.")
-//                    .result(false)
-//                    .build();
-//            return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
-//        }
-//    }
-
     @GetMapping("/view")
-    public ResponseEntity<?> listPlan(int pgno, String key, String word, String order) {
-        try {
-            List<PlanDto> planDtos = planService.listPlan(pgno, key, word, order);
+    public ResponseEntity<ResponseTemplate<List<PlanDto>>> listPlan(int pgno, String key, String word, String order) {
+        List<PlanDto> planDtos = planService.listPlan(pgno, key, word, order);
 
-            return new ResponseEntity<>(ResponseTemplate.<List<PlanDto>>builder()
-                    .msg("계획 읽기에 성공했습니다.")
-                    .result(true)
-                    .data(planDtos)
-                    .build(),
-                    HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return new ResponseEntity<>(ResponseTemplate.<List<PlanDto>>builder()
+                .msg("계획 읽기에 성공했습니다.")
+                .result(true)
+                .data(planDtos)
+                .build(),
+                HttpStatus.OK);
     }
 
     @GetMapping("/view/{planNo}")
-    public ResponseEntity<?> viewPlan(@PathVariable int planNo) {
+    public ResponseEntity<ResponseTemplate<PlanDetailDto>> viewPlan(@PathVariable int planNo) {
         planService.viewPlan(planNo);
         return null;
     }
