@@ -23,4 +23,6 @@ public interface NoticeRepository {
     void deleteNotice(int noticeNo) throws Exception;
     
     void hitNotice(int noticeNo) throws Exception;
+    
+    List<NoticeDto> getList(String key, String word) throws Exception;
 }

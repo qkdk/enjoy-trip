@@ -10,6 +10,7 @@ public class PlaceDto {
 	String placeTitle;
 	String placeContent;
 	int hit;
+	int recommend;
 	String placeImgSrc;
 	String placeCreateTime;
 }
