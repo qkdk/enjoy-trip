@@ -15,4 +15,6 @@ public interface TrailService {
 
 	List<TrailInputDto> getTrail(int sido, int gugun) throws Exception;
 
+	TrailInputDto view(int trail_id) throws Exception;
+
 }

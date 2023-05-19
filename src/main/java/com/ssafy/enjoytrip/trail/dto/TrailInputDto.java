@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class TrailInputDto {
 
+	private int trail_id;
     private String title;   // 길명
     private String description;    // 길소개
     private String total_length;     // 총길이

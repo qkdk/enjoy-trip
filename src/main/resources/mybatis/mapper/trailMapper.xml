@@ -54,6 +54,12 @@
   		WHERE start_sido_code = #{sido}
   		AND start_gugun_code = #{gugun}
   	</select>
+  	
+  	<select id="view" resultMap="trailMap">
+  		SELECT *
+  		FROM trail
+  		WHERE trail_id = #{trail_id}
+  	</select>
 
 
   <insert id="insertData" parameterType="list">
