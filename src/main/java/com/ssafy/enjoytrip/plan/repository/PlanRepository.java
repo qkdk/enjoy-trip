@@ -1,5 +1,6 @@
 package com.ssafy.enjoytrip.plan.repository;
 
+import com.ssafy.enjoytrip.Attraction.dto.AttractionDto;
 import com.ssafy.enjoytrip.plan.dto.PlanDetailDto;
 import com.ssafy.enjoytrip.plan.dto.PlanDto;
 import java.util.List;
@@ -15,6 +16,8 @@ public interface PlanRepository{
 
     List<PlanDto> getPlan(String key, String word, int offset, int limit, String order);
 
-    PlanDetailDto getPlanAndAttractionsByPlanNo(int planNo);
+    PlanDto getPlanByPlanId(int planId);
+
+    List<AttractionDto> getAttractionsByPlanId(int planId);
 
 }

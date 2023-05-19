@@ -1,6 +1,7 @@
 package com.ssafy.enjoytrip.plan.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.enjoytrip.Attraction.dto.AttractionDto;
 import com.ssafy.enjoytrip.enums.PageConstant;
 import com.ssafy.enjoytrip.plan.dto.PlanDetailDto;
 import com.ssafy.enjoytrip.plan.dto.PlanDto;
@@ -39,10 +40,17 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public PlanDetailDto viewPlan(int planNo) {
-        PlanDetailDto planAndAttractionsByPlanNo = planRepository.getPlanAndAttractionsByPlanNo(planNo);
-        System.out.println(planAndAttractionsByPlanNo);
+    public PlanDetailDto viewPlan(int planId) {
+        try {
+            List<AttractionDto> attractionsByPlanId = planRepository.getAttractionsByPlanId(planId);
+            PlanDto planByPlanId = planRepository.getPlanByPlanId(planId);
 
-        return null;
+            return PlanDetailDto.builder()
+                    .planInfo(planByPlanId)
+                    .attractionList(attractionsByPlanId)
+                    .build();
+        } catch (Exception e) {
+            throw new RuntimeException("데이터베이스 오류가 발생했습니다.");
+        }
     }
 }

@@ -50,9 +50,15 @@ public class PlanController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/view/{planNo}")
-    public ResponseEntity<ResponseTemplate<PlanDetailDto>> viewPlan(@PathVariable int planNo) {
-        planService.viewPlan(planNo);
-        return null;
+    @GetMapping("/view/{planId}")
+    public ResponseEntity<ResponseTemplate<PlanDetailDto>> viewPlan(@PathVariable int planId) {
+        PlanDetailDto planDetailDto = planService.viewPlan(planId);
+
+        return new ResponseEntity<>(ResponseTemplate.<PlanDetailDto>builder()
+                .result(true)
+                .msg("계획 상세조회에 성공했습니다.")
+                .data(planDetailDto)
+                .build()
+                , HttpStatus.OK);
     }
 }
