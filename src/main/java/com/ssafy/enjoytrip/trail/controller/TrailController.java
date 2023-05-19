@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,6 +48,15 @@ public class TrailController {
 	@GetMapping("/board")
 	public ResponseEntity<List<TrailBoardDto>> boardList(String key, String word) throws Exception{
 		return new ResponseEntity<List<TrailBoardDto>>(trailService.trailBoardList(key, word),HttpStatus.OK);
+	}
+	
+	@PostMapping("/write")
+	public ResponseEntity<String> write(@RequestBody TrailBoardDto trailBoardDto) throws Exception{
+		trailService.writeTrailBoard(trailBoardDto);
+		int boardNo = trailService.lastIndex();
+		trailService.writeTrailParty(boardNo, trailBoardDto.getUser_id(), trailBoardDto.getTrail_board_max_member());
+		System.out.println("인풋완료");
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
 }
