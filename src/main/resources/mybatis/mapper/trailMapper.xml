@@ -44,6 +44,8 @@
   		<result column="trail_board_start_time" property="trail_board_start_time"></result>
   		<result column="trail_board_end_time" property="trail_board_end_time"></result>
   		<result column="trail_board_create_time" property="trail_board_create_time"></result>
+  		<result column="trail_party_member_id" property="trail_party_member_id"></result>
+  		<result column="trail_board_max_member" property="trail_board_max_member"></result>
   	</resultMap>
   	
   	<select id="getSido" resultMap="sidoCodeMap">
@@ -59,7 +61,24 @@
   		ORDER BY gugun_code
   	</select>
   	
-  	<select id="getTrail" resultMap="trailMap">
+  	<insert id="writeTrailBoard" parameterType="trailBoardDto">
+  		INSERT INTO trail_board (trail_board_trail_id, user_id, trail_board_title, trail_board_content, 
+  								trail_board_start_time, trail_board_end_time)
+  		VALUES (#{trail_board_trail_id}, #{user_id}, #{trail_board_title}, #{trail_board_content}, 
+  								#{trail_board_start_time}, #{trail_board_end_time})
+  								
+  	</insert>
+  	
+  	<select id="lastIndex" resultType="int">
+    	SELECT max(trail_board_no) FROM trail_board
+    </select>
+ 
+  	<insert id="writeTrailParty">
+  		INSERT INTO trail_party (trail_party_id, trail_party_member_id, trail_board_max_member, trail_board_member_count)
+  		VALUES (#{trail_party_id}, #{trail_party_member_id}, #{trail_board_max_member}, #{trail_board_member_count})
+  	</insert>
+  	
+  	<select id="getTrail" resultMap="trailMap" >
   		SELECT *
   		FROM trail
   		WHERE start_sido_code = #{sido}

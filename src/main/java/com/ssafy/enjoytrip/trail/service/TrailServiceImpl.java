@@ -3,6 +3,7 @@ package com.ssafy.enjoytrip.trail.service;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.TransactionIsolationLevel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +57,28 @@ public class TrailServiceImpl implements TrailService {
 	@Override
 	public List<TrailBoardDto> trailBoardList(String key, String word) throws Exception {
 		return sqlSession.getMapper(TrailRepository.class).trailBoardList(key, word);
+	}
+
+
+
+	@Override
+	public void writeTrailBoard(TrailBoardDto trailBoardDto) throws Exception {
+		sqlSession.getMapper(TrailRepository.class).writeTrailBoard(trailBoardDto);
+	}
+
+
+
+	@Override
+	public int lastIndex() throws Exception {
+		return sqlSession.getMapper(TrailRepository.class).lastIndex();
+	}
+
+
+
+	@Override
+	public void writeTrailParty(int trail_party_id, String trail_party_member_id, int trail_board_max_member, int trail_board_member_count)
+			throws Exception {
+		sqlSession.getMapper(TrailRepository.class).writeTrailParty(trail_party_id, trail_party_member_id, trail_board_max_member, trail_board_member_count);
 	}
 
 }
