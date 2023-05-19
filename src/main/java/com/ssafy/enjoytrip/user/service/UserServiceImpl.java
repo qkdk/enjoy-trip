@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.enjoytrip.user.dto.DeleteDto;
 import com.ssafy.enjoytrip.user.dto.JoinDto;
 import com.ssafy.enjoytrip.user.dto.ModifyDto;
+import com.ssafy.enjoytrip.user.dto.UserDetailDto;
+import com.ssafy.enjoytrip.user.dto.UserDto;
 import com.ssafy.enjoytrip.user.repository.UserRepository;
 import com.ssafy.enjoytrip.util.SecurityUtil;
 import java.util.List;
@@ -58,6 +60,21 @@ public class UserServiceImpl implements UserService {
         }
 
         return modifyMap;
+    }
+
+    @Override
+    public UserDetailDto getUser(String userId) {
+        Optional<UserDto> userByUserId = userRepository.getUserByUserId(userId);
+        if (!userByUserId.isPresent()) {
+            throw new RuntimeException("유저가 존재하지 않습니다.");
+        }
+
+        UserDto userDto = userByUserId.get();
+        return UserDetailDto.builder()
+                .userDomain(userDto.getUserDomain())
+                .userEmail(userDto.getUserEmail())
+                .userName(userDto.getUserName())
+                .build();
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.ssafy.enjoytrip.user.controller;
 import com.ssafy.enjoytrip.user.dto.DeleteDto;
 import com.ssafy.enjoytrip.user.dto.JoinDto;
 import com.ssafy.enjoytrip.user.dto.ModifyDto;
+import com.ssafy.enjoytrip.user.dto.UserDetailDto;
 import com.ssafy.enjoytrip.user.service.UserService;
 import com.ssafy.enjoytrip.util.ResponseTemplate;
 import java.util.List;
@@ -33,6 +34,23 @@ public class RestUserController {
     public String idCheck(@PathVariable("userid") String userId) throws Exception {
         int cnt = userService.idCheck(userId);
         return cnt + "";
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> getUser(@PathVariable String userId) {
+        try {
+            UserDetailDto userDetail = userService.getUser(userId);
+            return new ResponseEntity<>(
+                    ResponseTemplate.<UserDetailDto>builder()
+                            .msg("유저 블러오기 성공")
+                            .result(true)
+                            .data(userDetail)
+                            .build()
+                    , HttpStatus.OK
+            );
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/join")
@@ -70,14 +88,14 @@ public class RestUserController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<?> delete(@RequestBody DeleteDto deleteDto) {
-        try{
+        try {
             userService.deleteMember(deleteDto);
             return new ResponseEntity<>(ResponseTemplate.builder()
                     .result(true)
                     .msg("삭제에 성공하였습니다.")
                     .build(),
                     HttpStatus.OK);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
