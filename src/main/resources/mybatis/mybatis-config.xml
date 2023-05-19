@@ -16,6 +16,7 @@
     <typeAlias type="com.ssafy.enjoytrip.plan.dto.PlanDto" alias="planDto"/>
     <typeAlias type="com.ssafy.enjoytrip.plan.dto.PlanDetailDto" alias="planDetailDto"/>
     <typeAlias type="com.ssafy.enjoytrip.trail.dto.TrailInputDto" alias="trailInputDto"/>
+    <typeAlias type="com.ssafy.enjoytrip.trail.dto.TrailBoardDto" alias="trailBoardDto"/>
   </typeAliases>
 
   <mappers>

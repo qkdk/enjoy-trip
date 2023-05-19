@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ssafy.enjoytrip.Attraction.dto.GugunCodeDto;
 import com.ssafy.enjoytrip.Attraction.dto.SidoCodeDto;
+import com.ssafy.enjoytrip.trail.dto.TrailBoardDto;
 import com.ssafy.enjoytrip.trail.dto.TrailInputDto;
 
 public interface TrailService {
@@ -16,5 +17,7 @@ public interface TrailService {
 	List<TrailInputDto> getTrail(int sido, int gugun) throws Exception;
 
 	TrailInputDto view(int trail_id) throws Exception;
+	
+	List<TrailBoardDto> trailBoardList(String key, String word) throws Exception;
 
 }

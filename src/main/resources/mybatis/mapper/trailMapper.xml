@@ -35,6 +35,17 @@
     	<result column="gugun_name" property="gugunName"></result>
   	</resultMap>
   	
+  	<resultMap id="trailBoardMap" type="trailBoardDto" >
+  		<result column="trail_board_no" property="trail_board_no"></result>
+  		<result column="trail_board_trail_id" property="trail_board_trail_id"></result>
+  		<result column="user_id" property="user_id"></result>
+  		<result column="trail_board_title" property="trail_board_title"></result>
+  		<result column="trail_board_content" property="trail_board_content"></result>
+  		<result column="trail_board_start_time" property="trail_board_start_time"></result>
+  		<result column="trail_board_end_time" property="trail_board_end_time"></result>
+  		<result column="trail_board_create_time" property="trail_board_create_time"></result>
+  	</resultMap>
+  	
   	<select id="getSido" resultMap="sidoCodeMap">
   		SELECT *
   		FROM sido
@@ -57,9 +68,21 @@
   	
   	<select id="view" resultMap="trailMap">
   		SELECT *
-  		FROM trail
+  		FROM trail 
   		WHERE trail_id = #{trail_id}
   	</select>
+  	
+  	<select id="trailBoardList" resultMap="trailBoardMap">
+  		SELECT *
+  		FROM trail_board tb, trail_party tp
+  		WHERE tb.trail_board_no = tp.trail_party_id
+  		<if test='key != "" and key != null'>
+      		<if test='word != "" and word != null'>
+       			 AND ${key} LIKE concat('%', #{word}, '%')
+      		</if>
+    	</if>
+  	</select>
+  	
 
 
   <insert id="insertData" parameterType="list">

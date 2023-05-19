@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.enjoytrip.Attraction.dto.GugunCodeDto;
 import com.ssafy.enjoytrip.Attraction.dto.SidoCodeDto;
+import com.ssafy.enjoytrip.trail.dto.TrailBoardDto;
 import com.ssafy.enjoytrip.trail.dto.TrailInputDto;
 import com.ssafy.enjoytrip.trail.repository.TrailRepository;
 
@@ -48,6 +49,13 @@ public class TrailServiceImpl implements TrailService {
 	@Override
 	public TrailInputDto view(int trail_id) throws Exception {
 		return sqlSession.getMapper(TrailRepository.class).view(trail_id);
+	}
+
+
+
+	@Override
+	public List<TrailBoardDto> trailBoardList(String key, String word) throws Exception {
+		return sqlSession.getMapper(TrailRepository.class).trailBoardList(key, word);
 	}
 
 }
