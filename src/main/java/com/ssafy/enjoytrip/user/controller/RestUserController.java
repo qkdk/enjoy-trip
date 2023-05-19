@@ -1,14 +1,11 @@
 package com.ssafy.enjoytrip.user.controller;
 
-import com.ssafy.enjoytrip.enums.LoginConstant;
+import com.ssafy.enjoytrip.user.dto.DeleteDto;
 import com.ssafy.enjoytrip.user.dto.JoinDto;
 import com.ssafy.enjoytrip.user.dto.ModifyDto;
-import com.ssafy.enjoytrip.user.dto.UserDto;
 import com.ssafy.enjoytrip.user.service.UserService;
 import com.ssafy.enjoytrip.util.ResponseTemplate;
 import java.util.List;
-import java.util.Map;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -72,20 +69,14 @@ public class RestUserController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> delete(@RequestBody Map<String, String> requestMap, HttpSession session) {
-        UserDto userDto = (UserDto) session.getAttribute(LoginConstant.LOGIN_ATTRIBUTE_NAME.getValue());
-        if (userDto.getUserPw().equals(requestMap.get("userPw"))) {
-            try {
-                userService.deleteMember(userDto.getUserId());
-            } catch (Exception e) {
-                return new ResponseEntity<>("삭제에 실패했습니다.", HttpStatus.BAD_REQUEST);
-            } finally {
-                session.invalidate();
-            }
-        } else {
-            return new ResponseEntity<>("비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>("회원이 삭제되었습니다.", HttpStatus.OK);
+    public ResponseEntity<?> delete(@RequestBody DeleteDto deleteDto) {
+        userService.deleteMember(deleteDto);
+
+        return new ResponseEntity<>(ResponseTemplate.builder()
+                .result(true)
+                .msg("삭제에 성공하였습니다.")
+                .build(),
+                HttpStatus.OK);
     }
 
     @GetMapping("/followers/{userId}")

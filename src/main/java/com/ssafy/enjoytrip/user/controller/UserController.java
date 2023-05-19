@@ -80,14 +80,14 @@ public class UserController {
 //        return "redirect:/";
 //    }
 
-    @PostMapping("/delete")
-    public String delete(String userPw, HttpSession session) throws Exception {
-        UserDto userDto = (UserDto) session.getAttribute(LoginConstant.LOGIN_ATTRIBUTE_NAME.getValue());
-        if (userDto.getUserPw().equals(userPw)) {
-            userService.deleteMember(userDto.getUserId());
-        }
-        session.invalidate();
-        return "redirect:/";
-    }
+//    @PostMapping("/delete")
+//    public String delete(String userPw, HttpSession session) throws Exception {
+//        UserDto userDto = (UserDto) session.getAttribute(LoginConstant.LOGIN_ATTRIBUTE_NAME.getValue());
+//        if (userDto.getUserPw().equals(userPw)) {
+//            userService.deleteMember(userDto.getUserId());
+//        }
+//        session.invalidate();
+//        return "redirect:/";
+//    }
 
 }

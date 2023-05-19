@@ -1,6 +1,7 @@
 package com.ssafy.enjoytrip.user.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.enjoytrip.user.dto.DeleteDto;
 import com.ssafy.enjoytrip.user.dto.JoinDto;
 import com.ssafy.enjoytrip.user.dto.ModifyDto;
 import com.ssafy.enjoytrip.user.repository.UserRepository;
@@ -42,6 +43,23 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    private Map<String, String> makeModifyMap(ModifyDto modifyDto, String userId) {
+        Map<String, String> userMap = objectMapper.convertValue(userRepository.getUserByUserId(userId).get(),
+                Map.class);
+        if (StringUtils.hasText(modifyDto.getUserPw())) {
+            modifyDto.setUserPw(passwordEncoder.encode(modifyDto.getUserPw()));
+        }
+        Map<String, String> modifyMap = objectMapper.convertValue(modifyDto, Map.class);
+
+        for (Entry<String, String> entry : modifyMap.entrySet()) {
+            if (!StringUtils.hasText(entry.getValue())) {
+                modifyMap.put(entry.getKey(), userMap.get(entry.getKey()));
+            }
+        }
+
+        return modifyMap;
+    }
+
     @Override
     public int joinUser(JoinDto joinDto) {
         if (userRepository.getUserByUserId(joinDto.getUserId()).orElse(null) != null) {
@@ -77,26 +95,14 @@ public class UserServiceImpl implements UserService {
         userRepository.modify(modifyMap);
     }
 
-    private Map<String, String> makeModifyMap(ModifyDto modifyDto, String userId) {
-        Map<String, String> userMap = objectMapper.convertValue(userRepository.getUserByUserId(userId).get(),
-                Map.class);
-        if (StringUtils.hasText(modifyDto.getUserPw())) {
-            modifyDto.setUserPw(passwordEncoder.encode(modifyDto.getUserPw()));
-        }
-        Map<String, String> modifyMap = objectMapper.convertValue(modifyDto, Map.class);
-
-        for (Entry<String, String> entry : modifyMap.entrySet()) {
-            if (!StringUtils.hasText(entry.getValue())) {
-                modifyMap.put(entry.getKey(), userMap.get(entry.getKey()));
-            }
-        }
-
-        return modifyMap;
-    }
-
     @Override
-    public void deleteMember(String userId) {
-        userRepository.deleteMember(userId);
+    public void deleteMember(DeleteDto deleteDto) {
+        Optional<String> currentUserId = SecurityUtil.getCurrentUserId();
+        if (currentUserId.isPresent()) {
+            String userId = currentUserId.get();
+            isValidPassword(userId, deleteDto.getUserPw());
+            userRepository.deleteMember(userId);
+        }
     }
 
     @Override
