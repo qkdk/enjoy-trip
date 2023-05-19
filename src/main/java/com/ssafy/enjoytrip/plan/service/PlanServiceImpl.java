@@ -33,9 +33,9 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
 
-    public List<PlanDto> listPlan(int pgno, String key, String word) {
+    public List<PlanDto> listPlan(int pgno, String key, String word, String order) {
         return planRepository.getPlan(key, word,
-                (pgno - 1) * PageConstant.LIST_SIZE.getValue(), PageConstant.LIST_SIZE.getValue());
+                (pgno - 1) * PageConstant.LIST_SIZE.getValue(), PageConstant.LIST_SIZE.getValue(), order);
     }
 
     @Override

@@ -9,7 +9,7 @@ public interface PlanService {
 
     void writePlan(PlanWriteRequestDto planWriteRequestDto, String userId);
 
-    List<PlanDto> listPlan(int pgno, String key, String word);
+    List<PlanDto> listPlan(int pgno, String key, String word, String order);
 
     PlanDetailDto viewPlan(int planNo);
 }

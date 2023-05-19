@@ -13,7 +13,7 @@ public interface PlanRepository{
 
     int insertPlanDetail(Map map);
 
-    List<PlanDto> getPlan(String key, String word, int offset, int limit);
+    List<PlanDto> getPlan(String key, String word, int offset, int limit, String order);
 
     PlanDetailDto getPlanAndAttractionsByPlanNo(int planNo);
 

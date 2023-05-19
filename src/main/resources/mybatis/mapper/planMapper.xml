@@ -14,7 +14,7 @@
   </resultMap>
 
   <resultMap id="planDetailMap" type="planDetailDto">
-<!--    <collection property="planInfo" resultMap="planDto"></collection>-->
+    <!--    <collection property="planInfo" resultMap="planDto"></collection>-->
     <collection property="attractionList  " resultMap="attractionDto"></collection>
   </resultMap>
 
@@ -34,8 +34,13 @@
 
   <select id="getPlan" resultMap="planMap">
     SELECT * FROM trip_plan
-    <if test='key != ""'>
-      WHERE ${key} LIKE concat('%', #{word}, '%')
+    <if test='key != "" and key != null'>
+      <if test='word != "" and word != null'>
+        WHERE ${key} LIKE concat('%', #{word}, '%')
+      </if>
+    </if>
+    <if test='order != "" and order != null'>
+      ORDER BY ${order} DESC
     </if>
     LIMIT #{offset}, #{limit};
   </select>
