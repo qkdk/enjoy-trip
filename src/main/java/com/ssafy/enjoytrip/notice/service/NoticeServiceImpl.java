@@ -93,4 +93,9 @@ public class NoticeServiceImpl implements NoticeService {
 	public void hitNotice(int noticeNo) throws Exception {
 		session.getMapper(NoticeRepository.class).hitNotice(noticeNo);
 	}
+
+	@Override
+	public List<NoticeDto> getList(String key, String word) throws Exception {
+		return session.getMapper(NoticeRepository.class).getList(key, word);
+	}
 }

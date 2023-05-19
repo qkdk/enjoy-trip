@@ -11,6 +11,17 @@
     <result column="notice_createtime" property="noticeCreateTime"/>
     <result column="notice_hit" property="noticeHit"/>
   </resultMap>
+  
+  	<select id="getList" resultMap="noticeMap">
+  		SELECT * 
+  		FROM notice
+  		<if test='key != "" and key != null'>
+      		<if test='word != "" and word != null'>
+       			 WHERE ${key} LIKE concat('%', #{word}, '%')
+      		</if>
+    	</if>
+  	</select>
+  	
 
   	<select id="getTotalNoticeCount" resultType="int">
   		SELECT count(*) FROM notice

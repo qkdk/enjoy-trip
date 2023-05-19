@@ -34,21 +34,27 @@ public class RestNoticeController {
         this.noticeService = noticeService;
     }
 
-    @GetMapping("")
-    public ResponseEntity<Map<String, Object>> list(String pgno, String key, String word) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        List<NoticeDto> noticeList = null;
-        try {
-            noticeList = noticeService.listNotice(pgno, key, word);
-            PageNavigation navigation = noticeService.makePageNavigation(pgno, key, word);
-            map.put("data", noticeList);
-            map.put("page", navigation);
-            map.put("msg", "조회성공");
-            return ResponseEntity.ok(map);
-        } catch (Exception e) {
-            map.put("msg", "조회실패");
-            return null;
-        }
+//    @GetMapping("")
+//    public ResponseEntity<Map<String, Object>> list(String pgno, String key, String word) {
+//        Map<String, Object> map = new HashMap<String, Object>();
+//        List<NoticeDto> noticeList = null;
+//        try {
+//            noticeList = noticeService.listNotice(pgno, key, word);
+//            PageNavigation navigation = noticeService.makePageNavigation(pgno, key, word);
+//            map.put("data", noticeList);
+//            map.put("page", navigation);
+//            map.put("msg", "조회성공");
+//            return ResponseEntity.ok(map);
+//        } catch (Exception e) {
+//            map.put("msg", "조회실패");
+//            return null;
+//        }
+//    }
+    
+    @GetMapping
+    public ResponseEntity<List<NoticeDto>> getList(String key, String word) throws Exception{
+    	System.out.println(key+"asd"+word);
+    	return new ResponseEntity<List<NoticeDto>>(noticeService.getList(key, word), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
