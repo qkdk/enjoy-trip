@@ -26,4 +26,9 @@ public interface TrailService {
 	
 	void writeTrailParty(int trail_party_id, String trail_party_member_id, int trail_board_max_member, int trail_board_member_count) throws Exception;
 
+	TrailBoardDto getLatestBoard(int trail_board_no) throws Exception;
+
+	void joinParty(TrailBoardDto trailBoardDto) throws Exception;
+
+	List<TrailBoardDto> joinMember(int no) throws Exception;
 }

@@ -81,4 +81,25 @@ public class TrailServiceImpl implements TrailService {
 		sqlSession.getMapper(TrailRepository.class).writeTrailParty(trail_party_id, trail_party_member_id, trail_board_max_member, trail_board_member_count);
 	}
 
+
+
+	@Override
+	public TrailBoardDto getLatestBoard(int trail_board_no) throws Exception {
+		return sqlSession.getMapper(TrailRepository.class).getLatestBoard(trail_board_no);
+	}
+
+
+
+	@Override
+	public void joinParty(TrailBoardDto trailBoardDto) throws Exception {
+		sqlSession.getMapper(TrailRepository.class).joinParty(trailBoardDto);
+	}
+
+
+
+	@Override
+	public List<TrailBoardDto> joinMember(int no) throws Exception {
+		return sqlSession.getMapper(TrailRepository.class).joinMember(no);
+	}
+
 }

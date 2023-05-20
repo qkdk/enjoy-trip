@@ -58,5 +58,22 @@ public class TrailController {
 		System.out.println("인풋완료");
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
+	
+	@GetMapping("/board/view")
+	public ResponseEntity<TrailBoardDto> getLatestBoard() throws Exception{
+		int trail_board_no = trailService.lastIndex();
+		return new ResponseEntity<TrailBoardDto>(trailService.getLatestBoard(trail_board_no),HttpStatus.OK);
+	}
+	
+	@PostMapping("/board/joinparty")
+	public ResponseEntity<String> joinParty(@RequestBody TrailBoardDto trailBoardDto) throws Exception{
+		trailService.joinParty(trailBoardDto);
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/joinmember/{no}")
+	public ResponseEntity<List<TrailBoardDto>> joinMember(@PathVariable int no) throws Exception{
+		return new ResponseEntity<List<TrailBoardDto>>(trailService.joinMember(no),HttpStatus.OK);
+	}
 
 }

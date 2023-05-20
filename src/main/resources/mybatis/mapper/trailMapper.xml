@@ -46,6 +46,7 @@
   		<result column="trail_board_create_time" property="trail_board_create_time"></result>
   		<result column="trail_party_member_id" property="trail_party_member_id"></result>
   		<result column="trail_board_max_member" property="trail_board_max_member"></result>
+  		<result column="trail_board_member_count" property="trail_board_member_count"></result>		
   	</resultMap>
   	
   	<select id="getSido" resultMap="sidoCodeMap">
@@ -78,12 +79,20 @@
   		VALUES (#{trail_party_id}, #{trail_party_member_id}, #{trail_board_max_member}, #{trail_board_member_count})
   	</insert>
   	
+  	<insert id="joinParty">
+  		INSERT INTO trail_party (trail_party_id, trail_party_member_id, trail_board_max_member, trail_board_member_count)
+  		VALUES (#{trail_board_no}, #{user_id},
+  		(SELECT MAX(trail_board_max_member) FROM trail_party tp WHERE tp.trail_party_id = #{trail_board_no}),
+  		(SELECT MAX(trail_board_member_count) FROM trail_party tp WHERE tp.trail_party_id = #{trail_board_no})+1)
+  	</insert>
+  	
   	<select id="getTrail" resultMap="trailMap" >
   		SELECT *
   		FROM trail
   		WHERE start_sido_code = #{sido}
   		AND start_gugun_code = #{gugun}
   	</select>
+  	
   	
   	<select id="view" resultMap="trailMap">
   		SELECT *
@@ -93,8 +102,14 @@
   	
   	<select id="trailBoardList" resultMap="trailBoardMap">
   		SELECT *
-  		FROM trail_board tb, trail_party tp
-  		WHERE tb.trail_board_no = tp.trail_party_id
+  		FROM trail_board tb
+  		INNER JOIN trail_party tp ON tb.trail_board_no = tp.trail_party_id
+  		WHERE 1
+  		AND tp.trail_board_member_count = (
+    		SELECT MAX(tp2.trail_board_member_count)
+    		FROM trail_party tp2
+    		WHERE tp2.trail_party_id = tb.trail_board_no
+		)
   		<if test='key != "" and key != null'>
       		<if test='word != "" and word != null'>
        			 AND ${key} LIKE concat('%', #{word}, '%')
@@ -102,6 +117,19 @@
     	</if>
   	</select>
   	
+  	<select id="joinMember" resultMap="trailBoardMap">
+  		SELECT tp.trail_party_member_id
+  		FROM trail_board tb, trail_party tp
+  		WHERE tb.trail_board_no = #{no}
+  		AND tp.trail_party_id = #{no}
+  	</select>
+  	
+  	<select id="getLatestBoard" resultMap="trailBoardMap">
+  		SELECT *
+  		FROM trail_board tb, trail_party tp
+  		WHERE tb.trail_board_no = #{trail_board_no}
+  		AND tp.trail_party_id = #{trail_board_no}
+  	</select>
 
 
   <insert id="insertData" parameterType="list">
