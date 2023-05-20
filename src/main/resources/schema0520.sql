@@ -166,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`notice` (
     FOREIGN KEY (`user_id`)
     REFERENCES `enjoytrip`.`user` (`user_id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 14
+AUTO_INCREMENT = 15
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -189,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`place` (
     FOREIGN KEY (`user_id`)
     REFERENCES `enjoytrip`.`user` (`user_id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 11
+AUTO_INCREMENT = 12
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -230,6 +230,46 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`place_reply` (
     REFERENCES `enjoytrip`.`user` (`user_id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 5
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `enjoytrip`.`trip_plan`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `enjoytrip`.`trip_plan` (
+  `user_id` VARCHAR(20) NOT NULL,
+  `plan_id` INT NOT NULL AUTO_INCREMENT,
+  `plan_title` VARCHAR(20) NOT NULL,
+  `recommend_count` INT NOT NULL DEFAULT '0',
+  `hit` INT NOT NULL DEFAULT '0',
+  `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`plan_id`),
+  INDEX `user_id_plan_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `user_id_plan`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `enjoytrip`.`user` (`user_id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 3
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `enjoytrip`.`plan_recommend`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `enjoytrip`.`plan_recommend` (
+  `user_id` VARCHAR(20) NOT NULL,
+  `plan_id` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `plan_id`),
+  INDEX `fk_plan_id_idx` (`plan_id` ASC) VISIBLE,
+  CONSTRAINT `fk_plan_id_plan`
+    FOREIGN KEY (`plan_id`)
+    REFERENCES `enjoytrip`.`trip_plan` (`plan_id`),
+  CONSTRAINT `fk_user_id_plan`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `enjoytrip`.`user` (`user_id`))
+ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -325,26 +365,6 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `enjoytrip`.`trip_plan`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enjoytrip`.`trip_plan` (
-  `user_id` VARCHAR(20) NOT NULL,
-  `plan_id` INT NOT NULL AUTO_INCREMENT,
-  `plan_title` VARCHAR(20) NOT NULL,
-  `recommend_count` INT NOT NULL DEFAULT '0',
-  `hit` INT NOT NULL DEFAULT '0',
-  `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`plan_id`),
-  INDEX `user_id_plan_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `user_id_plan`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `enjoytrip`.`user` (`user_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
 -- Table `enjoytrip`.`trip_plan_detail`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `enjoytrip`.`trip_plan_detail` (
@@ -363,27 +383,6 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`trip_plan_detail` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `enjoytrip`.`plan_recommend`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enjoytrip`.`plan_recommend` (
-  `user_id` VARCHAR(20) NOT NULL,
-  `plan_id` INT NOT NULL,
-  PRIMARY KEY (`user_id`, `plan_id`),
-  INDEX `fk_plan_id_idx` (`plan_id` ASC) VISIBLE,
-  CONSTRAINT `fk_user_id_plan`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `enjoytrip`.`user` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_plan_id_plan`
-    FOREIGN KEY (`plan_id`)
-    REFERENCES `enjoytrip`.`trip_plan` (`plan_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
