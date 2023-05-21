@@ -66,9 +66,15 @@
   		INSERT INTO trail_board (trail_board_trail_id, user_id, trail_board_title, trail_board_content, 
   								trail_board_start_time, trail_board_end_time)
   		VALUES (#{trail_board_trail_id}, #{user_id}, #{trail_board_title}, #{trail_board_content}, 
-  								#{trail_board_start_time}, #{trail_board_end_time})
-  								
+  								#{trail_board_start_time}, #{trail_board_end_time})							
   	</insert>
+  	
+  	<update id="trailBoardUpdate">
+  		UPDATE trail_board
+  		SET trail_board_title = #{trail_board_title}, trail_board_content = #{trail_board_content},
+  			trail_board_start_time = #{trail_board_start_time}, trail_board_end_time = #{trail_board_end_time}
+  		WHERE trail_board_no = #{trail_board_no}
+  	</update>
   	
   	<select id="lastIndex" resultType="int">
     	SELECT max(trail_board_no) FROM trail_board

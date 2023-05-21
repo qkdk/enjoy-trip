@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -81,6 +82,12 @@ public class TrailController {
 	public ResponseEntity<String> delete(@PathVariable int no) throws Exception{
 		trailService.deleteTrailParty(no);
 		trailService.deleteTrailBoard(no);
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
+	@PutMapping("/board/modify")
+	public ResponseEntity<String> modify(@RequestBody TrailBoardDto trailBoardDto) throws Exception{
+		trailService.trailBoardUpdate(trailBoardDto);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 

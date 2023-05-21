@@ -116,4 +116,11 @@ public class TrailServiceImpl implements TrailService {
 		sqlSession.getMapper(TrailRepository.class).deleteTrailBoard(no);
 	}
 
+
+
+	@Override
+	public void trailBoardUpdate(TrailBoardDto trailBoardDto) throws Exception {
+		sqlSession.getMapper(TrailRepository.class).trailBoardUpdate(trailBoardDto);
+	}
+
 }

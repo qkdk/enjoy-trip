@@ -37,4 +37,6 @@ public interface TrailRepository {
 	void deleteTrailParty(int no) throws Exception;
 	
 	void deleteTrailBoard(int no) throws Exception;
+
+	void trailBoardUpdate(TrailBoardDto trailBoardDto) throws Exception;
 }
