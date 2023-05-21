@@ -31,4 +31,8 @@ public interface TrailService {
 	void joinParty(TrailBoardDto trailBoardDto) throws Exception;
 
 	List<TrailBoardDto> joinMember(int no) throws Exception;
+
+	void deleteTrailParty(int no) throws Exception;
+	
+	void deleteTrailBoard(int no) throws Exception;
 }

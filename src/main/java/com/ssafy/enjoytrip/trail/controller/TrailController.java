@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -74,6 +75,13 @@ public class TrailController {
 	@GetMapping("/joinmember/{no}")
 	public ResponseEntity<List<TrailBoardDto>> joinMember(@PathVariable int no) throws Exception{
 		return new ResponseEntity<List<TrailBoardDto>>(trailService.joinMember(no),HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/board/delete/{no}")
+	public ResponseEntity<String> delete(@PathVariable int no) throws Exception{
+		trailService.deleteTrailParty(no);
+		trailService.deleteTrailBoard(no);
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
 }

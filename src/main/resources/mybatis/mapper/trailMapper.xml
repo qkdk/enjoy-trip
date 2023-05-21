@@ -130,6 +130,16 @@
   		WHERE tb.trail_board_no = #{trail_board_no}
   		AND tp.trail_party_id = #{trail_board_no}
   	</select>
+  	
+  	<delete id="deleteTrailParty">
+  		DELETE FROM trail_party
+		WHERE trail_party_id = #{no}
+  	</delete>
+  	
+  	<delete id="deleteTrailBoard">
+  		DELETE FROM trail_board
+		WHERE trail_board_no = #{no}
+  	</delete>
 
 
   <insert id="insertData" parameterType="list">

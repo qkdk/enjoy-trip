@@ -102,4 +102,18 @@ public class TrailServiceImpl implements TrailService {
 		return sqlSession.getMapper(TrailRepository.class).joinMember(no);
 	}
 
+
+
+	@Override
+	public void deleteTrailParty(int no) throws Exception {
+		sqlSession.getMapper(TrailRepository.class).deleteTrailParty(no);
+	}
+
+
+
+	@Override
+	public void deleteTrailBoard(int no) throws Exception {
+		sqlSession.getMapper(TrailRepository.class).deleteTrailBoard(no);
+	}
+
 }
