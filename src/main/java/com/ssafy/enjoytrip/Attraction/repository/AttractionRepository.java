@@ -28,4 +28,6 @@ public interface AttractionRepository {
     int getGugunCodeBySidoCodeAndGugunName(String gugunName, int sidoCode);
 
     String getAttractionDescription(String contentId);
+
+    List<AttractionDto> getAttractionByWord(String word);
 }

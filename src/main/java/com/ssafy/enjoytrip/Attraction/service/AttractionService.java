@@ -15,4 +15,6 @@ public interface AttractionService {
     List<GugunCodeDto> getGugunCodeAndName(int sidoCode);
 
     String getAttractionDescription(String contentId);
+
+    List<AttractionDto> getAttractionByWord(String word);
 }

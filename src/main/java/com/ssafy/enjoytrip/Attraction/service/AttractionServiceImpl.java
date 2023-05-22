@@ -71,4 +71,9 @@ public class AttractionServiceImpl implements AttractionService {
         return attractionRepository.getAttractionDescription(contentId);
     }
 
+    @Override
+    public List<AttractionDto> getAttractionByWord(String word) {
+        return attractionRepository.getAttractionByWord(word);
+    }
+
 }

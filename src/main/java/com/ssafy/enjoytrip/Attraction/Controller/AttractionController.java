@@ -58,4 +58,17 @@ public class AttractionController {
                 , HttpStatus.OK
         );
     }
+
+    @GetMapping("/search/{word}")
+    public ResponseEntity<ResponseTemplate<List<AttractionDto>>> searchAttraction(@PathVariable String word) {
+        return new ResponseEntity<>(
+                ResponseTemplate.<List<AttractionDto>>builder()
+                        .msg("검색 성공")
+                        .result(true)
+                        .data(attractionService.getAttractionByWord(word))
+                        .build(),
+                HttpStatus.OK
+        );
+    }
+
 }

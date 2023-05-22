@@ -94,4 +94,10 @@
     WHERE content_id = #{contentId};
   </select>
 
+  <select id="getAttractionByWord" resultMap="attractionMap">
+    SELECT *
+    FROM attraction_info
+    WHERE title LIKE CONCAT('%', #{keyword}, '%');
+  </select>
+
 </mapper>
