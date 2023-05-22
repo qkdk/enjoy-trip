@@ -6,6 +6,7 @@
   <typeAliases>
     <typeAlias type="com.ssafy.enjoytrip.user.dto.UserDto" alias="userDto"/>
     <typeAlias type="com.ssafy.enjoytrip.user.dto.JoinDto" alias="joinDto"/>
+    <typeAlias type="com.ssafy.enjoytrip.user.dto.FollowDto" alias="followDto"/>
     <typeAlias type="com.ssafy.enjoytrip.notice.dto.NoticeDto" alias="noticeDto"/>
     <typeAlias type="com.ssafy.enjoytrip.Attraction.dto.AttractionDto" alias="attractionDto"/>
     <typeAlias type="com.ssafy.enjoytrip.Attraction.dto.SidoCodeDto" alias="sidoCodeDto"/>

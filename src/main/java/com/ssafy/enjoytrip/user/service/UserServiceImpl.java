@@ -2,6 +2,7 @@ package com.ssafy.enjoytrip.user.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.enjoytrip.user.dto.DeleteDto;
+import com.ssafy.enjoytrip.user.dto.FollowDto;
 import com.ssafy.enjoytrip.user.dto.JoinDto;
 import com.ssafy.enjoytrip.user.dto.ModifyDto;
 import com.ssafy.enjoytrip.user.dto.UserDetailDto;
@@ -79,6 +80,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int joinUser(JoinDto joinDto) {
+    	System.out.println("서비스까지 완료");
         if (userRepository.getUserByUserId(joinDto.getUserId()).orElse(null) != null) {
             throw new RuntimeException("이미 가입되어있는 유저입니다.");
         }
@@ -123,7 +125,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<String> getFollowers(String userId) {
+    public List<FollowDto> getFollowers(String userId) {
         return userRepository.getFollowers(userId);
     }
 }

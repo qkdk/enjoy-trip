@@ -1,5 +1,6 @@
 package com.ssafy.enjoytrip.user.repository;
 
+import com.ssafy.enjoytrip.user.dto.FollowDto;
 import com.ssafy.enjoytrip.user.dto.JoinDto;
 import com.ssafy.enjoytrip.user.dto.UserDto;
 import java.sql.SQLException;
@@ -24,5 +25,5 @@ public interface UserRepository {
     
     void deleteMember(String userId);
 
-    List<String> getFollowers(String userId);
+    List<FollowDto> getFollowers(String userId);
 }
