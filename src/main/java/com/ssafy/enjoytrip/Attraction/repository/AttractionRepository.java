@@ -26,4 +26,6 @@ public interface AttractionRepository {
     int getSidoCodeBySidoName(String sidoName);
 
     int getGugunCodeBySidoCodeAndGugunName(String gugunName, int sidoCode);
+
+    String getAttractionDescription(String contentId);
 }
