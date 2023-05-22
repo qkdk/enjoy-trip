@@ -88,4 +88,10 @@
       AND gugun_name = #{gugunName};
   </select>
 
+  <select id="getAttractionDescription" resultType="string">
+    SELECT overview
+    FROM attraction_description
+    WHERE content_id = #{contentId};
+  </select>
+
 </mapper>

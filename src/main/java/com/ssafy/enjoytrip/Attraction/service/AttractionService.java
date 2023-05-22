@@ -8,9 +8,11 @@ import java.util.List;
 
 public interface AttractionService {
 
-    List<AttractionDto> getAttraction(int sidoCode, int gugunCode, int contentTypeId) throws SQLException;
+    List<AttractionDto> getAttraction(int sidoCode, int gugunCode, int contentTypeId) ;
 
-    List<SidoCodeDto> getSidoCodeAndName() throws SQLException;
+    List<SidoCodeDto> getSidoCodeAndName() ;
 
     List<GugunCodeDto> getGugunCodeAndName(int sidoCode);
+
+    String getAttractionDescription(String contentId);
 }
