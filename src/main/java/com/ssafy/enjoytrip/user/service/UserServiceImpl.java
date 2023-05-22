@@ -128,4 +128,9 @@ public class UserServiceImpl implements UserService {
     public List<FollowDto> getFollowers(String userId) {
         return userRepository.getFollowers(userId);
     }
+
+	@Override
+	public void setFollowers(String userId, String follow_id) throws Exception {
+		userRepository.setFollowers(userId, follow_id);
+	}
 }

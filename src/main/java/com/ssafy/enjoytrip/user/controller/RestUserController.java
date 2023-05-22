@@ -150,4 +150,10 @@ public class RestUserController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
+    
+    @PostMapping("/followers/{userId}/{follow_id}")
+    public ResponseEntity<String> setFollowers(@PathVariable String userId, @PathVariable String follow_id) throws Exception{
+    	userService.setFollowers(userId, follow_id);
+    	return new ResponseEntity<String>(HttpStatus.OK);
+    }
 }

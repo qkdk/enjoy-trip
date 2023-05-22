@@ -55,5 +55,10 @@
 	INNER JOIN follow f ON u.user_id = f.followee_id
 	WHERE f.follower_id = #{userId}
   </select>
+  
+  <insert id="setFollowers">
+  	INSERT INTO follow (follower_id, followee_id)
+	VALUES (#{userId}, #{follow_id})
+  </insert>
 
 </mapper>

@@ -20,4 +20,6 @@ public interface UserService {
     void deleteMember(DeleteDto deleteDto);
 
     List<FollowDto> getFollowers(String userId);
+    
+    void setFollowers(String userId, String follow_id) throws Exception;
 }

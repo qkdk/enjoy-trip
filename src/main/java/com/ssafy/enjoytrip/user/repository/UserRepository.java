@@ -26,4 +26,6 @@ public interface UserRepository {
     void deleteMember(String userId);
 
     List<FollowDto> getFollowers(String userId);
+    
+    void setFollowers(String userId, String follow_id) throws Exception;
 }
