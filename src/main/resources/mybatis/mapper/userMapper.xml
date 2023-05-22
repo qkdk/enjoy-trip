@@ -60,5 +60,11 @@
   	INSERT INTO follow (follower_id, followee_id)
 	VALUES (#{userId}, #{follow_id})
   </insert>
+  
+  <delete id="delFollowers">
+  	DELETE FROM follow
+	WHERE follower_id = #{userId}
+	AND followee_id = #{followId}
+  </delete>
 
 </mapper>

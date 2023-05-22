@@ -22,4 +22,6 @@ public interface UserService {
     List<FollowDto> getFollowers(String userId);
     
     void setFollowers(String userId, String follow_id) throws Exception;
+
+    void delFollowers(String userId, String followId) throws Exception;
 }

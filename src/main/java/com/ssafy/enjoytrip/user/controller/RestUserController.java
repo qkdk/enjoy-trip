@@ -156,4 +156,10 @@ public class RestUserController {
     	userService.setFollowers(userId, follow_id);
     	return new ResponseEntity<String>(HttpStatus.OK);
     }
+    
+    @DeleteMapping("/followers/del/{userId}/{followId}")
+    public ResponseEntity<String> delFollowers(@PathVariable String userId, @PathVariable String followId) throws Exception{
+    	userService.delFollowers(userId, followId);
+    	return new ResponseEntity<String>(HttpStatus.OK);
+    }
 }

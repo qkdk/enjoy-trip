@@ -133,4 +133,9 @@ public class UserServiceImpl implements UserService {
 	public void setFollowers(String userId, String follow_id) throws Exception {
 		userRepository.setFollowers(userId, follow_id);
 	}
+
+	@Override
+	public void delFollowers(String userId, String followId) throws Exception {
+		userRepository.delFollowers(userId, followId);
+	}
 }
