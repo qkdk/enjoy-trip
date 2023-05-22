@@ -124,4 +124,10 @@
     	SET place_title = #{placeTitle}, place_content = #{placeContent}
     	WHERE place_no = #{placeNo}
     </update>
+    
+    <update id="modifyRecommend">
+    	UPDATE place
+    	SET recommend_count = #{count}
+    	WHERE place_no = #{placeNo}
+    </update>
 </mapper>

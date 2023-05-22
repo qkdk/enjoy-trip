@@ -45,4 +45,6 @@ public interface PlaceRepository {
 	void addRecommend(RecommendDto recommendDto) throws Exception;
 	
 	void delRecommend(RecommendDto recommendDto) throws Exception;
+	
+	void modifyRecommend(int count, int placeNo) throws Exception;
 }

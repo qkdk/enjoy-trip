@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,6 +80,12 @@ public class RestPlaceController {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+	
+	@PutMapping("/recommend/{count}/{placeNo}")
+	public ResponseEntity<String> modifyRecommend(@PathVariable int count, @PathVariable int placeNo) throws Exception{
+		placeService.modifyRecommend(count, placeNo);
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 //	@GetMapping
 //	public ResponseEntity<?> list(){

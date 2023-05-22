@@ -155,4 +155,10 @@ public class PlaceServiceImpl implements PlaceService {
 		session.getMapper(PlaceRepository.class).delRecommend(recommendDto);
 	}
 
+
+	@Override
+	public void modifyRecommend(int count, int placeNo) throws Exception {
+		session.getMapper(PlaceRepository.class).modifyRecommend(count, placeNo);
+	}
+
 }

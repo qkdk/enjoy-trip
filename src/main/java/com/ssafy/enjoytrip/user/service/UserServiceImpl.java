@@ -138,4 +138,5 @@ public class UserServiceImpl implements UserService {
 	public void delFollowers(String userId, String followId) throws Exception {
 		userRepository.delFollowers(userId, followId);
 	}
+
 }
