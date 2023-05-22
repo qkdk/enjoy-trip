@@ -143,4 +143,16 @@ public class PlaceServiceImpl implements PlaceService {
 		return session.getMapper(PlaceRepository.class).recommend(no);
 	}
 
+
+	@Override
+	public void addRecommend(RecommendDto recommendDto) throws Exception {
+		session.getMapper(PlaceRepository.class).addRecommend(recommendDto);
+	}
+
+
+	@Override
+	public void delRecommend(RecommendDto recommendDto) throws Exception {
+		session.getMapper(PlaceRepository.class).delRecommend(recommendDto);
+	}
+
 }

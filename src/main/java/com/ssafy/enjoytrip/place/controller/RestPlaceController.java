@@ -241,5 +241,21 @@ public class RestPlaceController {
 	public ResponseEntity<List<RecommendDto>> recommend(@PathVariable int no) throws Exception{
 		return new ResponseEntity<List<RecommendDto>>(placeService.recommend(no), HttpStatus.OK);
 	}
+	
+	@PostMapping("/recommend/add")
+	public ResponseEntity<String> recommendAdd(@RequestBody RecommendDto recommendDto) throws Exception{
+		placeService.addRecommend(recommendDto);
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/recommend/del")
+	public ResponseEntity<String> recommendDel(String user_id, int place_no) throws Exception{
+		System.out.println("삭제합니다");
+		RecommendDto recommendDto = new RecommendDto();
+		recommendDto.setUser_id(user_id);
+		recommendDto.setPlace_no(place_no);
+		placeService.delRecommend(recommendDto);
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
 
 }

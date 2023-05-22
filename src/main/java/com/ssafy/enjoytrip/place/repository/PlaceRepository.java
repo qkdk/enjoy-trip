@@ -41,4 +41,8 @@ public interface PlaceRepository {
 	void writeReply(ReplyDto replyDto) throws Exception;
 	
 	List<RecommendDto> recommend(int no) throws Exception;
+	
+	void addRecommend(RecommendDto recommendDto) throws Exception;
+	
+	void delRecommend(RecommendDto recommendDto) throws Exception;
 }
