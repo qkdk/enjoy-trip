@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,6 +58,36 @@ public class TrailController {
 		int boardNo = trailService.lastIndex();
 		trailService.writeTrailParty(boardNo, trailBoardDto.getUser_id(), trailBoardDto.getTrail_board_max_member(), trailBoardDto.getTrail_board_member_count());
 		System.out.println("인풋완료");
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/board/view")
+	public ResponseEntity<TrailBoardDto> getLatestBoard() throws Exception{
+		int trail_board_no = trailService.lastIndex();
+		return new ResponseEntity<TrailBoardDto>(trailService.getLatestBoard(trail_board_no),HttpStatus.OK);
+	}
+	
+	@PostMapping("/board/joinparty")
+	public ResponseEntity<String> joinParty(@RequestBody TrailBoardDto trailBoardDto) throws Exception{
+		trailService.joinParty(trailBoardDto);
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/joinmember/{no}")
+	public ResponseEntity<List<TrailBoardDto>> joinMember(@PathVariable int no) throws Exception{
+		return new ResponseEntity<List<TrailBoardDto>>(trailService.joinMember(no),HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/board/delete/{no}")
+	public ResponseEntity<String> delete(@PathVariable int no) throws Exception{
+		trailService.deleteTrailParty(no);
+		trailService.deleteTrailBoard(no);
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
+	@PutMapping("/board/modify")
+	public ResponseEntity<String> modify(@RequestBody TrailBoardDto trailBoardDto) throws Exception{
+		trailService.trailBoardUpdate(trailBoardDto);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
