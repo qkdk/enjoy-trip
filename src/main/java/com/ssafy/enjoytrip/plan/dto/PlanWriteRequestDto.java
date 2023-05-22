@@ -8,4 +8,6 @@ public class PlanWriteRequestDto {
 
     private String planTitle;
     private List<String> contentIdList;
+    private String startDate;
+    private String endDate;
 }
