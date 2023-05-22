@@ -33,6 +33,17 @@
 		WHERE place_no = #{no};
 	</select>
 	
+	<insert id="addRecommend">
+		INSERT INTO place_recommend (user_id, place_no)
+		VALUES (#{user_id}, #{place_no});
+	</insert>
+	
+	<delete id="delRecommend">
+		DELETE FROM place_recommend
+		WHERE place_no = #{place_no}
+		AND user_id = #{user_id}
+	</delete>
+	
 	
 	<select id="replyList" resultMap="replyMap">
 		SELECT * FROM place_reply
