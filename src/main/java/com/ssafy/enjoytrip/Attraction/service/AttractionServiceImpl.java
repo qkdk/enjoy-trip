@@ -19,14 +19,15 @@ public class AttractionServiceImpl implements AttractionService {
     private final AttractionRepository attractionRepository;
 
     @Override
-    public List<AttractionDto> getAttraction(int sidoCode, int gugunCode, int contentTypeId) {
+    public List<AttractionDto> getAttraction(int sidoCode, int gugunCode, int contentTypeId, String word) {
         List<AttractionDto> attractionDtos = null;
         if (gugunCode == 0 && contentTypeId == 0) {
             attractionDtos = attractionRepository
                     .getAttractionBySidoCode(
                             AttractionConstant.ATTRACTION_OFFSET.getValue(),
                             AttractionConstant.ATTRACTION_LIMIT.getValue(),
-                            sidoCode);
+                            sidoCode,
+                            word);
         }
         else if (gugunCode != 0 && contentTypeId == 0) {
             attractionDtos = attractionRepository
@@ -34,7 +35,8 @@ public class AttractionServiceImpl implements AttractionService {
                             AttractionConstant.ATTRACTION_OFFSET.getValue(),
                             AttractionConstant.ATTRACTION_LIMIT.getValue(),
                             sidoCode,
-                            gugunCode);
+                            gugunCode,
+                            word);
         }
         else if (gugunCode == 0 && contentTypeId != 0) {
             attractionDtos = attractionRepository
@@ -42,7 +44,8 @@ public class AttractionServiceImpl implements AttractionService {
                             AttractionConstant.ATTRACTION_OFFSET.getValue(),
                             AttractionConstant.ATTRACTION_LIMIT.getValue(),
                             sidoCode,
-                            contentTypeId);
+                            contentTypeId,
+                            word);
         } else {
             attractionDtos = attractionRepository
                     .getAttractionBySidoCodeAndGugunCodeAndContentTypeId(
@@ -50,7 +53,8 @@ public class AttractionServiceImpl implements AttractionService {
                             AttractionConstant.ATTRACTION_LIMIT.getValue(),
                             sidoCode,
                             gugunCode,
-                            contentTypeId);
+                            contentTypeId,
+                            word);
         }
 
         return attractionDtos;
@@ -69,11 +73,6 @@ public class AttractionServiceImpl implements AttractionService {
     @Override
     public String getAttractionDescription(String contentId) {
         return attractionRepository.getAttractionDescription(contentId);
-    }
-
-    @Override
-    public List<AttractionDto> getAttractionByWord(String word) {
-        return attractionRepository.getAttractionByWord(word);
     }
 
 }
