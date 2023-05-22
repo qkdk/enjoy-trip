@@ -1,6 +1,7 @@
 package com.ssafy.enjoytrip.user.controller;
 
 import com.ssafy.enjoytrip.user.dto.DeleteDto;
+import com.ssafy.enjoytrip.user.dto.FollowDto;
 import com.ssafy.enjoytrip.user.dto.JoinDto;
 import com.ssafy.enjoytrip.user.dto.ModifyDto;
 import com.ssafy.enjoytrip.user.dto.UserDetailDto;
@@ -117,16 +118,24 @@ public class RestUserController {
     }
 
     @GetMapping("/followers/{userId}")
-    public ResponseEntity<?> getFollowers(@PathVariable String userId) {
+    public ResponseEntity<List<FollowDto>> getFollowers(@PathVariable String userId) {
         try {
-            List<String> followees = userService.getFollowers(userId);
-            ResponseTemplate<List<String>> body = ResponseTemplate.<List<String>>builder()
-                    .result(true)
-                    .msg("팔로우 불러오기가 성공했습니다.")
-                    .data(followees)
-                    .build();
-
-            return new ResponseEntity<>(body, HttpStatus.OK);
+//            List<FollowDto> followees = userService.getFollowers(userId);
+//            ResponseTemplate<List<String>> body = ResponseTemplate.<List<String>>builder()
+//                    .result(true)
+//                    .msg("팔로우 불러오기가 성공했습니다.")
+//                    .data(followees)
+//                    .build();
+//
+//            return new ResponseEntity<>(body, HttpStatus.OK);
+        	List<FollowDto> list = userService.getFollowers(userId);
+        	for (int i = 0; i < list.size(); i++) {
+				if(list.get(i).getUserImgSrc() != null) {
+					String base = "http://localhost:8080/enjoytrip/profile/" + list.get(i).getUserImgSrc();
+					list.get(i).setUserImgSrc(base);
+				}
+			}
+        	return new ResponseEntity<List<FollowDto>>(list,HttpStatus.OK);
 
         } catch (Exception e) {
             StackTraceElement[] stackTrace = e.getStackTrace();
@@ -138,7 +147,7 @@ public class RestUserController {
                     .msg("팔로우 불러오기기 실패했습니다.")
                     .build();
 
-            return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 }

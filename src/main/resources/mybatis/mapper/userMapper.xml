@@ -11,6 +11,11 @@
     <result column="user_domain" property="userDomain" javaType="String" jdbcType="VARCHAR"/>
     <result column="user_role" property="userRole" javaType="String" jdbcType="VARCHAR"/>
   </resultMap>
+  
+  <resultMap id="followMap" type="followDto" >
+  	<result column="user_id" property="userId" />
+  	<result column="user_img_src" property="userImgSrc" />
+  </resultMap>
 
   <select id="getUserByUserId" resultMap="userMap">
     SELECT *
@@ -44,11 +49,11 @@
     WHERE user_id = #{userId}
   </delete>
 
-  <select id="getFollowers" resultType="string">
-    SELECT followee_id
-    FROM follow
-    WHERE follower_id = #{userId};
-
+  <select id="getFollowers" resultMap="followMap">
+    SELECT u.user_id, u.user_img_src
+	FROM user u
+	INNER JOIN follow f ON u.user_id = f.followee_id
+	WHERE f.follower_id = #{userId}
   </select>
 
 </mapper>

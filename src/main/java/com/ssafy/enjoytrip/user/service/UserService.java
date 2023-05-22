@@ -1,6 +1,7 @@
 package com.ssafy.enjoytrip.user.service;
 
 import com.ssafy.enjoytrip.user.dto.DeleteDto;
+import com.ssafy.enjoytrip.user.dto.FollowDto;
 import com.ssafy.enjoytrip.user.dto.JoinDto;
 import com.ssafy.enjoytrip.user.dto.ModifyDto;
 import com.ssafy.enjoytrip.user.dto.UserDetailDto;
@@ -18,5 +19,5 @@ public interface UserService {
 
     void deleteMember(DeleteDto deleteDto);
 
-    List<String> getFollowers(String userId);
+    List<FollowDto> getFollowers(String userId);
 }
