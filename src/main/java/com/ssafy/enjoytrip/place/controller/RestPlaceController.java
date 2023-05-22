@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.enjoytrip.place.dto.PlaceDto;
+import com.ssafy.enjoytrip.place.dto.RecommendDto;
 import com.ssafy.enjoytrip.place.dto.ReplyDto;
 import com.ssafy.enjoytrip.place.service.PlaceService;
 import com.ssafy.enjoytrip.user.dto.UserDto;
@@ -234,6 +235,11 @@ public class RestPlaceController {
 		} catch (Exception e) {
 			return new ResponseEntity<String>("작성실패", HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	@GetMapping("/recommend/{no}")
+	public ResponseEntity<List<RecommendDto>> recommend(@PathVariable int no) throws Exception{
+		return new ResponseEntity<List<RecommendDto>>(placeService.recommend(no), HttpStatus.OK);
 	}
 
 }

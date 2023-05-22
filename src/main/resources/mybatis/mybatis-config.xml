@@ -12,6 +12,7 @@
     <typeAlias type="com.ssafy.enjoytrip.Attraction.dto.GugunCodeDto" alias="gugunCodeDto"/>
     <typeAlias type="com.ssafy.enjoytrip.place.dto.PlaceDto" alias="placeDto"/>
     <typeAlias type="com.ssafy.enjoytrip.place.dto.ReplyDto" alias="replyDto"/>
+    <typeAlias type="com.ssafy.enjoytrip.place.dto.RecommendDto" alias="recommendDto"/>
     <typeAlias type="com.ssafy.enjoytrip.plan.dto.PlanWriteRequestDto" alias="planWriteRequestDto"/>
     <typeAlias type="com.ssafy.enjoytrip.plan.dto.PlanDto" alias="planDto"/>
     <typeAlias type="com.ssafy.enjoytrip.plan.dto.PlanDetailDto" alias="planDetailDto"/>
