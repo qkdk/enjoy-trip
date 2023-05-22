@@ -44,4 +44,6 @@ public interface PlaceService {
 	void delRecommend(RecommendDto recommendDto) throws Exception;
 	
 	void modifyRecommend(int count, int placeNo) throws Exception;
+
+	List<PlaceDto> listSort(String pgno, String key, String word) throws Exception;
 }

@@ -13,6 +13,8 @@ import com.ssafy.enjoytrip.place.dto.ReplyDto;
 public interface PlaceRepository {
 
 	List<PlaceDto> getPlace(int offset, int limit, String key, String word) throws Exception;
+	
+	List<PlaceDto> getPlaceSort(int offset, int limit, String key, String word) throws Exception;
 
 	List<PlaceDto> getList() throws Exception;
 	

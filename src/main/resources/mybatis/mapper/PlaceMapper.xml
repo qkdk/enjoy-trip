@@ -12,6 +12,7 @@
 		<result column="hit" property="hit" />
 		<result column="place_createtime" property="placeCreateTime" />
 		<result column="place_img_src" property="placeImgSrc" />
+		<result column="recommend_count" property="recommend" />
 	</resultMap>
 
 	<resultMap id="replyMap" type="replyDto">
@@ -65,12 +66,26 @@
   	</select>
 	
 	<select id="getPlace" resultMap="placeMap">
-      SELECT * FROM place
-      <if test='key != ""'>
-      WHERE ${key} LIKE concat('%', #{word}, '%')
-      </if>
-      LIMIT #{offset} , #{limit}
-    </select>
+  		SELECT * FROM place
+  			<if test='key != ""'>
+      			<if test='word != ""'>
+      				WHERE ${key} LIKE concat('%', #{word}, '%')
+      			</if>
+      		</if>
+  		LIMIT #{offset} , #{limit}
+	</select>
+	
+	<select id="getPlaceSort" resultMap="placeMap">
+  		SELECT * FROM place
+  			<if test='key != ""'>
+      			<if test='word != ""'>
+      				WHERE ${key} LIKE concat('%', #{word}, '%')
+      			</if>
+      		</if>
+      	ORDER BY recommend_count DESC
+  		LIMIT #{offset} , #{limit}
+	</select>
+
     
     <select id="getPlaceByPlaceNo" resultMap="placeMap">
       SELECT *
