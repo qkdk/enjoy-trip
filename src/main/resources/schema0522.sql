@@ -210,6 +210,25 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
+-- Table `enjoytrip`.`place_recommend`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `enjoytrip`.`place_recommend` (
+  `user_id` VARCHAR(20) NOT NULL,
+  `place_no` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `place_no`),
+  INDEX `fk_place_plane_no_idx` (`place_no` ASC) VISIBLE,
+  CONSTRAINT `fk_place_plane_no`
+    FOREIGN KEY (`place_no`)
+    REFERENCES `enjoytrip`.`place` (`place_no`),
+  CONSTRAINT `fk_place_user_id`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `enjoytrip`.`user` (`user_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
 -- Table `enjoytrip`.`place_reply`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `enjoytrip`.`place_reply` (
@@ -244,6 +263,8 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`trip_plan` (
   `recommend_count` INT NOT NULL DEFAULT '0',
   `hit` INT NOT NULL DEFAULT '0',
   `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `start_date` DATE NULL,
+  `end_date` DATE NULL,
   PRIMARY KEY (`plan_id`),
   INDEX `user_id_plan_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `user_id_plan`
@@ -354,7 +375,6 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`trail_party` (
   `trail_party_id` INT NOT NULL,
   `trail_party_member_id` VARCHAR(20) NOT NULL,
   `trail_board_max_member` INT NOT NULL,
-  `trail_board_member_count` INT NOT NULL,
   PRIMARY KEY (`trail_party_id`, `trail_party_member_id`),
   CONSTRAINT `fk_trail_board_no`
     FOREIGN KEY (`trail_party_id`)
@@ -383,27 +403,6 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`trip_plan_detail` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `enjoytrip`.`place_recommend`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enjoytrip`.`place_recommend` (
-  `user_id` VARCHAR(20) NOT NULL,
-  `place_no` INT NOT NULL,
-  PRIMARY KEY (`user_id`, `place_no`),
-  INDEX `fk_place_plane_no_idx` (`place_no` ASC) VISIBLE,
-  CONSTRAINT `fk_place_user_id`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `enjoytrip`.`user` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_place_plane_no`
-    FOREIGN KEY (`place_no`)
-    REFERENCES `enjoytrip`.`place` (`place_no`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
