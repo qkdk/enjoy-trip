@@ -9,15 +9,16 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface AttractionRepository {
 
-    List<AttractionDto> getAttractionBySidoCode(int offset, int limit, int sidoCode);
+    List<AttractionDto> getAttractionBySidoCode(int offset, int limit, int sidoCode, String word);
 
-    List<AttractionDto> getAttractionBySidoCodeAndGugunCode(int offset, int limit, int sidoCode, int gugunCode);
+    List<AttractionDto> getAttractionBySidoCodeAndGugunCode(int offset, int limit, int sidoCode, int gugunCode,
+            String word);
 
     List<AttractionDto> getAttractionBySidoCodeAndContentTypeId(int offset, int limit, int sidoCode,
-            int contentTypeId);
+            int contentTypeId, String word);
 
     List<AttractionDto> getAttractionBySidoCodeAndGugunCodeAndContentTypeId(int offset, int limit, int sidoCode,
-            int gugunCode, int contentTypeId);
+            int gugunCode, int contentTypeId, String word);
 
     List<SidoCodeDto> getSidoCodeAndName();
 
@@ -29,5 +30,4 @@ public interface AttractionRepository {
 
     String getAttractionDescription(String contentId);
 
-    List<AttractionDto> getAttractionByWord(String word);
 }

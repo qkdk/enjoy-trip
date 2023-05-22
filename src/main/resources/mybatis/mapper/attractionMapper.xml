@@ -35,15 +35,17 @@
   <select id="getAttractionBySidoCode" resultMap="attractionMap">
     SELECT *
     FROM attraction_info
-    where sido_code = #{sidoCode}
+    WHERE sido_code = #{sidoCode}
+    AND title LIKE CONCAT('%', #{word}, '%')
     LIMIT #{offset}, #{limit};
   </select>
 
   <select id="getAttractionBySidoCodeAndGugunCode" resultMap="attractionMap">
     SELECT *
     FROM attraction_info
-    where sido_code = #{sidoCode}
+    WHERE sido_code = #{sidoCode}
       AND gugun_code = #{gugunCode}
+      AND title LIKE CONCAT('%', #{word}, '%')
     LIMIT #{offset}, #{limit};
   </select>
 
@@ -52,7 +54,8 @@
     FROM attraction_info
     where sido_code = #{sidoCode}
       AND content_type_id = #{contentTypeId}
-      LIMIT #{offset}, #{limit};
+      AND title LIKE CONCAT('%', #{word}, '%')
+    LIMIT #{offset}, #{limit};
   </select>
 
   <select id="getAttractionBySidoCodeAndGugunCodeAndContentTypeId" resultMap="attractionMap">
@@ -61,6 +64,7 @@
     where sido_code = #{sidoCode}
       AND gugun_code = #{gugunCode}
       AND content_type_id = #{contentTypeId}
+      AND title LIKE CONCAT('%', #{word}, '%')
     LIMIT #{offset}, #{limit};
   </select>
 
@@ -92,12 +96,6 @@
     SELECT overview
     FROM attraction_description
     WHERE content_id = #{contentId};
-  </select>
-
-  <select id="getAttractionByWord" resultMap="attractionMap">
-    SELECT *
-    FROM attraction_info
-    WHERE title LIKE CONCAT('%', #{keyword}, '%');
   </select>
 
 </mapper>

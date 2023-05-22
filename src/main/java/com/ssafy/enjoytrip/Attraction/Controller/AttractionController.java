@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/attraction")
@@ -26,19 +27,22 @@ public class AttractionController {
         this.attractionService = attractionService;
     }
 
-    @GetMapping("/")
-    public String showMap() {
-        return "map";
-    }
-
     @GetMapping("/{sidoCode}/{gugunCode}/{contentTypeId}")
-    public ResponseEntity<List<AttractionDto>> getAttraction(@PathVariable int sidoCode, @PathVariable int gugunCode,
-            @PathVariable int contentTypeId) throws SQLException {
-        return ResponseEntity.ok(attractionService.getAttraction(sidoCode, gugunCode, contentTypeId));
+    public ResponseEntity<ResponseTemplate<List<AttractionDto>>> getAttraction(@PathVariable int sidoCode,
+            @PathVariable int gugunCode,
+            @PathVariable int contentTypeId, @RequestParam(defaultValue = "") String word) {
+        return new ResponseEntity<>(
+                ResponseTemplate.<List<AttractionDto>>builder()
+                        .data(attractionService.getAttraction(sidoCode, gugunCode, contentTypeId, word))
+                        .result(true)
+                        .msg("불러오기 성공")
+                        .build()
+                , HttpStatus.OK
+        );
     }
 
     @GetMapping("/getcode")
-    public ResponseEntity<List<SidoCodeDto>> getSidoCodeAndName() throws SQLException {
+    public ResponseEntity<List<SidoCodeDto>> getSidoCodeAndName() {
         return ResponseEntity.ok(attractionService.getSidoCodeAndName());
     }
 
@@ -56,18 +60,6 @@ public class AttractionController {
                         .data(attractionService.getAttractionDescription(contentId))
                         .build()
                 , HttpStatus.OK
-        );
-    }
-
-    @GetMapping("/search/{word}")
-    public ResponseEntity<ResponseTemplate<List<AttractionDto>>> searchAttraction(@PathVariable String word) {
-        return new ResponseEntity<>(
-                ResponseTemplate.<List<AttractionDto>>builder()
-                        .msg("검색 성공")
-                        .result(true)
-                        .data(attractionService.getAttractionByWord(word))
-                        .build(),
-                HttpStatus.OK
         );
     }
 

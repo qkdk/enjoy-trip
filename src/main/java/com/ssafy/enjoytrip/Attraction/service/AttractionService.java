@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AttractionService {
 
-    List<AttractionDto> getAttraction(int sidoCode, int gugunCode, int contentTypeId) ;
+    List<AttractionDto> getAttraction(int sidoCode, int gugunCode, int contentTypeId, String word);
 
     List<SidoCodeDto> getSidoCodeAndName() ;
 
@@ -16,5 +16,4 @@ public interface AttractionService {
 
     String getAttractionDescription(String contentId);
 
-    List<AttractionDto> getAttractionByWord(String word);
 }
