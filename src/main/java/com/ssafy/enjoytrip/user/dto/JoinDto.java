@@ -10,4 +10,5 @@ public class JoinDto {
     private String userName;
     private String userEmail;
     private String userDomain;
+    private String userImgSrc;
 }
