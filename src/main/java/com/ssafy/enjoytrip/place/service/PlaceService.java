@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.ssafy.enjoytrip.place.dto.PlaceDto;
+import com.ssafy.enjoytrip.place.dto.RecommendDto;
 import com.ssafy.enjoytrip.place.dto.ReplyDto;
 import com.ssafy.enjoytrip.util.PageNavigation;
 
@@ -35,4 +36,6 @@ public interface PlaceService {
 	List<ReplyDto> replyList(int placeNo) throws Exception;
 	
 	void writeReply(ReplyDto replyDto) throws Exception;
+	
+	List<RecommendDto> recommend(int no) throws Exception;
 }

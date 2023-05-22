@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.enjoytrip.place.dto.PlaceDto;
+import com.ssafy.enjoytrip.place.dto.RecommendDto;
 import com.ssafy.enjoytrip.place.dto.ReplyDto;
 
 @Mapper
@@ -38,4 +39,6 @@ public interface PlaceRepository {
 	List<ReplyDto> replyList(int placeNo) throws Exception;
 	
 	void writeReply(ReplyDto replyDto) throws Exception;
+	
+	List<RecommendDto> recommend(int no) throws Exception;
 }

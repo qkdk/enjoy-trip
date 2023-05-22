@@ -23,6 +23,16 @@
 		<result column="parent_id" property="parentId" />
 	</resultMap>
 	
+	<resultMap id="recommendMap" type="recommendDto">
+		<result column="user_id" property="user_id"/>
+		<result column="place_no" property="place_no"/>
+	</resultMap>
+	
+	<select id="recommend" resultMap="recommendMap">
+		SELECT * FROM place_recommend
+		WHERE place_no = #{no};
+	</select>
+	
 	
 	<select id="replyList" resultMap="replyMap">
 		SELECT * FROM place_reply
@@ -32,6 +42,8 @@
 	<select id="getList" resultMap="placeMap">
 		SELECT * FROM place
 	</select>
+	
+	<select id=""></select>
 	
 	
 	<select id="getTotalPlaceCount" resultType="int">
