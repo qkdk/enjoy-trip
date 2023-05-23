@@ -66,7 +66,7 @@ public class RestPlaceController {
                 int placeNo = placeList.get(i).getPlaceNo();
                 if (placeService.getPlaceByPlaceNo(placeNo) != null) {
                     placeList.get(i).setPlaceImgSrc(
-                            "http://localhost:8080/enjoytrip/upload/" + placeService.getPlaceByPlaceNo(placeNo)
+                            "/upload/" + placeService.getPlaceByPlaceNo(placeNo)
                                     .getPlaceImgSrc());
                 }
             }
@@ -90,7 +90,7 @@ public class RestPlaceController {
                 int placeNo = placeList.get(i).getPlaceNo();
                 if (placeService.getPlaceByPlaceNo(placeNo) != null) {
                     placeList.get(i).setPlaceImgSrc(
-                            "http://localhost:8080/enjoytrip/upload/" + placeService.getPlaceByPlaceNo(placeNo)
+                            "/upload/" + placeService.getPlaceByPlaceNo(placeNo)
                                     .getPlaceImgSrc());
                 }
             }
