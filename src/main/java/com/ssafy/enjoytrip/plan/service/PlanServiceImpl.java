@@ -74,6 +74,15 @@ public class PlanServiceImpl implements PlanService {
         }
     }
 
+    @Override
+    public List<PlanDto> listUserPlan(String userId) {
+        return planRepository.getPlanByUserId(userId);
+//        try {
+//        } catch (Exception e) {
+//            throw new RuntimeException("계획 불러오기가 실패했습니다.");
+//        }
+    }
+
     private static void convertAttractionMapToDto(List<AttractionDto> attractionDtos, Map map) {
         attractionDtos.add(AttractionDto.builder()
                 .contentId((Integer) map.get("content_id"))

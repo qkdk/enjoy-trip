@@ -26,4 +26,5 @@ public interface PlanRepository{
 
     int updatePlanRecommend(int planId);
 
+    List<PlanDto> getPlanByUserId(String userId);
 }

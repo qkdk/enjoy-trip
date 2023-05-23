@@ -68,4 +68,25 @@ public class PlanController {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
+    // 내 계획으로 가져오기
+    @GetMapping("/getPlan/{planId}")
+    public ResponseEntity<ResponseTemplate<?>> getPlanToUser() {
+        return null;
+    }
+
+    // 내 계획 보기
+    @GetMapping("/view/user")
+    public ResponseEntity<ResponseTemplate<List<PlanDto>>> listUserPlan() {
+        return new ResponseEntity<>(
+                ResponseTemplate.<List<PlanDto>>builder()
+                        .msg("계획 읽기에 성공했습니다.")
+                        .result(true)
+                        .data(planService.listUserPlan(SecurityUtil.getCurrentUserId().get()))
+                        .build(),
+                HttpStatus.OK
+        );
+    }
+
+    // 계획이름, 작성자 검색
+
 }

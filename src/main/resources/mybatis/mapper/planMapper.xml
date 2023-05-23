@@ -69,4 +69,11 @@
     SET recommend_count = recommend_count + 1
     WHERE plan_id = #{planId};
   </update>
+
+  <select id="getPlanByUserId" resultMap="planMap">
+    SELECT *
+    FROM trip_plan
+    WHERE user_id = #{userId};
+  </select>
+
 </mapper>

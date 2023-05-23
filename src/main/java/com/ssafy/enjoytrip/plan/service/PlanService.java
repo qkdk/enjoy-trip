@@ -14,4 +14,6 @@ public interface PlanService {
     PlanDetailDto viewPlan(int planId);
 
     int updatePlanRecommend(int planId);
+
+    List<PlanDto> listUserPlan(String userId);
 }
