@@ -71,7 +71,7 @@ public class PlanController {
     }
 
     // 내 계획으로 가져오기
-    @GetMapping("/getPlan/{planId}")
+    @GetMapping("/copy/{planId}")
     public ResponseEntity<ResponseTemplate<?>> copyPlan(@PathVariable int planId) {
         planService.copyPlan(planId, SecurityUtil.getCurrentUserId().get());
 
