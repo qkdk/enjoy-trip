@@ -447,6 +447,30 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
+-- -----------------------------------------------------
+-- Table `enjoytrip`.`trail_board_reply`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `enjoytrip`.`trail_board_reply` (
+  `trail_reply_no` INT NOT NULL AUTO_INCREMENT,
+  `trail_reply_board_no` INT NOT NULL,
+  `trail_reply_user_id` VARCHAR(20) NOT NULL,
+  `trail_reply_content` VARCHAR(500) NULL DEFAULT NULL,
+  `trail_reply_createtime` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`trail_reply_no`, `trail_reply_board_no`),
+  INDEX `fk_trail_reply_user_id_idx` (`trail_reply_user_id` ASC) VISIBLE,
+  INDEX `fk_trail_reply_board_no_idx` (`trail_reply_board_no` ASC) VISIBLE,
+  CONSTRAINT `fk_trail_reply_board_no`
+    FOREIGN KEY (`trail_reply_board_no`)
+    REFERENCES `enjoytrip`.`trail_board` (`trail_board_no`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_trail_reply_user_id`
+    FOREIGN KEY (`trail_reply_user_id`)
+    REFERENCES `enjoytrip`.`user` (`user_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
