@@ -76,4 +76,10 @@
     WHERE user_id = #{userId};
   </select>
 
+  <select id="getContentIdByPlanId" resultType="string">
+    SELECT content_id
+    FROM trip_plan_detail
+    WHERE plan_id = #{planId}
+    ORDER BY priority ASC;
+  </select>
 </mapper>

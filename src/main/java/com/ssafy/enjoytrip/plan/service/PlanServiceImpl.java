@@ -14,21 +14,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class PlanServiceImpl implements PlanService {
 
     private final PlanRepository planRepository;
     private final ObjectMapper objectMapper;
-
-    @Autowired
-    public PlanServiceImpl(PlanRepository planRepository, ObjectMapper objectMapper) {
-        this.planRepository = planRepository;
-        this.objectMapper = objectMapper;
-    }
 
     @Override
     public int writePlan(PlanWriteRequestDto planWriteRequestDto, String userId) {
@@ -86,13 +80,9 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public int copyPlan(int planId, String userId) {
         try {
-            List<String> contentIdList = planRepository.getAttractionsByPlanId(planId).stream()
-                    .map((map) -> map.get("content_id").toString())
-                    .collect(Collectors.toList());
-
             PlanWriteRequestDto dto = PlanWriteRequestDto.builder()
-                    .planTitle(userId + "님의" + " planId계획" + " 복사본")
-                    .contentIdList(contentIdList)
+                    .planTitle(userId + "님의" + planId + "계획" + " 복사본")
+                    .contentIdList(planRepository.getContentIdByPlanId(planId))
                     .startDate(getCurentTime())
                     .endDate(getCurentTime())
                     .build();
