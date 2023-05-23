@@ -124,6 +124,7 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`user` (
   `user_name` VARCHAR(20) NOT NULL,
   `user_email` VARCHAR(10) NOT NULL,
   `user_domain` VARCHAR(20) NOT NULL,
+  `user_img_src` VARCHAR(300) NOT NULL,
   `user_role` VARCHAR(5) NOT NULL DEFAULT 'user',
   PRIMARY KEY (`user_id`))
 ENGINE = InnoDB
