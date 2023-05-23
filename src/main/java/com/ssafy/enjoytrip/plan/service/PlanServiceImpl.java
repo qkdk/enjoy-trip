@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +27,8 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public int writePlan(PlanWriteRequestDto planWriteRequestDto, String userId) {
-        Map map = objectMapper.convertValue(planWriteRequestDto, Map.class);
+        checkWriteRequestDto(planWriteRequestDto);
+        Map<String, Object> map = objectMapper.convertValue(planWriteRequestDto, Map.class);
         map.put("userId", userId);
         planRepository.insertPlan(map);
         return planRepository.insertPlanDetail(map);
@@ -85,7 +87,7 @@ public class PlanServiceImpl implements PlanService {
 
         try {
             PlanWriteRequestDto dto = PlanWriteRequestDto.builder()
-                    .planTitle(userId + "님의" + planId + "계획" + " 복사본")
+                    .planTitle(userId + "님의 계획 복사본")
                     .contentIdList(planRepository.getContentIdByPlanId(planId))
                     .startDate(getCurentTime())
                     .endDate(getCurentTime())
@@ -133,5 +135,20 @@ public class PlanServiceImpl implements PlanService {
                 .longitude(((BigDecimal) map.get("longitude")).doubleValue())
                 .build()
         );
+    }
+
+    private static void checkWriteRequestDto(PlanWriteRequestDto planWriteRequestDto) {
+        if (!StringUtils.hasText(planWriteRequestDto.getPlanTitle())) {
+            throw new RuntimeException("제목 입력은 필수 입니다.");
+        }
+        if (!StringUtils.hasText(planWriteRequestDto.getEndDate())) {
+            throw new RuntimeException("일정을 정해주세요");
+        }
+        if (!StringUtils.hasText(planWriteRequestDto.getStartDate())) {
+            throw new RuntimeException("일정을 정해주세요");
+        }
+        if (planWriteRequestDto.getContentIdList().isEmpty()) {
+            throw new RuntimeException("관광지를 선택해주세요");
+        }
     }
 }
