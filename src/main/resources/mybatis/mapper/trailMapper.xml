@@ -24,6 +24,11 @@
 		<result column="provide_name" property="provide_name"></result>
 	</resultMap>
 	
+	<resultMap id="cityMap" type="cityDto">
+		<result column="sido_name" property="sidoName"/>
+		<result column="gugun_name" property="gugunName"/>
+	</resultMap>
+	
 	<resultMap id="sidoCodeMap" type="sidoCodeDto">
     	<result column="sido_code" property="sidoCode"></result>
     	<result column="sido_name" property="sidoName"></result>
@@ -48,6 +53,14 @@
   		<result column="trail_board_max_member" property="trail_board_max_member"></result>
   		<result column="trail_board_member_count" property="trail_board_member_count"></result>		
   	</resultMap>
+  	
+  	<select id="getCityName" resultMap="cityMap">
+  		SELECT * FROM sido s, gugun g
+		WHERE s.sido_code = (SELECT t.start_sido_code FROM trail t WHERE t.trail_id = #{trailId})
+		AND g.sido_code = (SELECT t.start_sido_code FROM trail t WHERE t.trail_id = #{trailId})
+		AND g.gugun_code = (SELECT t.start_gugun_code FROM trail t WHERE t.trail_id = #{trailId})
+  	</select>
+  	
   	
   	<select id="getSido" resultMap="sidoCodeMap">
   		SELECT *

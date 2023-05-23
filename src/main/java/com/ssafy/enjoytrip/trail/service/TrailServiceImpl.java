@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.enjoytrip.Attraction.dto.GugunCodeDto;
 import com.ssafy.enjoytrip.Attraction.dto.SidoCodeDto;
+import com.ssafy.enjoytrip.trail.dto.CityDto;
 import com.ssafy.enjoytrip.trail.dto.TrailBoardDto;
 import com.ssafy.enjoytrip.trail.dto.TrailInputDto;
 import com.ssafy.enjoytrip.trail.repository.TrailRepository;
@@ -121,6 +122,13 @@ public class TrailServiceImpl implements TrailService {
 	@Override
 	public void trailBoardUpdate(TrailBoardDto trailBoardDto) throws Exception {
 		sqlSession.getMapper(TrailRepository.class).trailBoardUpdate(trailBoardDto);
+	}
+
+
+
+	@Override
+	public CityDto getCityName(int trailId) throws Exception {
+		return sqlSession.getMapper(TrailRepository.class).getCityName(trailId);
 	}
 
 }
