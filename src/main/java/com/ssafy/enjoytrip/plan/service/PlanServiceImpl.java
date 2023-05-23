@@ -7,7 +7,6 @@ import com.ssafy.enjoytrip.plan.dto.PlanDetailDto;
 import com.ssafy.enjoytrip.plan.dto.PlanDto;
 import com.ssafy.enjoytrip.plan.dto.PlanWriteRequestDto;
 import com.ssafy.enjoytrip.plan.repository.PlanRepository;
-import com.ssafy.enjoytrip.util.SecurityUtil;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,8 +65,7 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public int updatePlanRecommend(int planId) {
-        String userId = SecurityUtil.getCurrentUserId().get();
+    public int updatePlanRecommend(int planId, String userId) {
         try {
             planRepository.insertPlanRecommend(userId, planId);
             return planRepository.updatePlanRecommend(planId);
@@ -110,8 +108,7 @@ public class PlanServiceImpl implements PlanService {
     private static String getCurentTime() {
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String dateString = dateFormat.format(currentDate);
-        return dateString;
+        return dateFormat.format(currentDate);
     }
 
     private static void convertAttractionMapToDto(List<AttractionDto> attractionDtos, Map map) {

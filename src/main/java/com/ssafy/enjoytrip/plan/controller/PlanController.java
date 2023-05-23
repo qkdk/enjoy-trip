@@ -66,7 +66,7 @@ public class PlanController {
 
     @PutMapping("/{planId}")
     public ResponseEntity<?> updatePlanRecommend(@PathVariable int planId) {
-        planService.updatePlanRecommend(planId);
+        planService.updatePlanRecommend(planId, SecurityUtil.getCurrentUserId().get());
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 

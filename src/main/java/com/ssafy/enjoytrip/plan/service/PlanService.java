@@ -13,7 +13,7 @@ public interface PlanService {
 
     PlanDetailDto viewPlan(int planId);
 
-    int updatePlanRecommend(int planId);
+    int updatePlanRecommend(int planId, String userId);
 
     List<PlanDto> listUserPlan(String userId);
 
