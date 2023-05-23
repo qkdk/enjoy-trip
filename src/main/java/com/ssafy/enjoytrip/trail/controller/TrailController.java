@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.enjoytrip.Attraction.dto.GugunCodeDto;
 import com.ssafy.enjoytrip.Attraction.dto.SidoCodeDto;
+import com.ssafy.enjoytrip.trail.dto.CityDto;
 import com.ssafy.enjoytrip.trail.dto.TrailBoardDto;
 import com.ssafy.enjoytrip.trail.dto.TrailInputDto;
 import com.ssafy.enjoytrip.trail.service.TrailService;
@@ -89,6 +90,11 @@ public class TrailController {
 	public ResponseEntity<String> modify(@RequestBody TrailBoardDto trailBoardDto) throws Exception{
 		trailService.trailBoardUpdate(trailBoardDto);
 		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/getcity/{trailId}")
+	public ResponseEntity<CityDto> getCity(@PathVariable int trailId) throws Exception{
+		return new ResponseEntity<CityDto>(trailService.getCityName(trailId),HttpStatus.OK);
 	}
 
 }

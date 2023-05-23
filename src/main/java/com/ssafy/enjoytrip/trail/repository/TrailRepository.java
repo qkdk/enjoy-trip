@@ -2,6 +2,7 @@ package com.ssafy.enjoytrip.trail.repository;
 
 import com.ssafy.enjoytrip.Attraction.dto.GugunCodeDto;
 import com.ssafy.enjoytrip.Attraction.dto.SidoCodeDto;
+import com.ssafy.enjoytrip.trail.dto.CityDto;
 import com.ssafy.enjoytrip.trail.dto.TrailBoardDto;
 import com.ssafy.enjoytrip.trail.dto.TrailInputDto;
 import java.util.List;
@@ -39,4 +40,8 @@ public interface TrailRepository {
 	void deleteTrailBoard(int no) throws Exception;
 
 	void trailBoardUpdate(TrailBoardDto trailBoardDto) throws Exception;
+	
+	TrailBoardDto getBoard(int no) throws Exception;
+	
+	CityDto getCityName(int trailId) throws Exception;
 }
