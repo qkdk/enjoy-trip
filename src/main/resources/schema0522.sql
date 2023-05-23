@@ -124,6 +124,7 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`user` (
   `user_name` VARCHAR(20) NOT NULL,
   `user_email` VARCHAR(10) NOT NULL,
   `user_domain` VARCHAR(20) NOT NULL,
+  `user_img_src` VARCHAR(300) NOT NULL,
   `user_role` VARCHAR(5) NOT NULL DEFAULT 'user',
   PRIMARY KEY (`user_id`))
 ENGINE = InnoDB
@@ -375,6 +376,7 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`trail_party` (
   `trail_party_id` INT NOT NULL,
   `trail_party_member_id` VARCHAR(20) NOT NULL,
   `trail_board_max_member` INT NOT NULL,
+  `trail_board_member_count` INT NOT NULL,
   PRIMARY KEY (`trail_party_id`, `trail_party_member_id`),
   CONSTRAINT `fk_trail_board_no`
     FOREIGN KEY (`trail_party_id`)
