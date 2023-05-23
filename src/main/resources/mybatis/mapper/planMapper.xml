@@ -64,9 +64,16 @@
     VALUES (#{userId}, #{planId});
   </insert>
 
+  <delete id="deletePlanRecommend">
+    DELETE
+    FROM plan_recommend
+    WHERE user_id = #{userId}
+      AND plan_id = #{planId};
+  </delete>
+
   <update id="updatePlanRecommend">
     UPDATE trip_plan
-    SET recommend_count = recommend_count + 1
+    SET recommend_count = recommend_count + ${value}
     WHERE plan_id = #{planId};
   </update>
 
@@ -95,5 +102,11 @@
     FROM trip_plan
     WHERE user_id = #{userId}
       AND plan_id = #{planId}
+  </select>
+
+  <select id="getRecommendByUserId" resultType="string">
+    SELECT plan_id
+    FROM plan_recommend
+    WHERE user_id = #{userId};
   </select>
 </mapper>

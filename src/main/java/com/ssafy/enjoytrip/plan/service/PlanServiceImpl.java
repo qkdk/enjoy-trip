@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 @Service
@@ -26,6 +27,7 @@ public class PlanServiceImpl implements PlanService {
     private final ObjectMapper objectMapper;
 
     @Override
+    @Transactional
     public int writePlan(PlanWriteRequestDto planWriteRequestDto, String userId) {
         checkWriteRequestDto(planWriteRequestDto);
         Map<String, Object> map = objectMapper.convertValue(planWriteRequestDto, Map.class);
@@ -41,6 +43,7 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
+    @Transactional
     public PlanDetailDto viewPlan(int planId) {
         try {
             List<Map> attractionsByPlanId = planRepository.getAttractionsByPlanId(planId);
@@ -61,10 +64,17 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public int updatePlanRecommend(int planId, String userId) {
+    @Transactional
+    public int updatePlanRecommend(int planId, String userId, int value) {
         try {
-            planRepository.insertPlanRecommend(userId, planId);
-            return planRepository.updatePlanRecommend(planId);
+            if (value == 1) {
+                planRepository.insertPlanRecommend(userId, planId);
+            } else if (value == -1) {
+                planRepository.deletePlanRecommend(userId, planId);
+            } else {
+                throw new RuntimeException("잘못된 증감값입니다.");
+            }
+            return planRepository.updatePlanRecommend(planId, value);
         } catch (Exception e) {
             throw new RuntimeException("이미 추천한 사용자 입니다.");
         }
@@ -108,6 +118,11 @@ public class PlanServiceImpl implements PlanService {
             throw new RuntimeException("일치하는 정보가 없습니다.");
         }
         return resultRow;
+    }
+
+    @Override
+    public List<String> getRecommendList(String userId) {
+        return planRepository.getRecommendByUserId(userId);
     }
 
     private static String getCurentTime() {

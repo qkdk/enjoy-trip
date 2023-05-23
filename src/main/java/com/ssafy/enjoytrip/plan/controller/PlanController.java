@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -66,8 +67,8 @@ public class PlanController {
     }
 
     @PutMapping("/{planId}")
-    public ResponseEntity<?> updatePlanRecommend(@PathVariable int planId) {
-        planService.updatePlanRecommend(planId, SecurityUtil.getCurrentUserId().get());
+    public ResponseEntity<?> updatePlanRecommend(@PathVariable int planId, @RequestParam int value) {
+        planService.updatePlanRecommend(planId, SecurityUtil.getCurrentUserId().get(), value);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
@@ -98,7 +99,7 @@ public class PlanController {
         );
     }
 
-    @DeleteMapping("{planId}")
+    @DeleteMapping("/{planId}")
     public ResponseEntity<ResponseTemplate<?>> deletePlan(@PathVariable int planId) {
         planService.deletePlan(planId, SecurityUtil.getCurrentUserId().get());
 
@@ -106,6 +107,18 @@ public class PlanController {
                 ResponseTemplate.builder()
                         .msg("삭제성공")
                         .result(true)
+                        .build(),
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping("/recommend")
+    public ResponseEntity<ResponseTemplate<List<String>>> recommendPlanList() {
+        return new ResponseEntity<>(
+                ResponseTemplate.<List<String>>builder()
+                        .result(true)
+                        .msg("좋아요 리스트 불러오기 성공")
+                        .data(planService.getRecommendList(SecurityUtil.getCurrentUserId().get()))
                         .build(),
                 HttpStatus.OK
         );

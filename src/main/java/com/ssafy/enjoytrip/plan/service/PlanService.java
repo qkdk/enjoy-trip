@@ -13,11 +13,13 @@ public interface PlanService {
 
     PlanDetailDto viewPlan(int planId);
 
-    int updatePlanRecommend(int planId, String userId);
+    int updatePlanRecommend(int planId, String userId, int value);
 
     List<PlanDto> listUserPlan(String userId);
 
     int copyPlan(int planId, String userId);
 
     int deletePlan(int planId, String userId);
+
+    List<String> getRecommendList(String userId);
 }

@@ -23,7 +23,10 @@ public interface PlanRepository {
 
     int insertPlanRecommend(String userId, int planId);
 
-    int updatePlanRecommend(int planId);
+    int deletePlanRecommend(String userId, int planId);
+
+
+    int updatePlanRecommend(int planId, int value);
 
     List<PlanDto> getPlanByUserId(String userId);
 
@@ -32,4 +35,7 @@ public interface PlanRepository {
     int deletePlanByUserIdAndPlanId(int planId, String userId);
 
     Optional<PlanDto> getPlanByPlanIdAndUserId(int planId, String userId);
+
+    List<String> getRecommendByUserId(String userId);
+
 }
