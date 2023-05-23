@@ -13,6 +13,8 @@ import com.ssafy.enjoytrip.place.dto.ReplyDto;
 public interface PlaceRepository {
 
 	List<PlaceDto> getPlace(int offset, int limit, String key, String word) throws Exception;
+	
+	List<PlaceDto> getPlaceSort(int offset, int limit, String key, String word) throws Exception;
 
 	List<PlaceDto> getList() throws Exception;
 	
@@ -45,4 +47,6 @@ public interface PlaceRepository {
 	void addRecommend(RecommendDto recommendDto) throws Exception;
 	
 	void delRecommend(RecommendDto recommendDto) throws Exception;
+	
+	void modifyRecommend(int count, int placeNo) throws Exception;
 }

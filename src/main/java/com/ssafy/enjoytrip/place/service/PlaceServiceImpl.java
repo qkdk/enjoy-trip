@@ -32,6 +32,13 @@ public class PlaceServiceImpl implements PlaceService {
                 .getPlace((Integer.parseInt(pgno) - 1) * (PageConstant.LIST_SIZE.getValue()-11),
                         PageConstant.LIST_SIZE.getValue()-11, key, word);
 	}
+	
+	@Override
+	public List<PlaceDto> listSort(String pgno, String key, String word) throws Exception {
+		return session.getMapper(PlaceRepository.class)
+				.getPlaceSort((Integer.parseInt(pgno) - 1) * (PageConstant.LIST_SIZE.getValue()-11),
+						PageConstant.LIST_SIZE.getValue()-11, key, word);
+	}
 
 
 	@Override
@@ -153,6 +160,12 @@ public class PlaceServiceImpl implements PlaceService {
 	@Override
 	public void delRecommend(RecommendDto recommendDto) throws Exception {
 		session.getMapper(PlaceRepository.class).delRecommend(recommendDto);
+	}
+
+
+	@Override
+	public void modifyRecommend(int count, int placeNo) throws Exception {
+		session.getMapper(PlaceRepository.class).modifyRecommend(count, placeNo);
 	}
 
 }
