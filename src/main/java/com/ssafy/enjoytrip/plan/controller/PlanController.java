@@ -96,7 +96,4 @@ public class PlanController {
                 HttpStatus.OK
         );
     }
-
-    // 계획이름, 작성자 검색
-
 }
