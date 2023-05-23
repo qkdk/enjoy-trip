@@ -7,12 +7,14 @@ import com.ssafy.enjoytrip.plan.dto.PlanDetailDto;
 import com.ssafy.enjoytrip.plan.dto.PlanDto;
 import com.ssafy.enjoytrip.plan.dto.PlanWriteRequestDto;
 import com.ssafy.enjoytrip.plan.repository.PlanRepository;
-import com.ssafy.enjoytrip.util.SecurityUtil;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,15 +31,14 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public void writePlan(PlanWriteRequestDto planWriteRequestDto, String userId) {
+    public int writePlan(PlanWriteRequestDto planWriteRequestDto, String userId) {
         Map map = objectMapper.convertValue(planWriteRequestDto, Map.class);
         map.put("userId", userId);
         planRepository.insertPlan(map);
-        planRepository.insertPlanDetail(map);
+        return planRepository.insertPlanDetail(map);
     }
 
     @Override
-
     public List<PlanDto> listPlan(int pgno, String key, String word, String order) {
         return planRepository.getPlan(key, word,
                 (pgno - 1) * PageConstant.LIST_SIZE.getValue(), PageConstant.LIST_SIZE.getValue(), order);
@@ -64,8 +65,7 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public int updatePlanRecommend(int planId) {
-        String userId = SecurityUtil.getCurrentUserId().get();
+    public int updatePlanRecommend(int planId, String userId) {
         try {
             planRepository.insertPlanRecommend(userId, planId);
             return planRepository.updatePlanRecommend(planId);
@@ -76,11 +76,39 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public List<PlanDto> listUserPlan(String userId) {
-        return planRepository.getPlanByUserId(userId);
-//        try {
-//        } catch (Exception e) {
-//            throw new RuntimeException("계획 불러오기가 실패했습니다.");
-//        }
+        try {
+            return planRepository.getPlanByUserId(userId);
+        } catch (Exception e) {
+            throw new RuntimeException("계획 불러오기가 실패했습니다.");
+        }
+    }
+
+    @Override
+    public int copyPlan(int planId, String userId) {
+        try {
+            List<String> contentIdList = planRepository.getAttractionsByPlanId(planId).stream()
+                    .map((map) -> map.get("content_id").toString())
+                    .collect(Collectors.toList());
+
+            PlanWriteRequestDto dto = PlanWriteRequestDto.builder()
+                    .planTitle(userId + "님의" + " planId계획" + " 복사본")
+                    .contentIdList(contentIdList)
+                    .startDate(getCurentTime())
+                    .endDate(getCurentTime())
+                    .build();
+
+            return writePlan(dto, userId);
+
+        } catch (Exception e) {
+            throw new RuntimeException("카피중 오류 발생");
+        }
+
+    }
+
+    private static String getCurentTime() {
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(currentDate);
     }
 
     private static void convertAttractionMapToDto(List<AttractionDto> attractionDtos, Map map) {
