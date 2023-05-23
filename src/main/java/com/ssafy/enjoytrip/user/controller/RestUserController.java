@@ -131,7 +131,7 @@ public class RestUserController {
         	List<FollowDto> list = userService.getFollowers(userId);
         	for (int i = 0; i < list.size(); i++) {
 				if(list.get(i).getUserImgSrc() != null) {
-					String base = "http://localhost:8080/enjoytrip/profile/" + list.get(i).getUserImgSrc();
+					String base = "/profile/" + list.get(i).getUserImgSrc();
 					list.get(i).setUserImgSrc(base);
 				}
 			}
