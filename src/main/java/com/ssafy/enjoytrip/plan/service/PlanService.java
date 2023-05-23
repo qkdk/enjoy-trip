@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PlanService {
 
-    void writePlan(PlanWriteRequestDto planWriteRequestDto, String userId);
+    int writePlan(PlanWriteRequestDto planWriteRequestDto, String userId);
 
     List<PlanDto> listPlan(int pgno, String key, String word, String order);
 
@@ -16,4 +16,6 @@ public interface PlanService {
     int updatePlanRecommend(int planId);
 
     List<PlanDto> listUserPlan(String userId);
+
+    int copyPlan(int planId, String userId);
 }

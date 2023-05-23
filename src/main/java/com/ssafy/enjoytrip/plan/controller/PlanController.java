@@ -42,11 +42,12 @@ public class PlanController {
     public ResponseEntity<ResponseTemplate<List<PlanDto>>> listPlan(int pgno, String key, String word, String order) {
         List<PlanDto> planDtos = planService.listPlan(pgno, key, word, order);
 
-        return new ResponseEntity<>(ResponseTemplate.<List<PlanDto>>builder()
-                .msg("계획 읽기에 성공했습니다.")
-                .result(true)
-                .data(planDtos)
-                .build(),
+        return new ResponseEntity<>(
+                ResponseTemplate.<List<PlanDto>>builder()
+                        .msg("계획 읽기에 성공했습니다.")
+                        .result(true)
+                        .data(planDtos)
+                        .build(),
                 HttpStatus.OK);
     }
 
@@ -54,11 +55,12 @@ public class PlanController {
     public ResponseEntity<ResponseTemplate<PlanDetailDto>> viewPlan(@PathVariable int planId) {
         PlanDetailDto planDetailDto = planService.viewPlan(planId);
 
-        return new ResponseEntity<>(ResponseTemplate.<PlanDetailDto>builder()
-                .result(true)
-                .msg("계획 상세조회에 성공했습니다.")
-                .data(planDetailDto)
-                .build()
+        return new ResponseEntity<>(
+                ResponseTemplate.<PlanDetailDto>builder()
+                        .result(true)
+                        .msg("계획 상세조회에 성공했습니다.")
+                        .data(planDetailDto)
+                        .build()
                 , HttpStatus.OK);
     }
 
@@ -70,8 +72,16 @@ public class PlanController {
 
     // 내 계획으로 가져오기
     @GetMapping("/getPlan/{planId}")
-    public ResponseEntity<ResponseTemplate<?>> getPlanToUser() {
-        return null;
+    public ResponseEntity<ResponseTemplate<?>> copyPlan(@PathVariable int planId) {
+        planService.copyPlan(planId, SecurityUtil.getCurrentUserId().get());
+
+        return new ResponseEntity<>(
+                ResponseTemplate.builder()
+                        .result(true)
+                        .msg("가져오기 성공")
+                        .build(),
+                HttpStatus.OK
+        );
     }
 
     // 내 계획 보기
