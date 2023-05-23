@@ -54,12 +54,33 @@
   		<result column="trail_board_member_count" property="trail_board_member_count"></result>		
   	</resultMap>
   	
+  	<resultMap id="trailBoardReplyMap" type="trailBoardReplyDto" >
+  		<result column="trail_reply_no" property="replyNo"/>
+  		<result column="trail_reply_board_no" property="boardNo"/>
+  		<result column="trail_reply_user_id" property="replyUserId"/>
+  		<result column="trail_reply_content" property="replyContent"/>
+  		<result column="trail_reply_createtime" property="replyCreateTime"/>
+  	</resultMap>
+  	
+  	<select id="getReply" resultMap="trailBoardReplyMap">
+  		SELECT *
+  		FROM trail_board_reply
+  		WHERE trail_reply_board_no = #{no}
+  	</select>
+  	
+  	<insert id="setReply">
+  		INSERT INTO trail_board_reply (trail_reply_board_no, trail_reply_user_id, trail_reply_content)
+  		VALUES (#{boardNo} , #{replyUserId}, #{replyContent})
+  	</insert>
+  	
+  	
   	<select id="getCityName" resultMap="cityMap">
   		SELECT * FROM sido s, gugun g
 		WHERE s.sido_code = (SELECT t.start_sido_code FROM trail t WHERE t.trail_id = #{trailId})
 		AND g.sido_code = (SELECT t.start_sido_code FROM trail t WHERE t.trail_id = #{trailId})
 		AND g.gugun_code = (SELECT t.start_gugun_code FROM trail t WHERE t.trail_id = #{trailId})
   	</select>
+  	
   	
   	
   	<select id="getSido" resultMap="sidoCodeMap">

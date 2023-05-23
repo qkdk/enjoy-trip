@@ -4,6 +4,7 @@ import com.ssafy.enjoytrip.Attraction.dto.GugunCodeDto;
 import com.ssafy.enjoytrip.Attraction.dto.SidoCodeDto;
 import com.ssafy.enjoytrip.trail.dto.CityDto;
 import com.ssafy.enjoytrip.trail.dto.TrailBoardDto;
+import com.ssafy.enjoytrip.trail.dto.TrailBoardReplyDto;
 import com.ssafy.enjoytrip.trail.dto.TrailInputDto;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
@@ -44,4 +45,8 @@ public interface TrailRepository {
 	TrailBoardDto getBoard(int no) throws Exception;
 	
 	CityDto getCityName(int trailId) throws Exception;
+	
+	List<TrailBoardReplyDto> getReply(int no) throws Exception;
+	
+	void setReply(TrailBoardReplyDto trailBoardReplyDto) throws Exception;
 }

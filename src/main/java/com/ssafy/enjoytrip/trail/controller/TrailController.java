@@ -18,6 +18,7 @@ import com.ssafy.enjoytrip.Attraction.dto.GugunCodeDto;
 import com.ssafy.enjoytrip.Attraction.dto.SidoCodeDto;
 import com.ssafy.enjoytrip.trail.dto.CityDto;
 import com.ssafy.enjoytrip.trail.dto.TrailBoardDto;
+import com.ssafy.enjoytrip.trail.dto.TrailBoardReplyDto;
 import com.ssafy.enjoytrip.trail.dto.TrailInputDto;
 import com.ssafy.enjoytrip.trail.service.TrailService;
 
@@ -95,6 +96,17 @@ public class TrailController {
 	@GetMapping("/getcity/{trailId}")
 	public ResponseEntity<CityDto> getCity(@PathVariable int trailId) throws Exception{
 		return new ResponseEntity<CityDto>(trailService.getCityName(trailId),HttpStatus.OK);
+	}
+	
+	@GetMapping("/board/reply/{no}")
+	public ResponseEntity<List<TrailBoardReplyDto>> getReply(@PathVariable int no) throws Exception{
+		return new ResponseEntity<List<TrailBoardReplyDto>>(trailService.getReply(no),HttpStatus.OK);
+	}
+	
+	@PostMapping("/board/reply/write")
+	public ResponseEntity<String> setReply(@RequestBody TrailBoardReplyDto trailBoardReplyDto) throws Exception{
+		trailService.setReply(trailBoardReplyDto);
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
 }
