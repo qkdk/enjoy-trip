@@ -18,4 +18,6 @@ public interface PlanService {
     List<PlanDto> listUserPlan(String userId);
 
     int copyPlan(int planId, String userId);
+
+    int deletePlan(int planId, String userId);
 }

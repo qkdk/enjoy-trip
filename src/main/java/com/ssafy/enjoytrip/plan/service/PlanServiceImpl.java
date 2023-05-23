@@ -95,6 +95,15 @@ public class PlanServiceImpl implements PlanService {
 
     }
 
+    @Override
+    public int deletePlan(int planId, String userId) {
+        int resultRow = planRepository.deletePlanByUserIdAndPlanId(planId, userId);
+        if (resultRow == 0) {
+            throw new RuntimeException("일치하는 정보가 없습니다.");
+        }
+        return resultRow;
+    }
+
     private static String getCurentTime() {
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

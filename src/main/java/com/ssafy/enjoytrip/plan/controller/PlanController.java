@@ -10,6 +10,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -92,6 +93,19 @@ public class PlanController {
                         .msg("계획 읽기에 성공했습니다.")
                         .result(true)
                         .data(planService.listUserPlan(SecurityUtil.getCurrentUserId().get()))
+                        .build(),
+                HttpStatus.OK
+        );
+    }
+
+    @DeleteMapping("{planId}")
+    public ResponseEntity<ResponseTemplate<?>> deletePlan(@PathVariable int planId) {
+        planService.deletePlan(planId, SecurityUtil.getCurrentUserId().get());
+
+        return new ResponseEntity<>(
+                ResponseTemplate.builder()
+                        .msg("삭제성공")
+                        .result(true)
                         .build(),
                 HttpStatus.OK
         );

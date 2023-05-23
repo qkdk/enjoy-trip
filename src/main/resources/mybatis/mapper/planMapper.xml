@@ -82,4 +82,11 @@
     WHERE plan_id = #{planId}
     ORDER BY priority ASC;
   </select>
+
+  <delete id="deletePlanByUserIdAndPlanId">
+    DELETE
+    FROM trip_plan
+    WHERE user_id = #{userId}
+      AND plan_id = #{planId};
+  </delete>
 </mapper>
