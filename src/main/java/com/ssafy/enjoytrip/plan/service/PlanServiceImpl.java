@@ -79,6 +79,10 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public int copyPlan(int planId, String userId) {
+        if (planRepository.getPlanByPlanIdAndUserId(planId, userId).isPresent()) {
+            throw new RuntimeException("자기의 계획은 복사 할 수 없습니다.");
+        }
+
         try {
             PlanWriteRequestDto dto = PlanWriteRequestDto.builder()
                     .planTitle(userId + "님의" + planId + "계획" + " 복사본")

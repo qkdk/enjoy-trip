@@ -3,6 +3,7 @@ package com.ssafy.enjoytrip.plan.repository;
 import com.ssafy.enjoytrip.plan.dto.PlanDto;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -29,4 +30,6 @@ public interface PlanRepository {
     List<String> getContentIdByPlanId(int planId);
 
     int deletePlanByUserIdAndPlanId(int planId, String userId);
+
+    Optional<PlanDto> getPlanByPlanIdAndUserId(int planId, String userId);
 }

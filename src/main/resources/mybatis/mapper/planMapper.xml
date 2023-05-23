@@ -89,4 +89,11 @@
     WHERE user_id = #{userId}
       AND plan_id = #{planId};
   </delete>
+
+  <select id="getPlanByPlanIdAndUserId" resultMap="planMap">
+    SELECT *
+    FROM trip_plan
+    WHERE user_id = #{userId}
+      AND plan_id = #{planId}
+  </select>
 </mapper>
