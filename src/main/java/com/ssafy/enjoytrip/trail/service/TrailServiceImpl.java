@@ -11,6 +11,7 @@ import com.ssafy.enjoytrip.Attraction.dto.GugunCodeDto;
 import com.ssafy.enjoytrip.Attraction.dto.SidoCodeDto;
 import com.ssafy.enjoytrip.trail.dto.CityDto;
 import com.ssafy.enjoytrip.trail.dto.TrailBoardDto;
+import com.ssafy.enjoytrip.trail.dto.TrailBoardReplyDto;
 import com.ssafy.enjoytrip.trail.dto.TrailInputDto;
 import com.ssafy.enjoytrip.trail.repository.TrailRepository;
 
@@ -129,6 +130,20 @@ public class TrailServiceImpl implements TrailService {
 	@Override
 	public CityDto getCityName(int trailId) throws Exception {
 		return sqlSession.getMapper(TrailRepository.class).getCityName(trailId);
+	}
+
+
+
+	@Override
+	public List<TrailBoardReplyDto> getReply(int no) throws Exception {
+		return sqlSession.getMapper(TrailRepository.class).getReply(no);
+	}
+
+
+
+	@Override
+	public void setReply(TrailBoardReplyDto trailBoardReplyDto) throws Exception {
+		sqlSession.getMapper(TrailRepository.class).setReply(trailBoardReplyDto);
 	}
 
 }
