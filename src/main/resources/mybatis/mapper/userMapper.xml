@@ -40,6 +40,9 @@
       , user_name   = #{userName}
       , user_email  = #{userEmail}
       , user_domain = #{userDomain}
+      <if test='userImgSrc != null'>
+      , user_img_src = #{userImgSrc}
+      </if>
     WHERE user_id = #{userId}
   </update>
 
