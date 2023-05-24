@@ -33,7 +33,7 @@ public class PlanController {
 
         return new ResponseEntity<>(
                 ResponseTemplate.builder()
-                        .msg("계획읽기에 성공했습닏다.")
+                        .msg("계획쓰기에 성공했습니다.")
                         .result(true)
                         .build(),
                 HttpStatus.OK
