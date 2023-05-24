@@ -1,6 +1,7 @@
 package com.ssafy.enjoytrip.user.service;
 
 import com.ssafy.enjoytrip.user.dto.DeleteDto;
+import com.ssafy.enjoytrip.user.dto.FindPwRequestDto;
 import com.ssafy.enjoytrip.user.dto.FollowDto;
 import com.ssafy.enjoytrip.user.dto.JoinDto;
 import com.ssafy.enjoytrip.user.dto.ModifyDto;
@@ -25,4 +26,5 @@ public interface UserService {
 
     void delFollowers(String userId, String followId) throws Exception;
 
+    String findPw(FindPwRequestDto findPwRequestDto);
 }

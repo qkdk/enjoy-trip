@@ -70,4 +70,11 @@
 	AND followee_id = #{followId}
   </delete>
 
+  <select id="getUserByFindPwRequestDto" resultMap="userMap">
+    SELECT *
+    FROM user
+    WHERE user_id = #{userId}
+      AND user_email = #{userEmail}
+      AND user_domain = #{emailDomain};
+  </select>
 </mapper>

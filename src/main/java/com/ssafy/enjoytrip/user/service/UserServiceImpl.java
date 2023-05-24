@@ -2,6 +2,7 @@ package com.ssafy.enjoytrip.user.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.enjoytrip.user.dto.DeleteDto;
+import com.ssafy.enjoytrip.user.dto.FindPwRequestDto;
 import com.ssafy.enjoytrip.user.dto.FollowDto;
 import com.ssafy.enjoytrip.user.dto.JoinDto;
 import com.ssafy.enjoytrip.user.dto.ModifyDto;
@@ -19,6 +20,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 @Service
@@ -80,7 +82,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int joinUser(JoinDto joinDto) {
-    	System.out.println("서비스까지 완료");
+        System.out.println("서비스까지 완료");
         if (userRepository.getUserByUserId(joinDto.getUserId()).orElse(null) != null) {
             throw new RuntimeException("이미 가입되어있는 유저입니다.");
         }
@@ -129,14 +131,24 @@ public class UserServiceImpl implements UserService {
         return userRepository.getFollowers(userId);
     }
 
-	@Override
-	public void setFollowers(String userId, String follow_id) throws Exception {
-		userRepository.setFollowers(userId, follow_id);
-	}
+    @Override
+    public void setFollowers(String userId, String follow_id) throws Exception {
+        userRepository.setFollowers(userId, follow_id);
+    }
 
-	@Override
-	public void delFollowers(String userId, String followId) throws Exception {
-		userRepository.delFollowers(userId, followId);
-	}
+    @Override
+    public void delFollowers(String userId, String followId) throws Exception {
+        userRepository.delFollowers(userId, followId);
+    }
+
+    @Override
+    @Transactional
+    public String findPw(FindPwRequestDto findPwRequestDto) {
+        if (userRepository.getUserByFindPwRequestDto(objectMapper.convertValue(findPwRequestDto, Map.class))
+                .isPresent()) {
+            // 랜덤한 난수 생성
+        }
+        return null;
+    }
 
 }
