@@ -25,8 +25,10 @@
 	</resultMap>
 	
 	<resultMap id="cityMap" type="cityDto">
-		<result column="sido_name" property="sidoName"/>
-		<result column="gugun_name" property="gugunName"/>
+		<result column="start_sido_name" property="startSidoName"/>
+		<result column="start_gugun_name" property="startGugunName"/>
+		<result column="end_sido_name" property="endSidoName"/>
+		<result column="end_gugun_name" property="endGugunName"/>
 	</resultMap>
 	
 	<resultMap id="sidoCodeMap" type="sidoCodeDto">
@@ -75,10 +77,14 @@
   	
   	
   	<select id="getCityName" resultMap="cityMap">
-  		SELECT * FROM sido s, gugun g
-		WHERE s.sido_code = (SELECT t.start_sido_code FROM trail t WHERE t.trail_id = #{trailId})
-		AND g.sido_code = (SELECT t.start_sido_code FROM trail t WHERE t.trail_id = #{trailId})
-		AND g.gugun_code = (SELECT t.start_gugun_code FROM trail t WHERE t.trail_id = #{trailId})
+		SELECT s.sido_name AS start_sido_name, g.gugun_name AS start_gugun_name,
+       		s2.sido_name AS end_sido_name, g2.gugun_name AS end_gugun_name
+		FROM trail t
+		JOIN sido s ON s.sido_code = t.start_sido_code
+		JOIN gugun g ON g.sido_code = t.start_sido_code AND g.gugun_code = t.start_gugun_code
+		JOIN sido s2 ON s2.sido_code = t.end_sido_code
+		JOIN gugun g2 ON g2.sido_code = t.end_sido_code AND g2.gugun_code = t.end_gugun_code
+		WHERE t.trail_id = #{trailId}
   	</select>
   	
   	
