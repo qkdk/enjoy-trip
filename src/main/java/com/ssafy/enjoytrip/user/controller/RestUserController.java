@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -92,8 +93,37 @@ public class RestUserController {
                         .build(),
                 HttpStatus.OK);
     }
+    @PutMapping("/modify/profile")
+    public ResponseEntity<ResponseTemplate> modifyProfile(@RequestParam("file") MultipartFile file, String userPw,
+    		String userName, String userEmail, String userDomain, String userCurPw) throws Exception {
+    	ModifyDto modifyDto = new ModifyDto();
+    	modifyDto.setUserCurPw(userCurPw);
+    	modifyDto.setUserDomain(userDomain);
+    	modifyDto.setUserEmail(userEmail);
+    	modifyDto.setUserName(userName);
+    	modifyDto.setUserPw(userPw);
+    	if(!file.isEmpty()) {
+        	String saveFolder = uploadPath + File.separator;
+        	File folder = new File(saveFolder);
+        	if(!folder.exists()) folder.mkdirs();
+        	String originalFileName = file.getOriginalFilename();
+        	String saveFileName = UUID.randomUUID().toString()
+        			+ originalFileName.substring(originalFileName.lastIndexOf('.'));
+        	modifyDto.setUserImgSrc(saveFileName);
+        	file.transferTo(new File(folder, saveFileName));
+        }
+    	userService.modify(modifyDto);
+    	
+    	return new ResponseEntity<>(
+    			ResponseTemplate.builder()
+    			.result(true)
+    			.msg("정보 수정에 성공했습니다.")
+    			.build(),
+    			HttpStatus.OK);
+    	
+    }
 
-    @PatchMapping("/modify")
+    @PutMapping("/modify")
     public ResponseEntity<ResponseTemplate> modify(@RequestBody ModifyDto modifyDto) {
         userService.modify(modifyDto);
 

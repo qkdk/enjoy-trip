@@ -9,4 +9,5 @@ public class ModifyDto {
     private String userEmail;
     private String userDomain;
     private String userCurPw;
+    private String userImgSrc;
 }
