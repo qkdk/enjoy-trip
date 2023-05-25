@@ -1,5 +1,6 @@
 package com.ssafy.enjoytrip.util.jwt;
 
+import com.ssafy.enjoytrip.util.CustomException;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException authException) throws IOException, ServletException {
 //        response.getWriter().write(("AuthenticationEntryPoint"));
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"로그인 필요");
     }
 
 }
