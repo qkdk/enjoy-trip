@@ -57,9 +57,6 @@ public class RestPlaceController {
 
     @GetMapping("")
     public ResponseEntity<Map<String, Object>> list(String pgno, String key, String word) {
-        // 내가 가져올게 ㅔ
-
-
         Map<String, Object> map = new HashMap<String, Object>();
         List<PlaceDto> placeList = null;
         try {

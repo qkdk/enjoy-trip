@@ -144,7 +144,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public String findPw(FindPwRequestDto findPwRequestDto) {
-        if (userRepository.getUserByFindPwRequestDto(objectMapper.convertValue(findPwRequestDto, Map.class))
+        if (userRepository.getUserByFindPwRequestDto(
+                        objectMapper.convertValue(findPwRequestDto, Map.class))
                 .isPresent()) {
             // 랜덤한 난수 생성
         }
