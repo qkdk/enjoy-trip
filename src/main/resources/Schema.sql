@@ -124,8 +124,8 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`user` (
   `user_name` VARCHAR(20) NOT NULL,
   `user_email` VARCHAR(10) NOT NULL,
   `user_domain` VARCHAR(20) NOT NULL,
-  `user_img_src` VARCHAR(300) NOT NULL,
   `user_role` VARCHAR(5) NOT NULL DEFAULT 'user',
+  `user_img_src` VARCHAR(300) NOT NULL,
   PRIMARY KEY (`user_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -142,10 +142,14 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`follow` (
   INDEX `follower_id_fk_idx` (`follower_id` ASC) VISIBLE,
   CONSTRAINT `followee_id_fk`
     FOREIGN KEY (`followee_id`)
-    REFERENCES `enjoytrip`.`user` (`user_id`),
+    REFERENCES `enjoytrip`.`user` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `follower_id_fk`
     FOREIGN KEY (`follower_id`)
-    REFERENCES `enjoytrip`.`user` (`user_id`))
+    REFERENCES `enjoytrip`.`user` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -165,7 +169,9 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`notice` (
   INDEX `user_id_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `user_id`
     FOREIGN KEY (`user_id`)
-    REFERENCES `enjoytrip`.`user` (`user_id`))
+    REFERENCES `enjoytrip`.`user` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 15
 DEFAULT CHARACTER SET = utf8mb4
@@ -188,9 +194,11 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`place` (
   INDEX `place_user_id_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `place_user_id`
     FOREIGN KEY (`user_id`)
-    REFERENCES `enjoytrip`.`user` (`user_id`))
+    REFERENCES `enjoytrip`.`user` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 12
+AUTO_INCREMENT = 39
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -204,7 +212,9 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`place_img` (
   INDEX `place_no_idx` (`place_no` ASC) VISIBLE,
   CONSTRAINT `place_no`
     FOREIGN KEY (`place_no`)
-    REFERENCES `enjoytrip`.`place` (`place_no`))
+    REFERENCES `enjoytrip`.`place` (`place_no`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -220,10 +230,14 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`place_recommend` (
   INDEX `fk_place_plane_no_idx` (`place_no` ASC) VISIBLE,
   CONSTRAINT `fk_place_plane_no`
     FOREIGN KEY (`place_no`)
-    REFERENCES `enjoytrip`.`place` (`place_no`),
+    REFERENCES `enjoytrip`.`place` (`place_no`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_place_user_id`
     FOREIGN KEY (`user_id`)
-    REFERENCES `enjoytrip`.`user` (`user_id`))
+    REFERENCES `enjoytrip`.`user` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -244,12 +258,16 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`place_reply` (
   INDEX `fk_place_reply_place1` (`place_no` ASC) VISIBLE,
   CONSTRAINT `fk_place_reply_place1`
     FOREIGN KEY (`place_no`)
-    REFERENCES `enjoytrip`.`place` (`place_no`),
+    REFERENCES `enjoytrip`.`place` (`place_no`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `reply_user_id`
     FOREIGN KEY (`reply_user_id`)
-    REFERENCES `enjoytrip`.`user` (`user_id`))
+    REFERENCES `enjoytrip`.`user` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -264,15 +282,17 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`trip_plan` (
   `recommend_count` INT NOT NULL DEFAULT '0',
   `hit` INT NOT NULL DEFAULT '0',
   `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `start_date` DATE NULL,
-  `end_date` DATE NULL,
+  `start_date` DATE NULL DEFAULT NULL,
+  `end_date` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`plan_id`),
   INDEX `user_id_plan_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `user_id_plan`
     FOREIGN KEY (`user_id`)
-    REFERENCES `enjoytrip`.`user` (`user_id`))
+    REFERENCES `enjoytrip`.`user` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 16
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -287,10 +307,14 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`plan_recommend` (
   INDEX `fk_plan_id_idx` (`plan_id` ASC) VISIBLE,
   CONSTRAINT `fk_plan_id_plan`
     FOREIGN KEY (`plan_id`)
-    REFERENCES `enjoytrip`.`trip_plan` (`plan_id`),
+    REFERENCES `enjoytrip`.`trip_plan` (`plan_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_user_id_plan`
     FOREIGN KEY (`user_id`)
-    REFERENCES `enjoytrip`.`user` (`user_id`))
+    REFERENCES `enjoytrip`.`user` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -327,18 +351,26 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`trail` (
   INDEX `fk_end_gugun_code_idx` (`end_gugun_code` ASC) VISIBLE,
   CONSTRAINT `fk_end_gugun_code`
     FOREIGN KEY (`end_gugun_code`)
-    REFERENCES `enjoytrip`.`gugun` (`gugun_code`),
+    REFERENCES `enjoytrip`.`gugun` (`gugun_code`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_end_sido_code`
     FOREIGN KEY (`end_sido_code`)
-    REFERENCES `enjoytrip`.`sido` (`sido_code`),
+    REFERENCES `enjoytrip`.`sido` (`sido_code`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_start_gugun_code`
     FOREIGN KEY (`start_gugun_code`)
-    REFERENCES `enjoytrip`.`gugun` (`gugun_code`),
+    REFERENCES `enjoytrip`.`gugun` (`gugun_code`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_start_sido_code`
     FOREIGN KEY (`start_sido_code`)
-    REFERENCES `enjoytrip`.`sido` (`sido_code`))
+    REFERENCES `enjoytrip`.`sido` (`sido_code`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 5049
+AUTO_INCREMENT = 7573
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -360,11 +392,44 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`trail_board` (
   INDEX `fk_board_trail_id_idx` (`trail_board_trail_id` ASC) VISIBLE,
   CONSTRAINT `fk_board_trail_id`
     FOREIGN KEY (`trail_board_trail_id`)
-    REFERENCES `enjoytrip`.`trail` (`trail_id`),
+    REFERENCES `enjoytrip`.`trail` (`trail_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_user_id`
     FOREIGN KEY (`user_id`)
-    REFERENCES `enjoytrip`.`user` (`user_id`))
+    REFERENCES `enjoytrip`.`user` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 9
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `enjoytrip`.`trail_board_reply`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `enjoytrip`.`trail_board_reply` (
+  `trail_reply_no` INT NOT NULL AUTO_INCREMENT,
+  `trail_reply_board_no` INT NOT NULL,
+  `trail_reply_user_id` VARCHAR(20) NOT NULL,
+  `trail_reply_content` VARCHAR(500) NULL DEFAULT NULL,
+  `trail_reply_createtime` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`trail_reply_no`, `trail_reply_board_no`),
+  INDEX `fk_trail_reply_user_id_idx` (`trail_reply_user_id` ASC) VISIBLE,
+  INDEX `fk_trail_reply_board_no_idx` (`trail_reply_board_no` ASC) VISIBLE,
+  CONSTRAINT `fk_trail_reply_board_no`
+    FOREIGN KEY (`trail_reply_board_no`)
+    REFERENCES `enjoytrip`.`trail_board` (`trail_board_no`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_trail_reply_user_id`
+    FOREIGN KEY (`trail_reply_user_id`)
+    REFERENCES `enjoytrip`.`user` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 25
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -380,7 +445,9 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`trail_party` (
   PRIMARY KEY (`trail_party_id`, `trail_party_member_id`),
   CONSTRAINT `fk_trail_board_no`
     FOREIGN KEY (`trail_party_id`)
-    REFERENCES `enjoytrip`.`trail_board` (`trail_board_no`))
+    REFERENCES `enjoytrip`.`trail_board` (`trail_board_no`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -398,10 +465,14 @@ CREATE TABLE IF NOT EXISTS `enjoytrip`.`trip_plan_detail` (
   INDEX `content_id_idx` (`content_id` ASC) VISIBLE,
   CONSTRAINT `content_id`
     FOREIGN KEY (`content_id`)
-    REFERENCES `enjoytrip`.`attraction_info` (`content_id`),
+    REFERENCES `enjoytrip`.`attraction_info` (`content_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `paln_id`
     FOREIGN KEY (`plan_id`)
-    REFERENCES `enjoytrip`.`trip_plan` (`plan_id`))
+    REFERENCES `enjoytrip`.`trip_plan` (`plan_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
